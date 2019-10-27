@@ -39,6 +39,8 @@ class Agencia_Transporte (abstract_entity):
     superintendencia = models.ManyToManyField(Superintendencia)
 
 class Aluno (abstract_entity):
+    ra = models.CharField(max_length=200, default="")
+    cod_energia = models.CharField(max_length=200, default="")
     escola = models.ForeignKey(Escola,on_delete=models.CASCADE)
 
 class Reclamante(abstract_entity):
@@ -55,6 +57,7 @@ class Reclamacao (audit_entity):
     agencia_transporte = models.ForeignKey(Agencia_Transporte, on_delete=models.CASCADE)
     municipio = models.ForeignKey(Municipio,on_delete=models.CASCADE, blank=True, null=True)
     reclamante = models.ForeignKey(Reclamante, on_delete=models.CASCADE, blank=True, null=True)
+    cod_linha = models.CharField(max_length=60, default="")
     
     def __str__(self):
         return self.aluno.nome 
