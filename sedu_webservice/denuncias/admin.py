@@ -14,7 +14,7 @@ class AlunoAdmin(admin.ModelAdmin):
     list_filter = (['escola'])
     search_fields = (['nome','ra','cod_energia'])
 
-class Agencia_TransporteAdmin(admin.ModelAdmin):
+class AgenciaTransporteAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
     list_display = (['nome'])
     list_filter = ('nome','sre','superintendencia')
@@ -60,7 +60,7 @@ class SuperintendenciaAdmin(admin.ModelAdmin):
 admin.site.register(Superintendencia, SuperintendenciaAdmin)
 admin.site.register(Municipio, MunicipioAdmin)
 admin.site.register(Escola, EscolaAdmin)
-admin.site.register(Agencia_Transporte, AgenciaTransporteAdmin)
+admin.site.register(AgenciaTransporte, AgenciaTransporteAdmin)
 admin.site.register(SRE, SreAdmin)
 admin.site.register(Reclamante, ReclamanteAdmin)
 admin.site.register(Reclamacao, ReclamacaoAdmin)

@@ -20,7 +20,7 @@ class EscolaViewSet(viewsets.ModelViewSet):
     serializer_class = EscolaSerializer
 
 class AgenciaTransporteViewSet(viewsets.ModelViewSet):
-    queryset = Agencia_Transporte.objects.all()
+    queryset = AgenciaTransporte.objects.all()
     serializer_class = AgenciaTransporteSerializer
 
 class AlunoViewSet(viewsets.ModelViewSet):

@@ -54,7 +54,7 @@ class Reclamacao (AuditEntity):
     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE, blank=True, null=True)
     protocolo = models.CharField(max_length=200)
     texto = models.TextField()
-    AgenciaTransporte = models.ForeignKey(AgenciaTransporte, on_delete=models.CASCADE)
+    agencia_transporte = models.ForeignKey(AgenciaTransporte, on_delete=models.CASCADE)
     municipio = models.ForeignKey(Municipio,on_delete=models.CASCADE, blank=True, null=True)
     reclamante = models.ForeignKey(Reclamante, on_delete=models.CASCADE, blank=True, null=True)
     cod_linha = models.CharField(max_length=60, default="")

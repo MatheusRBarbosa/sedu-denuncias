@@ -28,7 +28,7 @@ class EscolaSerializer(serializers.ModelSerializer):
 class AgenciaTransporteSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Agencia_Transporte
+        model = AgenciaTransporte
         fields = '__all__'
 
 class AlunoSerializer(serializers.ModelSerializer):
