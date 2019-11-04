@@ -60,7 +60,7 @@ class SuperintendenciaAdmin(admin.ModelAdmin):
 admin.site.register(Superintendencia, SuperintendenciaAdmin)
 admin.site.register(Municipio, MunicipioAdmin)
 admin.site.register(Escola, EscolaAdmin)
-admin.site.register(Agencia_Transporte, Agencia_TransporteAdmin)
+admin.site.register(Agencia_Transporte, AgenciaTransporteAdmin)
 admin.site.register(SRE, SreAdmin)
 admin.site.register(Reclamante, ReclamanteAdmin)
 admin.site.register(Reclamacao, ReclamacaoAdmin)

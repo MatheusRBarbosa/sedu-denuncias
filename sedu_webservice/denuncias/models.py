@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import Group, User
 
-class audit_entity(models.Model):
+class AuditEntity(models.Model):
     
     #salvando automaticamente as datas de criação e atualização dos dados
     created_on = models.DateTimeField(auto_now_add=True)
@@ -10,7 +10,7 @@ class audit_entity(models.Model):
     class Meta:
         abstract = True
 
-class abstract_entity(audit_entity):
+class AbstractEntity(AuditEntity):
     
     nome = models.CharField(max_length=200)
 
@@ -21,40 +21,40 @@ class abstract_entity(audit_entity):
         abstract = True
     
 
-class SRE (abstract_entity):
+class SRE (AbstractEntity):
     pass
 
 class Superintendencia(Group):
     
     sre = models.ForeignKey(SRE,on_delete=models.CASCADE)
         
-class Municipio(abstract_entity):
+class Municipio(AbstractEntity):
     superintendencia = models.ForeignKey(Superintendencia,on_delete=models.CASCADE)
 
-class Escola(abstract_entity):
+class Escola(AbstractEntity):
     municipio = models.ForeignKey(Municipio,on_delete=models.CASCADE)
 
-class Agencia_Transporte (abstract_entity):
+class AgenciaTransporte (AbstractEntity):
     sre = models.ManyToManyField(SRE)
     superintendencia = models.ManyToManyField(Superintendencia)
 
-class Aluno (abstract_entity):
+class Aluno (AbstractEntity):
     ra = models.CharField(max_length=200, default="")
     cod_energia = models.CharField(max_length=200, default="")
     escola = models.ForeignKey(Escola,on_delete=models.CASCADE)
 
-class Reclamante(abstract_entity):
+class Reclamante(AbstractEntity):
     pass
 
-class Reclamacao_Status (abstract_entity):
+class ReclamacaoStatus (AbstractEntity):
     pass
 
-class Reclamacao (audit_entity):
+class Reclamacao (AuditEntity):
     
     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE, blank=True, null=True)
     protocolo = models.CharField(max_length=200)
     texto = models.TextField()
-    agencia_transporte = models.ForeignKey(Agencia_Transporte, on_delete=models.CASCADE)
+    AgenciaTransporte = models.ForeignKey(AgenciaTransporte, on_delete=models.CASCADE)
     municipio = models.ForeignKey(Municipio,on_delete=models.CASCADE, blank=True, null=True)
     reclamante = models.ForeignKey(Reclamante, on_delete=models.CASCADE, blank=True, null=True)
     cod_linha = models.CharField(max_length=60, default="")
@@ -62,11 +62,11 @@ class Reclamacao (audit_entity):
     def __str__(self):
         return self.aluno.nome 
 
-class Responsavel(audit_entity):
+class Responsavel(AuditEntity):
     usuario = models.ForeignKey(User,on_delete=models.CASCADE)
     superintendencia = models.ForeignKey(Superintendencia,on_delete=models.CASCADE)
 
-class Comentario (audit_entity):
+class Comentario (AuditEntity):
     texto = models.TextField()
     reclamacao = models.ForeignKey(Reclamacao,on_delete=models.CASCADE)
     responsavel = models.ForeignKey(Responsavel,on_delete=models.CASCADE)

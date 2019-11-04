@@ -3,47 +3,47 @@ from .models import *
 from .serializers import *
 from rest_framework import viewsets
 
-class Superintendencia_ViewSet(viewsets.ModelViewSet):
+class SuperintendenciaViewSet(viewsets.ModelViewSet):
     queryset = Superintendencia.objects.all()
-    serializer_class = Superintendencia_Serializer
+    serializer_class = SuperintendenciaSerializer
 
-class SRE_ViewSet(viewsets.ModelViewSet):
+class SREViewSet(viewsets.ModelViewSet):
     queryset = SRE.objects.all()
-    serializer_class = SRE_Serializer
+    serializer_class = SRESerializer
 
-class Municipio_ViewSet(viewsets.ModelViewSet):
+class MunicipioViewSet(viewsets.ModelViewSet):
     queryset = Municipio.objects.all()
-    serializer_class = Municipio_Serializer
+    serializer_class = MunicipioSerializer
 
-class Escola_ViewSet(viewsets.ModelViewSet):
+class EscolaViewSet(viewsets.ModelViewSet):
     queryset = Escola.objects.all()
-    serializer_class = Escola_Serializer
+    serializer_class = EscolaSerializer
 
-class Agencia_Transporte_ViewSet(viewsets.ModelViewSet):
+class AgenciaTransporteViewSet(viewsets.ModelViewSet):
     queryset = Agencia_Transporte.objects.all()
-    serializer_class = Agencia_Transporte_Serializer
+    serializer_class = AgenciaTransporteSerializer
 
-class Aluno_ViewSet(viewsets.ModelViewSet):
+class AlunoViewSet(viewsets.ModelViewSet):
     queryset = Aluno.objects.all()
-    serializer_class = Aluno_Serializer
+    serializer_class = AlunoSerializer
 
-class Reclamante_ViewSet(viewsets.ModelViewSet):
+class ReclamanteViewSet(viewsets.ModelViewSet):
     queryset = Reclamante.objects.all()
-    serializer_class = Reclamante_Serializer
+    serializer_class = ReclamanteSerializer
 
-class Reclamacao_Status_ViewSet(viewsets.ModelViewSet):
-    queryset = Reclamacao_Status.objects.all()
-    serializer_class = Reclamacao_Status_Serializer
+class ReclamacaoStatusViewSet(viewsets.ModelViewSet):
+    queryset = ReclamacaoStatus.objects.all()
+    serializer_class = ReclamacaoStatusSerializer
 
-class Reclamacao_ViewSet(viewsets.ModelViewSet):
+class ReclamacaoViewSet(viewsets.ModelViewSet):
     queryset = Reclamacao.objects.all()
-    serializer_class = Reclamacao_Serializer
+    serializer_class = ReclamacaoSerializer
 
-class Responsavel_ViewSet(viewsets.ModelViewSet):
+class ResponsavelViewSet(viewsets.ModelViewSet):
     queryset = Responsavel.objects.all()
-    serializer_class = Responsavel_Serializer
+    serializer_class = ResponsavelSerializer
 
-class Comentario_ViewSet(viewsets.ModelViewSet):
+class ComentarioViewSet(viewsets.ModelViewSet):
     queryset = Comentario.objects.all()
-    serializer_class = Comentario_Serializer
+    serializer_class = ComentarioSerializer
 
