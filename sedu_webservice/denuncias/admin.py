@@ -4,8 +4,8 @@ from .models import *
 
 class ReclamacaoAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
-    list_display = ('aluno','protocolo','agencia_transporte','municipio', 'reclamante')
-    list_filter = ('agencia_transporte','municipio')
+    list_display = ('aluno','protocolo','agencia_transporte','municipio', 'reclamante', 'status')
+    list_filter = ('agencia_transporte','municipio', 'status')
     search_fields = (['protocolo', 'aluno'])
 
 class AlunoAdmin(admin.ModelAdmin):

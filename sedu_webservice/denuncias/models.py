@@ -58,6 +58,8 @@ class Reclamacao (AuditEntity):
     municipio = models.ForeignKey(Municipio,on_delete=models.CASCADE, blank=True, null=True)
     reclamante = models.ForeignKey(Reclamante, on_delete=models.CASCADE, blank=True, null=True)
     cod_linha = models.CharField(max_length=60, default="")
+
+    status = models.ForeignKey(ReclamacaoStatus, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.aluno.nome 
