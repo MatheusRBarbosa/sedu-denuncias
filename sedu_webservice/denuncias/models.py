@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import Group, User
 
+
 class AuditEntity(models.Model):
     
     #salvando automaticamente as datas de criação e atualização dos dados
@@ -52,12 +53,12 @@ class ReclamacaoStatus (AbstractEntity):
 class Reclamacao (AuditEntity):
     
     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE, blank=True, null=True)
-    protocolo = models.CharField(max_length=200)
     texto = models.TextField()
     agencia_transporte = models.ForeignKey(AgenciaTransporte, on_delete=models.CASCADE)
     municipio = models.ForeignKey(Municipio,on_delete=models.CASCADE, blank=True, null=True)
     reclamante = models.ForeignKey(Reclamante, on_delete=models.CASCADE, blank=True, null=True)
     cod_linha = models.CharField(max_length=60, default="")
+    protocolo = models.CharField(max_length=60, default="")
 
     status = models.ForeignKey(ReclamacaoStatus, on_delete=models.CASCADE)
     
