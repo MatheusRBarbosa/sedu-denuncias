@@ -60,7 +60,7 @@ class Reclamacao (AuditEntity):
     cod_linha = models.CharField(max_length=60, default="")
     protocolo = models.CharField(max_length=60, default="")
 
-    status = models.ForeignKey(ReclamacaoStatus, on_delete=models.CASCADE)
+    status = models.ForeignKey(ReclamacaoStatus, on_delete=models.CASCADE, default=1)
     
     def __str__(self):
         return self.aluno.nome 

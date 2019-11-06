@@ -62,7 +62,7 @@ class ReclamacaoAdmin(admin.ModelAdmin):
     list_filter = ('agencia_transporte','municipio', 'status')
     search_fields = (['protocolo', 'aluno'])
     inlines = [ComentarioInline]
-    readonly_fields = ['protocolo']
+    readonly_fields = ['protocolo', 'status']
 
 admin.site.register(Superintendencia, SuperintendenciaAdmin)
 admin.site.register(Municipio, MunicipioAdmin)

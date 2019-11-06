@@ -1,6 +1,6 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from denuncias.models import Reclamacao
+from denuncias.models import Reclamacao, Comentario
 from datetime import date
 
 @receiver(post_save, sender=Reclamacao)
@@ -14,3 +14,8 @@ def generateProtocol(sender, instance, created, **kwargs):
 
         finalProtocol = today + protocolId
         Reclamacao.objects.filter(pk=instance.id).update(protocolo=finalProtocol)
+
+@receiver(post_save, sender=Comentario)
+def updateStatusReclamacao(sender, instance, created, **kwargs):
+    if created:
+        Reclamacao.objects.filter(pk=instance.reclamacao.id).update(status=2)
