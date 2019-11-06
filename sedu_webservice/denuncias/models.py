@@ -67,12 +67,20 @@ class Reclamacao (AuditEntity):
 class Responsavel(AuditEntity):
     usuario = models.ForeignKey(User,on_delete=models.CASCADE)
     superintendencia = models.ForeignKey(Superintendencia,on_delete=models.CASCADE)
+    
+    def __str__(self):
+        fullName = self.usuario.first_name + " " + self.usuario.last_name + " ({})".format(self.usuario.username)
+        return fullName
 
 class Comentario (AuditEntity):
     texto = models.TextField()
     reclamacao = models.ForeignKey(Reclamacao,on_delete=models.CASCADE)
     responsavel = models.ForeignKey(Responsavel,on_delete=models.CASCADE)
-    
 
+    def __str__(self):
+        fullName = self.responsavel.usuario.first_name + " " + self.responsavel.usuario.last_name
+        user = self.responsavel.usuario.username
+        replyString = "Resposta de {} ({})".format(fullName, user)
+        return replyString
 
-    
+  

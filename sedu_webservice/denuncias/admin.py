@@ -2,12 +2,6 @@ from django.contrib import admin
 from .models import *
 # Register your models here.
 
-class ReclamacaoAdmin(admin.ModelAdmin):
-    empty_value_display = '-empty-'
-    list_display = ('aluno','protocolo','agencia_transporte','municipio', 'reclamante', 'status')
-    list_filter = ('agencia_transporte','municipio', 'status')
-    search_fields = (['protocolo', 'aluno'])
-
 class AlunoAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
     list_display = ('nome','ra','cod_energia','escola')
@@ -56,6 +50,19 @@ class SuperintendenciaAdmin(admin.ModelAdmin):
     list_filter = (['sre'])
     search_fields = ([])
 
+class ComentarioInline(admin.StackedInline):
+    model = Comentario
+    extra = 0
+    fields = ["responsavel", "texto"]
+    
+
+class ReclamacaoAdmin(admin.ModelAdmin):
+    empty_value_display = '-empty-'
+    list_display = ('aluno','protocolo','agencia_transporte','municipio', 'reclamante', 'status')
+    list_filter = ('agencia_transporte','municipio', 'status')
+    search_fields = (['protocolo', 'aluno'])
+    inlines = [ComentarioInline]
+    readonly_fields = ['aluno','protocolo','agencia_transporte','municipio', 'reclamante', 'status', 'texto', 'cod_linha']
 
 admin.site.register(Superintendencia, SuperintendenciaAdmin)
 admin.site.register(Municipio, MunicipioAdmin)
@@ -66,8 +73,6 @@ admin.site.register(Reclamante, ReclamanteAdmin)
 admin.site.register(Reclamacao, ReclamacaoAdmin)
 admin.site.register(Aluno, AlunoAdmin)
 admin.site.register(Responsavel, ResponsavelAdmin)
-
-admin.site.register(Comentario)
 
 
 
