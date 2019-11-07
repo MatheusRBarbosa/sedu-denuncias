@@ -38,6 +38,9 @@ class Escola(AbstractEntity):
 class AgenciaTransporte (AbstractEntity):
     sre = models.ManyToManyField(SRE)
     superintendencia = models.ManyToManyField(Superintendencia)
+    
+    class Meta:
+        db_table = "denuncias_agencia_transporte"
 
 class Aluno (AbstractEntity):
     ra = models.CharField(max_length=200, default="")
@@ -50,6 +53,14 @@ class Reclamante(AbstractEntity):
 class ReclamacaoStatus (AbstractEntity):
     pass
 
+    class Meta:
+        db_table = "denuncias_reclamacao_status"
+
+class TipoReclamacao (AbstractEntity):
+    pass
+    class Meta:
+        db_table = "denuncias_tipo_reclamacao"
+
 class Reclamacao (AuditEntity):
     
     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE, blank=True, null=True)
@@ -59,7 +70,7 @@ class Reclamacao (AuditEntity):
     reclamante = models.ForeignKey(Reclamante, on_delete=models.CASCADE, blank=True, null=True)
     cod_linha = models.CharField(max_length=60, default="")
     protocolo = models.CharField(max_length=60, default="")
-
+    tipo = models.ForeignKey(TipoReclamacao, on_delete=models.CASCADE, default=1)
     status = models.ForeignKey(ReclamacaoStatus, on_delete=models.CASCADE, default=1)
     
     def __str__(self):
@@ -83,5 +94,3 @@ class Comentario (AuditEntity):
         user = self.responsavel.usuario.username
         replyString = "Resposta de {} ({})".format(fullName, user)
         return replyString
-
-  

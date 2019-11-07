@@ -35,6 +35,10 @@ class ReclamacaoStatusViewSet(viewsets.ModelViewSet):
     queryset = ReclamacaoStatus.objects.all()
     serializer_class = ReclamacaoStatusSerializer
 
+class TipoReclamacaoViewSet(viewsets.ModelViewSet):
+    queryset = TipoReclamacao.objects.all()
+    serializer_class = TipoReclamacaoSerializer
+
 class ReclamacaoViewSet(viewsets.ModelViewSet):
     queryset = Reclamacao.objects.all()
     serializer_class = ReclamacaoSerializer

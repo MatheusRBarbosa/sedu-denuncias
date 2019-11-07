@@ -49,6 +49,11 @@ class ReclamacaoStatusSerializer(serializers.ModelSerializer):
         model = ReclamacaoStatus
         fields = '__all__'
 
+class TipoReclamacaoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TipoReclamacao
+        fields = '__all__'
 class ReclamacaoSerializer(serializers.ModelSerializer):
 
     class Meta:

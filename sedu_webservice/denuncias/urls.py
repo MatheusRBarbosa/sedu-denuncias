@@ -15,5 +15,6 @@ router.register(r'reclamacao_status', ReclamacaoStatusViewSet)
 router.register(r'reclamacoes', ReclamacaoViewSet)
 router.register(r'responsaveis', ResponsavelViewSet)
 router.register(r'comentarios', ComentarioViewSet)
+router.register(r'tipo_status', TipoReclamacaoViewSet)
 
 urlpatterns = router.urls

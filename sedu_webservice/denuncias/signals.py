@@ -12,7 +12,7 @@ def generateProtocol(sender, instance, created, **kwargs):
         while(len(protocolId) < 6):
             protocolId = "0" + protocolId
 
-        finalProtocol = today + protocolId
+        finalProtocol = today + str(instance.tipo_id) +protocolId
         Reclamacao.objects.filter(pk=instance.id).update(protocolo=finalProtocol)
 
 @receiver(post_save, sender=Comentario)

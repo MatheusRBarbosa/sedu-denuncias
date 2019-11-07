@@ -1,6 +1,5 @@
 from django.contrib import admin
 from .models import *
-# Register your models here.
 
 class AlunoAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
@@ -64,6 +63,11 @@ class ReclamacaoAdmin(admin.ModelAdmin):
     inlines = [ComentarioInline]
     readonly_fields = ['protocolo', 'status']
 
+class TipoReclamacaoAdmin(admin.ModelAdmin):
+    empty_value_display = '-empty-'
+    list_display = (['nome'])
+    search_fields = (['nome'])
+
 admin.site.register(Superintendencia, SuperintendenciaAdmin)
 admin.site.register(Municipio, MunicipioAdmin)
 admin.site.register(Escola, EscolaAdmin)
@@ -73,6 +77,7 @@ admin.site.register(Reclamante, ReclamanteAdmin)
 admin.site.register(Reclamacao, ReclamacaoAdmin)
 admin.site.register(Aluno, AlunoAdmin)
 admin.site.register(Responsavel, ResponsavelAdmin)
+admin.site.register(TipoReclamacao, TipoReclamacaoAdmin)
 
 
 
