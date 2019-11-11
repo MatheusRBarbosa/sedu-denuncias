@@ -3,10 +3,6 @@ from .models import *
 from .serializers import *
 from rest_framework import viewsets
 
-class SuperintendenciaViewSet(viewsets.ModelViewSet):
-    queryset = Superintendencia.objects.all()
-    serializer_class = SuperintendenciaSerializer
-
 class SREViewSet(viewsets.ModelViewSet):
     queryset = SRE.objects.all()
     serializer_class = SRESerializer

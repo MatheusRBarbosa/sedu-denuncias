@@ -11,8 +11,14 @@ def generateProtocol(sender, instance, created, **kwargs):
         
         while(len(protocolId) < 6):
             protocolId = "0" + protocolId
+        
+        if(len(protocolId) > 6):
+            # Invertendo numero do id e pegando ate o sexto digito
+            protocolId = "".join(reversed(protocolId))[:6]
+            # Voltando para o numero correto apenas com os seis ultimos digitos do id
+            protocolId = "".join(reversed(protocolId))
 
-        finalProtocol = today + str(instance.tipo_id) +protocolId
+        finalProtocol = today + str(instance.tipo_id) + protocolId
         Reclamacao.objects.filter(pk=instance.id).update(protocolo=finalProtocol)
 
 @receiver(post_save, sender=Comentario)

@@ -10,31 +10,30 @@ class AlunoAdmin(admin.ModelAdmin):
 class AgenciaTransporteAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
     list_display = (['nome'])
-    list_filter = ('nome','sre','superintendencia')
+    list_filter = ('nome','sre')
     search_fields = (['nome'])
 
 class EscolaAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
-    list_display = (['nome', 'municipio'])
+    list_display = (['nome', 'municipio', 'cod_inep'])
     list_filter = (['municipio'])
-    search_fields = (['nome'])
+    search_fields = (['nome', 'cod_inep'])
 
 class MunicipioAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
-    list_display = (['nome', 'superintendencia'])
-    list_filter = (['superintendencia'])
-    search_fields = (['nome'])
+    list_display = (['nome', 'sre', 'cod_ibge'])
+    list_filter = (['sre'])
+    search_fields = (['nome', 'cod_ibge'])
 
 class ReclamanteAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
-    list_display = (['nome'])
-    list_filter = ([])
-    search_fields = (['nome'])
+    list_display = (['nome', 'email'])
+    search_fields = (['nome', 'email'])
 
 class ResponsavelAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
-    list_display = (['usuario','superintendencia'])
-    list_filter = (['superintendencia'])
+    list_display = (['usuario','sre'])
+    list_filter = (['sre'])
     search_fields = (['usuario'])
 
 class SreAdmin(admin.ModelAdmin):
@@ -42,12 +41,6 @@ class SreAdmin(admin.ModelAdmin):
     list_display = (['nome'])
     list_filter = ([])
     search_fields = (['nome'])
-
-
-class SuperintendenciaAdmin(admin.ModelAdmin):
-    empty_value_display = '-empty-'
-    list_filter = (['sre'])
-    search_fields = ([])
 
 class ComentarioInline(admin.StackedInline):
     model = Comentario
@@ -57,18 +50,32 @@ class ComentarioInline(admin.StackedInline):
 
 class ReclamacaoAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
-    list_display = ('aluno','protocolo','agencia_transporte','municipio', 'reclamante', 'status')
-    list_filter = ('agencia_transporte','municipio', 'status')
+    list_display = ('aluno','protocolo', 'escola', 'setor', 'tipo', 'reclamante', 'status')
+    list_filter = ('agencia_transporte', 'status')
     search_fields = (['protocolo', 'aluno'])
     inlines = [ComentarioInline]
     readonly_fields = ['protocolo', 'status']
+
+    def escola(self, obj):
+        return obj.aluno.escola
+    
+    def tipo(self, obj):
+        return obj.tipo
+
+    def setor(self, obj):
+        return obj.tipo.setor
 
 class TipoReclamacaoAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
     list_display = (['nome'])
     search_fields = (['nome'])
 
-admin.site.register(Superintendencia, SuperintendenciaAdmin)
+class SetorAdmin(admin.ModelAdmin):
+    empty_value_display = '-empty-'
+    list_display = (['nome'])
+    search_fields = (['nome'])
+
+
 admin.site.register(Municipio, MunicipioAdmin)
 admin.site.register(Escola, EscolaAdmin)
 admin.site.register(AgenciaTransporte, AgenciaTransporteAdmin)
@@ -78,6 +85,7 @@ admin.site.register(Reclamacao, ReclamacaoAdmin)
 admin.site.register(Aluno, AlunoAdmin)
 admin.site.register(Responsavel, ResponsavelAdmin)
 admin.site.register(TipoReclamacao, TipoReclamacaoAdmin)
+admin.site.register(Setor, SetorAdmin)
 
 
 

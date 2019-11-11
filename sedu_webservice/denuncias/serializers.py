@@ -1,12 +1,6 @@
 from rest_framework import serializers
 from .models import *
 
-class SuperintendenciaSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Superintendencia
-        fields = '__all__'
-
 class SRESerializer(serializers.ModelSerializer):
 
     class Meta:
