@@ -1,0 +1,39 @@
+{% extends 'home.html' %}
+
+{% block contentx %}
+<div class="card-content">
+    <table class="table">
+        <tr>
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Protocolo</th>
+                    <th scope="col">Aluno</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Escola</th>
+                    <th scope="col">Setor</th>
+                    <th scope="col">Tipo reclamação</th>
+                    <th scope="col">Reclamante</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reclamacao in object_list  %}
+                <tr>
+                    <td>{{reclamacao.protocolo}}</td>
+                    <td>{{reclamacao.aluno}}</td>
+                    <td>{{reclamacao.status}}</td>
+                    <td>{{reclamacao.aluno.escola}}</td>
+                    <td>{{reclamacao.tipo.setor}}</td>
+                    <td>{{reclamacao.tipo}}</td>
+                    <td>{{reclamacao.reclamante}}</td>
+                    <td><a  href="{% url "reclamacao_detail"  reclamacao.id  %}">detalhes | </a> 
+                        <a  href="{% url "reclamacao_update"  reclamacao.id  %}">atualizar | </a>   
+                        <a  href="{% url "reclamacao_delete"  reclamacao.id  %}">apagar </a>   
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </tr>
+    </table>
+</div>
+{% endblock %}

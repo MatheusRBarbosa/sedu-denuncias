@@ -1,0 +1,15 @@
+{% extends 'home.html' %}
+
+{% block contentx %}
+    <ul class="collection with-header">
+        <li class="collection-header">Detalhes da reclamação</li>
+        <li class="collection-item">Protocolo: {{object.protocolo}}</li>
+        <li class="collection-item">Aluno: {{object.aluno}}</li>
+        <li class="collection-item">Status da reclamação: {{object.status}}</li>
+        <li class="collection-item">Escola: {{object.aluno.escola}}</li>
+        <li class="collection-item">Setor: {{object.tipo.setor}}</li>
+        <li class="collection-item">Tipo da denuncia: {{object.tipo}}</li>
+        <li class="collection-item">Reclamante: {{object.reclamante}}</li>
+        <li class="collection-item">Texto: {{object.texto}}</li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,19 @@
+<!-- templates/registration/login.html -->
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<div class="card-content">
+  <h2>Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="center-align">
+      <button class="waves-effect waves-light btn" type="submit">Login</button>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+<!-- templates/home.html-->
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+      <div class="card-content">
+        Olá {{ user.username }}! - <a href="{% url 'logout' %}">sair</a>
+        <ul class="collection with-header">
+          <li class="collection-header">Opções</li>
+          <li class="collection-item"><a href="{% url 'reclamacao_list' %}">Todas reclamações</a></li>
+          <li class="collection-item"><a href="{% url 'reclamacao_create'  %}">Nova reclamaçãoes</a></li>
+        </ul>
+        {% block contentx %} {% endblock %}
+      </div>
+      {% else %}
+        <div class="card-content">
+          <p>Você não está logado, faça o <a href="{% url 'login' %}">login</a></p>
+        </div>
+      {% endif %}
+{% endblock %}
