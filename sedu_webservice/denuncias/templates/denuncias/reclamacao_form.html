@@ -2,12 +2,14 @@
 
 {% block contentx %}
 
-<h1>Reclamacao Update</h1>
+<h1>Reclamação</h1>
 
 <form  method="post">
 {% csrf_token %}
 {{ form.as_p }}
-<input  type="submit"  value="Submit"  />
+<div class="center-align">
+    <button class="waves-effect waves-light btn" type="submit">Enviar</button>
+</div>
 </form>
 {% endblock %}
 
