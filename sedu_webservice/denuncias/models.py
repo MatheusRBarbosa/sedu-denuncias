@@ -97,7 +97,7 @@ class Comentario (AuditEntity):
     responsavel = models.ForeignKey(Responsavel,on_delete=models.CASCADE)
 
     def __str__(self):
-        fullName = self.responsavel.usuario.first_name + " " + self.responsavel.usuario.last_name
+        fullname = self.responsavel.usuario.first_name + " " + self.responsavel.usuario.last_name
         user = self.responsavel.usuario.username
-        replystring = "Resposta de {} ({})".format(fullName, user)
+        replystring = "Resposta de {} ({})".format(fullname, user)
         return replystring
