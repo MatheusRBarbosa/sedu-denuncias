@@ -26,9 +26,9 @@
                     <td>{{reclamacao.tipo.setor}}</td>
                     <td>{{reclamacao.tipo}}</td>
                     <td>{{reclamacao.reclamante}}</td>
-                    <td><a  href="{% url "reclamacao_detail"  reclamacao.id  %}">detalhes | </a> 
-                        <a  href="{% url "reclamacao_update"  reclamacao.id  %}">atualizar | </a>   
-                        <a  href="{% url "reclamacao_delete"  reclamacao.id  %}">apagar </a>   
+                    <td><a  href="{% url "web_reclamacao_detail"  reclamacao.id  %}">detalhes | </a> 
+                        <a  href="{% url "web_reclamacao_update"  reclamacao.id  %}">atualizar | </a>   
+                        <a  href="{% url "web_reclamacao_delete"  reclamacao.id  %}">apagar </a>   
                     </td>
                 </tr>
                 {% endfor %}

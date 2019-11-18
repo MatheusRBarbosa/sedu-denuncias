@@ -26,7 +26,7 @@ urlpatterns = [
     path('web/', include('denuncias.urls')),
 
     path('api/auth/', include('rest_framework.urls')),
-    path('api/denuncias/', include('denuncias.urls')),
+    path('api/denuncias/', include('denuncias.urls_api')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
 

@@ -12,4 +12,13 @@
         <li class="collection-item">Reclamante: {{object.reclamante}}</li>
         <li class="collection-item">Texto: {{object.texto}}</li>
     </ul>
+    <ul class="collection with-header">
+    <li class="collection-header"><b>Comentários</b></li>
+    {% for comentario in object.comentarios.all %}
+        <li class="collection-item">Texto: {{comentario.texto}}</li>
+        <li class="collection-item">Responsavel: {{comentario.responsavel.usuario.first_name|linebreaks}}</li>
+        {% empty %}
+            Nenhum comentário
+    {% endfor %}
+    </ul>
 {% endblock %}

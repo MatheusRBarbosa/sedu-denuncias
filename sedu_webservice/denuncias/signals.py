@@ -4,24 +4,24 @@ from denuncias.models import Reclamacao, Comentario
 from datetime import date
 
 @receiver(post_save, sender=Reclamacao)
-def generateProtocol(sender, instance, created, **kwargs):
+def generate_protocol(sender, instance, created, **kwargs):
     if created:
         today = str(date.today()).replace("-", "")
-        protocolId = str(instance.id)
+        protocol_id = str(instance.id)
         
-        while(len(protocolId) < 6):
-            protocolId = "0" + protocolId
+        while(len(protocol_id) < 6):
+            protocol_id = "0" + protocol_id
         
-        if(len(protocolId) > 6):
+        if(len(protocol_id) > 6):
             # Invertendo numero do id e pegando ate o sexto digito
-            protocolId = "".join(reversed(protocolId))[:6]
+            protocol_id = "".join(reversed(protocol_id))[:6]
             # Voltando para o numero correto apenas com os seis ultimos digitos do id
-            protocolId = "".join(reversed(protocolId))
+            protocol_id = "".join(reversed(protocol_id))
 
-        finalProtocol = today + str(instance.tipo_id) + protocolId
-        Reclamacao.objects.filter(pk=instance.id).update(protocolo=finalProtocol)
+        final_protocol = today + str(instance.tipo_id) + protocol_id
+        Reclamacao.objects.filter(pk=instance.id).update(protocolo=final_protocol)
 
 @receiver(post_save, sender=Comentario)
-def updateStatusReclamacao(sender, instance, created, **kwargs):
+def update_status_reclamacao(sender, instance, created, **kwargs):
     if created:
         Reclamacao.objects.filter(pk=instance.reclamacao.id).update(status=2)

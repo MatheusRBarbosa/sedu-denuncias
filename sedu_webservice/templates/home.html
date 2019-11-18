@@ -9,8 +9,8 @@
         Olá {{ user.username }}! - <a href="{% url 'logout' %}">sair</a>
         <ul class="collection with-header">
           <li class="collection-header">Opções</li>
-          <li class="collection-item"><a href="{% url 'reclamacao_list' %}">Todas reclamações</a></li>
-          <li class="collection-item"><a href="{% url 'reclamacao_create'  %}">Nova reclamaçãoes</a></li>
+          <li class="collection-item"><a href="{% url 'web_reclamacao_list' %}">Todas reclamações</a></li>
+          <li class="collection-item"><a href="{% url 'web_reclamacao_create'  %}">Nova reclamaçãoes</a></li>
         </ul>
         {% block contentx %} {% endblock %}
       </div>

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import Group, User
+from django.urls import reverse
 
 
 class AuditEntity(models.Model):
@@ -13,7 +14,7 @@ class AuditEntity(models.Model):
 
 class AbstractEntity(AuditEntity):
     
-    nome = models.CharField(max_length=200)
+    nome = models.CharField(max_length=200) 
 
     def __str__(self):
         return self.nome 
@@ -53,8 +54,6 @@ class Reclamante(AbstractEntity):
     email = models.EmailField(max_length=254)
 
 class ReclamacaoStatus (AbstractEntity):
-    pass
-
     class Meta:
         db_table = "denuncias_reclamacao_status"
 
@@ -81,21 +80,24 @@ class Reclamacao (AuditEntity):
     def __str__(self):
         return self.aluno.nome
 
+    def get_absolute_url(self):
+        return reverse('web_reclamacao_detail', kwargs={'pk':self.pk})
+
 class Responsavel(AuditEntity):
     usuario = models.ForeignKey(User,on_delete=models.CASCADE)
     sre = models.ForeignKey(SRE,on_delete=models.CASCADE)
     
     def __str__(self):
-        fullName = self.usuario.first_name + " " + self.usuario.last_name + " ({})".format(self.usuario.username)
-        return fullName
+        fullname = self.usuario.first_name + " " + self.usuario.last_name + " ({})".format(self.usuario.username)
+        return fullname
 
 class Comentario (AuditEntity):
     texto = models.TextField()
-    reclamacao = models.ForeignKey(Reclamacao,on_delete=models.CASCADE)
+    reclamacao = models.ForeignKey(Reclamacao,on_delete=models.CASCADE, related_name='comentarios')
     responsavel = models.ForeignKey(Responsavel,on_delete=models.CASCADE)
 
     def __str__(self):
         fullName = self.responsavel.usuario.first_name + " " + self.responsavel.usuario.last_name
         user = self.responsavel.usuario.username
-        replyString = "Resposta de {} ({})".format(fullName, user)
-        return replyString
+        replystring = "Resposta de {} ({})".format(fullName, user)
+        return replystring

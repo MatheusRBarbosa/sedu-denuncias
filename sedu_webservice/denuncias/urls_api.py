@@ -1,5 +1,5 @@
 from rest_framework import routers
-from .views import *
+from .views_api import *
 from django.urls import path
 
 router = routers.SimpleRouter()
