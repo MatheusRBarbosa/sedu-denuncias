@@ -51,7 +51,7 @@ class Aluno (AbstractEntity):
     escola = models.ForeignKey(Escola,on_delete=models.CASCADE)
 
 class Reclamante(AbstractEntity):
-    email = models.EmailField(max_length=254)
+    email = models.EmailField(max_length=255)
 
 class ReclamacaoStatus (AbstractEntity):
     class Meta:

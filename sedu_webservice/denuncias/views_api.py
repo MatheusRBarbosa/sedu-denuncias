@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import *
 from .serializers import *
 from rest_framework import viewsets
+from rest_framework.views import APIView
 
 class SREViewSet(viewsets.ModelViewSet):
     queryset = SRE.objects.all()
@@ -46,4 +47,24 @@ class ResponsavelViewSet(viewsets.ModelViewSet):
 class ComentarioViewSet(viewsets.ModelViewSet):
     queryset = Comentario.objects.all()
     serializer_class = ComentarioSerializer
+
+
+class ReclamacaoAPIViewSet(APIView):
+    queryset = Comentario.objects.all()
+    def post(self, request, format=None):
+        serializer = ReclamacaoAPISerializer(data=request.data)
+        if serializer.is_valid():
+            aluno_data = {}
+            aluno_data['nome']= request.data.get('aluno')
+            aluno_data['cod_energia']= request.data.get('codigoedp')
+
+            aluno = Aluno(**aluno_data)
+            #aluno.save()
+            print(aluno)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @classmethod
+    def get_extra_actions(cls):
+        return []
 

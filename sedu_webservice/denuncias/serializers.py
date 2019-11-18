@@ -66,3 +66,14 @@ class ComentarioSerializer(serializers.ModelSerializer):
         model = Comentario
         fields = '__all__'
 
+class ReclamacaoAPISerializer(serializers.Serializer):
+
+    autor = serializers.CharField(max_length=255)
+    email = serializers.EmailField(max_length=255)
+    aluno = serializers.CharField(max_length=255)
+    codigo_edp = serializers.CharField(max_length=255)
+    tipo_reclamacao = serializers.IntegerField()
+    #outroTipo = serializers.CharField(max_length=200, default="")
+    descricao = serializers.CharField(max_length=255)
+    inep_escola = serializers.CharField(max_length=255)
+    data_ocorrido = serializers.DateTimeField()
