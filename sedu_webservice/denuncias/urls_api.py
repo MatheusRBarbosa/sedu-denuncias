@@ -1,6 +1,7 @@
 from rest_framework import routers
 from .views_api import *
 from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
 
 router = routers.SimpleRouter()
 
@@ -15,6 +16,11 @@ router.register(r'reclamacoes', ReclamacaoViewSet)
 router.register(r'responsaveis', ResponsavelViewSet)
 router.register(r'comentarios', ComentarioViewSet)
 router.register(r'tipo_reclamacao', TipoReclamacaoViewSet)
-router.register(r'mensagem', ReclamacaoAPIViewSet)
+#router.register(r'mensagem', ReclamacaoAPIViewSet.as_view(), base_name='mensagem')
 
-urlpatterns = router.urls
+urlpatterns = [
+    path('mensagem', ReclamacaoAPIViewSet.as_view()),
+]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
+urlpatterns += router.urls

@@ -51,7 +51,7 @@ class Aluno (AbstractEntity):
     escola = models.ForeignKey(Escola,on_delete=models.CASCADE)
 
 class Reclamante(AbstractEntity):
-    email = models.EmailField(max_length=255)
+    email = models.EmailField(max_length=255, unique=True)
 
 class ReclamacaoStatus (AbstractEntity):
     class Meta:
@@ -69,7 +69,7 @@ class Reclamacao (AuditEntity):
     
     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE, blank=True, null=True)
     texto = models.TextField()
-    agencia_transporte = models.ForeignKey(AgenciaTransporte, on_delete=models.CASCADE)
+    agencia_transporte = models.ForeignKey(AgenciaTransporte, on_delete=models.CASCADE, blank=True, null=True)
     reclamante = models.ForeignKey(Reclamante, on_delete=models.CASCADE, blank=True, null=True)
     cod_linha = models.CharField(max_length=60, default="")
     protocolo = models.CharField(max_length=60, default="")
