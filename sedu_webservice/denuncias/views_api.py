@@ -62,9 +62,15 @@ class ReclamacaoAPIViewSet(APIView):
         return aluno
 
     def upsert_reclamante(self, request):
+        
         nome = request.data.get('autor')
         email = request.data.get('email')
-        reclamante = Reclamante.objects.get_or_create(nome=nome, email=email)
+        
+        try:
+            reclamante = Reclamante.objects.get(email=email)
+        except:
+            reclamante = Reclamante(nome=nome, email=email)
+            reclamante.save()
         return reclamante
         
     def post(self, request, format=None):
@@ -81,7 +87,7 @@ class ReclamacaoAPIViewSet(APIView):
             reclamacao_data['aluno'] = aluno
             reclamacao_data['texto'] = request.data.get('descricao')
             # agencia
-            reclamacao_data['reclamante'] = reclamante[0]
+            reclamacao_data['reclamante'] = reclamante
             # cod_linha
             reclamacao_data['tipo'] = TipoReclamacao.objects.get(pk=request.data.get('tipo_reclamacao'))
             reclamacao_data['data_ocorrido'] = request.data.get('data_ocorrido')
