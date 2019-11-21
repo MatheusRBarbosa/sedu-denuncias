@@ -1,24 +1,82 @@
 {% extends 'home.html' %}
 
+{% block content-title%} Detalhes da reclamação {% endblock %}
+
 {% block content-body %}
-    <ul class="collection with-header">
-        <li class="collection-header"><b>Detalhes da reclamação</b></li>
-        <li class="collection-item">Protocolo: {{object.protocolo}}</li>
-        <li class="collection-item">Aluno: {{object.aluno}}</li>
-        <li class="collection-item">Status da reclamação: {{object.status}}</li>
-        <li class="collection-item">Escola: {{object.aluno.escola}}</li>
-        <li class="collection-item">Setor: {{object.tipo.setor}}</li>
-        <li class="collection-item">Tipo da denuncia: {{object.tipo}}</li>
-        <li class="collection-item">Reclamante: {{object.reclamante}}</li>
-        <li class="collection-item">Texto: {{object.texto}}</li>
-    </ul>
-    <ul class="collection with-header">
-    <li class="collection-header"><b>Comentários</b></li>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">{{object.protocolo}}</h4>
+                <p class="card-category">{{object.aluno}}</p>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <th>Atributo</th>
+                            <th>Informação</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-primary">Status da reclamação</td>
+                                <td>{{object.status}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-primary">Escola</td>
+                                <td>{{object.aluno.escola}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-primary">Setor</td>
+                                <td>{{object.tipo.setor}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-primary">Tipo da reclamação</td>
+                                <td>{{object.tipo}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-primary">Reclamante</td>
+                                <td>{{object.reclamante}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-primary">Texto</td>
+                                <td>{{object.texto}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
     {% for comentario in object.comentarios.all %}
-        <li class="collection-item">Texto: {{comentario.texto}}</li>
-        <li class="collection-item">Responsavel: {{comentario.responsavel.usuario.first_name|linebreaks}}</li>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Comentário</h4>
+                    <p class="card-category">Feito por: {{comentario.responsavel.usuario.first_name|linebreaks}}</p>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <th class="text-primary">Texto</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{comentario.texto}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
         {% empty %}
-            Nenhum comentário
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <p class="card-category">Nenhum comentário ainda...</p>
+                </div>
+            </div>
+        </div>
     {% endfor %}
-    </ul>
 {% endblock %}

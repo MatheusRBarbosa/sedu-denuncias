@@ -71,7 +71,7 @@ class Reclamacao (AuditEntity):
     texto = models.TextField()
     agencia_transporte = models.ForeignKey(AgenciaTransporte, on_delete=models.CASCADE, blank=True, null=True)
     reclamante = models.ForeignKey(Reclamante, on_delete=models.CASCADE, blank=True, null=True)
-    cod_linha = models.CharField(max_length=60, default="")
+    cod_linha = models.CharField(max_length=60, default="", blank=True)
     protocolo = models.CharField(max_length=60, default="")
     tipo = models.ForeignKey(TipoReclamacao, on_delete=models.CASCADE, default=1)
     status = models.ForeignKey(ReclamacaoStatus, on_delete=models.CASCADE, default=1)

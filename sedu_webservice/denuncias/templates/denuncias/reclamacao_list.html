@@ -1,39 +1,81 @@
 {% extends 'home.html' %}
 
+{% block content-title%} Todas as reclamações {% endblock %}
+
+{% block content-search%}
+    <input type="text" value="" class="form-control" placeholder="Buscar...">
+    <div class="input-group-append">
+        <div class="input-group-text">
+            <i class="nc-icon nc-zoom-split"></i>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content-filter %}
+    <select name="">
+        <option value="">Opcoes1</option>
+        <option value="">Opcoes2</option>
+        <option value="">Opcoes3</option>
+    </select>
+{% endblock %}
+
+{% block content-orderby %}
+    <select name="" id="">
+        <option value="">Opcoes</option>
+    </select>
+{% endblock %}
+
 {% block content-body %}
-<div class="card-content">
-    <table class="table">
-        <tr>
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">Protocolo</th>
-                    <th scope="col">Aluno</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Escola</th>
-                    <th scope="col">Setor</th>
-                    <th scope="col">Tipo reclamação</th>
-                    <th scope="col">Reclamante</th>
-                    <th scope="col">Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for reclamacao in object_list  %}
-                <tr>
-                    <td>{{reclamacao.protocolo}}</td>
-                    <td>{{reclamacao.aluno}}</td>
-                    <td>{{reclamacao.status}}</td>
-                    <td>{{reclamacao.aluno.escola}}</td>
-                    <td>{{reclamacao.tipo.setor}}</td>
-                    <td>{{reclamacao.tipo}}</td>
-                    <td>{{reclamacao.reclamante}}</td>
-                    <td><a  href="{% url "web_reclamacao_detail"  reclamacao.id  %}">detalhes | </a> 
-                        <a  href="{% url "web_reclamacao_update"  reclamacao.id  %}">atualizar | </a>   
-                        <a  href="{% url "web_reclamacao_delete"  reclamacao.id  %}">apagar </a>   
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </tr>
-    </table>
+<div class="col-md-12">
+    <div class="card card-plain">
+        <div class="card-header">
+            <h4 class="card-title"></h4>
+            <p class="card-category">Aqui será listado todas as reclamações feitas</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="text-primary">
+                        <tr>
+                            <th>Protocolo</th>
+                            <th>Aluno</th>
+                            <th>Status</th>
+                            <th>Escola</th>
+                            <th>Setor</th>
+                            <th>Tipo reclamação</th>
+                            <th>Reclamante</th>
+                            <th class="text-right">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reclamacao in object_list  %}
+                        <tr>
+                            <td>{{reclamacao.protocolo}}</td>
+                            <td>{{reclamacao.aluno}}</td>
+                            <td>{{reclamacao.status}}</td>
+                            <td>{{reclamacao.aluno.escola}}</td>
+                            <td>{{reclamacao.tipo.setor}}</td>
+                            <td>{{reclamacao.tipo}}</td>
+                            <td>{{reclamacao.reclamante}}</td>
+                            <td class="text-right">
+                                <a class="nav-link dropdown-toggle" id="actions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="nc-icon nc-settings-gear-65"></i>
+                                <p>
+                                    <span class="d-lg-none d-md-block">Perfil</span>
+                                </p>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="actions">
+                                    <a class="dropdown-item" href="{% url "web_reclamacao_detail"  reclamacao.id  %}">Detalhes</a> 
+                                    <a class="dropdown-item" href="{% url "web_reclamacao_update"  reclamacao.id  %}">Atualizar</a>   
+                                    <a class="dropdown-item" href="{% url "web_reclamacao_delete"  reclamacao.id  %}">Apagar</a>   
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

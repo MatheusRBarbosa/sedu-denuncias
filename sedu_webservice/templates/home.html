@@ -50,21 +50,22 @@
 
               <form>
                 <div class="input-group no-border">
-                  <input type="text" value="" class="form-control" placeholder="Buscar...">
-                  <div class="input-group-append">
-                    <div class="input-group-text">
-                      <i class="nc-icon nc-zoom-split"></i>
-                    </div>
-                  </div>
+                  {% block content-search %}
+                  {% endblock %}
                 </div>
               </form>
               <form>
-                  {% block content-filter %}
-                  {% endblock %}
+                  <div class="input-group no-border">
+                    {% block content-filter %}
+                    {% endblock %}
+                  </div>
+              </form>
               </form>
               <form>
-                  {% block content-orderby %}
-                  {% endblock %}
+                  <div class="input-group no-border">
+                    {% block content-orderby %}
+                    {% endblock %}
+                  </div>
               </form>
               <ul class="navbar-nav">
                 <li class="nav-item btn-rotate dropdown">
@@ -84,9 +85,11 @@
         </nav>
 
         <div class="content">
-          <div class="row">
-            {% block content-body %}
-            {% endblock %}
+          <div class="container-fluid">
+            <div class="row">
+              {% block content-body %}
+              {% endblock %}
+            </div>
           </div>
         </div>
 
