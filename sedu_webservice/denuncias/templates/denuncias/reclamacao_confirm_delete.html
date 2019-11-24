@@ -1,15 +1,27 @@
 {% extends 'home.html' %}
 
+{% block content-title%}Apagar reclamação{% endblock %}
+
 {% block content-body %}
 
-<h1>Reclamacao Delete?</h1>
-<form  method="post">
-    {% csrf_token %}
-    Tem certeza que deseja apagar a reclamação abaixo ?
 
-    <div class="center-align">
-        <button class="waves-effect waves-red red btn" type="submit">Apagar</button>
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Tem certeza que deseja apagar essa reclamação ?</h4>
+        </div>
+        <div class="card-body">
+            <form  method="post">
+                {% csrf_token %}
+                {{form}}
+                <div class="row">
+                    <div class="update ml-auto mr-auto">
+                        <button class="btn btn-danger" type="submit">Apagar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-</form>
+</div>
 
 {% endblock %}
