@@ -1,13 +1,16 @@
 {% extends 'home.html' %}
 
-{% block content-title%} Atualizar reclamação {% endblock %}
+{% block content-title%}Reclamações{% endblock %}
 
 {% block content-body %}
 
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">Atualizar reclamação</h4>
+            <h4 class="card-title">
+                {% if request.resolver_match.url_name == "web_reclamacao_create" %}Criar nova reclamação{% endif %}
+                {% if request.resolver_match.url_name == "web_reclamacao_update" %}Atualizar reclamação{% endif %}
+            </h4>
         </div>
         <div class="card-body">
             <form  method="post">

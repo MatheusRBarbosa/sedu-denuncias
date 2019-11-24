@@ -38,9 +38,9 @@ class ResponsavelAdmin(admin.ModelAdmin):
 
 class SreAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
-    list_display = (['nome'])
+    list_display = (['name'])
     list_filter = ([])
-    search_fields = (['nome'])
+    search_fields = (['name'])
 
 class ComentarioInline(admin.StackedInline):
     model = Comentario

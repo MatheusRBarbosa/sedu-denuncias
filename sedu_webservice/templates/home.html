@@ -18,10 +18,16 @@
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="active ">
+          <li class="{% if request.resolver_match.url_name == "web_reclamacao_list" %}active{% endif %}">
             <a href="{% url 'web_reclamacao_list' %}">
-              <i class="nc-icon nc-tile-56"></i>
+              <i class="nc-icon nc-bullet-list-67"></i>
               <p>Reclamações</p>
+            </a>
+          </li>
+          <li class="{% if request.resolver_match.url_name == "web_reclamacao_create" %}active{% endif %}">
+            <a href="{% url 'web_reclamacao_create' %}">
+              <i class="nc-icon nc-simple-add"></i>
+              <p>Nova reclamação</p>
             </a>
           </li>
         </ul>
