@@ -16,7 +16,7 @@ build_job:
   image: docker:stable
 
   only:
-    - tag
+    - tags
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker build -t $CI_REGISTRY_IMAGE:$CI_BUILD_TAG .
@@ -29,7 +29,7 @@ deploy_job:
   image: registry.es.gov.br/espm/infraestrutura/containers/node:10.15.3
   
   only:
-    - tag
+    - tags
   script:
     - npm i upgrade-rancher
     - ./node_modules/.bin/upgrade-rancher --IMAGE $CI_REGISTRY_IMAGE:$CI_BUILD_TAG --SERVICE_ID 1s1039
