@@ -25,4 +25,4 @@ deploy_job:
     - master
   script:
     - npm i upgrade-rancher
-    - ./node_modules/.bin/upgrade-rancher registry.es.gov.br/espm/sedu/webservice:latest --SERVICE_ID 1s1039
+    - ./node_modules/.bin/upgrade-rancher --IMAGE registry.es.gov.br/espm/sedu/webservice:latest --SERVICE_ID 1s1039
