@@ -19,7 +19,7 @@ stages:
    
 deploy_job:
   stage: deploy
-  image: registry.es.gov.br/espm/infraestrutura/containers/python:3.6.9
+  image: registry.es.gov.br/espm/infraestrutura/containers/node:10.15.3
   
   only:
     - master
