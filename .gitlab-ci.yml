@@ -2,12 +2,19 @@ stages:
  - build
  - deploy
 
+variables:
+ # When using dind, it's wise to use the overlayfs driver for
+ #  improved performance.
+  DOCKER_DRIVER: overlay2
+  DOCKER_HOST: tcp://docker:2375/
+
+services:
+  - docker:dind
+
 build_job:
   stage: build
   image: docker:stable
 
-  services:
-    - docker:dind
   only:
     - master
   script:
