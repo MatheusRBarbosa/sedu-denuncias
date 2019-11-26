@@ -1,30 +1,40 @@
 stages:
-  - build
-  - deploy
+ - build
+ - deploy
+
+variables:
+ # When using dind, it's wise to use the overlayfs driver for
+ #  improved performance.
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+#  DOCKER_HOST: tcp://docker:2375/
+
+services:
+  - docker:dind
 
 build_job:
   stage: build
   image: docker:stable
 
-  services:
-    - docker:dind
   only:
     - tags
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker build -t $CI_REGISTRY_IMAGE:$CI_BUILD_TAG .
-    - docker push $CI_REGISTRY_IMAGE:$CI_BUILD_TAG
-    - docker tag $CI_REGISTRY_IMAGE:$CI_BUILD_TAG $CI_REGISTRY_IMAGE:latest
-    - docker push $CI_REGISTRY_IMAGE:latest
+#    - docker build -t $CI_REGISTRY_IMAGE:$CI_BUILD_TAG .
+#    - docker push $CI_REGISTRY_IMAGE:$CI_BUILD_TAG
+#    - docker tag $CI_REGISTRY_IMAGE:$CI_BUILD_TAG $CI_REGISTRY_IMAGE:latest
+#    - docker push $CI_REGISTRY_IMAGE:latest
    
 deploy_job:
   stage: deploy
-  image: registry.es.gov.br/espm/infraestrutura/containers/python:3.6.9
+  image: registry.es.gov.br/espm/infraestrutura/containers/node:10.15.3
   
   only:
     - tags
   script:
     - npm i upgrade-rancher
-    - ./node_modules/.bin/upgrade-rancher --IMAGE $CI_REGISTRY_IMAGE:$CI_BUILD_TAG --SERVICE_ID <serviceId>
+    - ./node_modules/.bin/upgrade-rancher --IMAGE registry.es.gov.br/espm/sedu/webservice:latest --SERVICE_ID 1s1039
   dependencies:
     - build_job
+
+
