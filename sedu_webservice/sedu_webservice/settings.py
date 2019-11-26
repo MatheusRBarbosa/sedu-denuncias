@@ -25,7 +25,7 @@ SECRET_KEY = '4n87k3=50^i#$*2)=#-akhg!f5+7v_(pmm-lw^3v4)zd=0!3+b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 DB_NAME = os.getenv('DB_NAME')
 DB_HOST = os.getenv('DB_HOST')
