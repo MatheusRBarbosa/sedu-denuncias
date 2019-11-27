@@ -11,4 +11,4 @@ RUN pip3 install -r app/requirements.txt
 EXPOSE 8000
 
 WORKDIR /app/sedu_webservice/
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000/sedu"]
+CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
