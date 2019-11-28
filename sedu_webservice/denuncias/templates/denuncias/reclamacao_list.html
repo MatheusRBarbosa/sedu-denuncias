@@ -12,18 +12,17 @@
 {% endblock %}
 
 {% block content-filter %}
-    <select name="sre">
-        <option>Filtrar por SRE</option>
+    <select id="sre_filtro" name="sre" tipo-filtro-url="{% url 'ajax_web_reclamacao_list' %}">
+        <option value="0">Todas as SREs</option>
         {% for sre in SREs %}
             <option value="{{sre.pk}}">{{sre.name}}</option>
         {% endfor %}
-        
     </select>
 {% endblock %}
 
 {% block content-orderby %}
-    <select name="tipo">
-        <option>Filtrar por tipo</option>
+    <select id="tipo_filtro" name="tipo" tipo-filtro-url="{% url 'ajax_web_reclamacao_list' %}">
+        <option value="0">Todos os tipos</option>
         {% for tipo in tipos %}
             <option value="{{tipo.pk}}">{{tipo.nome}}</option>
         {% endfor %}
@@ -41,7 +40,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table">
+                <table class="table" id="results">
                     <thead class="text-primary">
                         <tr>
                             <th>Protocolo</th>
@@ -82,4 +81,28 @@
         </div>
     </div>
 </div>
+{% load static %}
+<script src="{% static 'js/core/jquery.min.js' %}"></script>
+<script>
+    $('#tipo_filtro').change(search)
+    $('#sre_filtro').change(search)
+
+    function search(){
+        var tipo_id = $('#tipo_filtro').val()
+        var sre_id = $('#sre_filtro').val()
+        var url = $(this).attr('tipo-filtro-url')
+        console.log(sre_id, tipo_id, url)
+        
+        $.ajax({
+            url: url,
+            data: {
+                'tipo': tipo_id,
+                'sre': sre_id
+            },
+            success: function(data){
+                $('#results').html(data)
+            }
+        })
+    }
+</script>
 {% endblock %}
