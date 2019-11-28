@@ -12,20 +12,27 @@
 {% endblock %}
 
 {% block content-filter %}
-    <select name="">
-        <option value="">Opcoes1</option>
-        <option value="">Opcoes2</option>
-        <option value="">Opcoes3</option>
+    <select name="sre">
+        <option>Filtrar por SRE</option>
+        {% for sre in SREs %}
+            <option value="{{sre.pk}}">{{sre.name}}</option>
+        {% endfor %}
+        
     </select>
 {% endblock %}
 
 {% block content-orderby %}
-    <select name="" id="">
-        <option value="">Opcoes</option>
+    <select name="tipo">
+        <option>Filtrar por tipo</option>
+        {% for tipo in tipos %}
+            <option value="{{tipo.pk}}">{{tipo.nome}}</option>
+        {% endfor %}
     </select>
 {% endblock %}
 
 {% block content-body %}
+
+
 <div class="col-md-12">
     <div class="card card-plain">
         <div class="card-header">
@@ -48,7 +55,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for reclamacao in object_list  %}
+                        {% for reclamacao in reclamacoes  %}
                         <tr>
                             <td>{{reclamacao.protocolo}}</td>
                             <td>{{reclamacao.aluno}}</td>

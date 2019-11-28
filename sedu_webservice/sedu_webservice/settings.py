@@ -75,6 +75,10 @@ TEMPLATES = [
     },
 ]
 
+TEMPLATE_LOADERS = (
+    'django.template.loaders.app_directories.load_template_source',
+)
+
 WSGI_APPLICATION = 'sedu_webservice.wsgi.application'
 
 

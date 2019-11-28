@@ -12,7 +12,16 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormVi
 ##Paginas Web
 @method_decorator(login_required, name='dispatch')
 class ReclamacaoList(ListView):
-    model = Reclamacao
+    #model = Reclamacao
+    context_object_name = 'reclamacoes'
+    queryset = Reclamacao.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(ReclamacaoList, self).get_context_data(**kwargs)
+        context['reclamacoes'] = self.queryset
+        context['SREs'] = SRE.objects.all()
+        context['tipos'] = TipoReclamacao.objects.all()
+        return context
 
 @method_decorator(login_required, name='dispatch')
 class ReclamacaoDetail(DetailView): 

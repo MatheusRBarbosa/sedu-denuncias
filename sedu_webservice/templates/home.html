@@ -8,11 +8,11 @@
   <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">
         <a href="http://www.creative-tim.com" class="simple-text logo-mini">
-          <div class="logo-image-small">
+          <!--<div class="logo-image-small">
             <img src="../assets/img/logo-small.png">
-          </div>
+          </div>-->
         </a>
-        <a href="" class="simple-text logo-normal">
+        <a href="{% url 'web_reclamacao_list' %}" class="simple-text logo-normal">
           SEDU
         </a>
       </div>
@@ -61,7 +61,7 @@
                 </div>
               </form>
               <form>
-                  <div class="input-group no-border">
+                  <div class="input-group no-border">     
                     {% block content-filter %}
                     {% endblock %}
                   </div>
