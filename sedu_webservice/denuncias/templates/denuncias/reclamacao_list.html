@@ -2,35 +2,14 @@
 
 {% block content-title%} Todas as reclamações {% endblock %}
 
-{% block content-search%}
-    <input type="text" value="" class="form-control" placeholder="Buscar...">
-    <div class="input-group-append">
-        <div class="input-group-text">
-            <i class="nc-icon nc-zoom-split"></i>
-        </div>
-    </div>
-{% endblock %}
-
-{% block content-filter %}
-    <select id="sre_filtro" name="sre" tipo-filtro-url="{% url 'ajax_web_reclamacao_list' %}">
-        <option value="0">Todas as SREs</option>
-        {% for sre in SREs %}
-            <option value="{{sre.pk}}">{{sre.name}}</option>
-        {% endfor %}
-    </select>
-{% endblock %}
-
-{% block content-orderby %}
-    <select id="tipo_filtro" name="tipo" tipo-filtro-url="{% url 'ajax_web_reclamacao_list' %}">
-        <option value="0">Todos os tipos</option>
-        {% for tipo in tipos %}
-            <option value="{{tipo.pk}}">{{tipo.nome}}</option>
-        {% endfor %}
-    </select>
-{% endblock %}
-
 {% block content-body %}
 
+<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/css/jquery.dataTables_themeroller.css">
+
+
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/jquery.dataTables.min.js"></script>
 
 <div class="col-md-12">
     <div class="card card-plain">
@@ -39,18 +18,19 @@
             <p class="card-category">Aqui será listado todas as reclamações feitas</p>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table" id="results">
+            <div >
+                <table id="table" class="display table">
                     <thead class="text-primary">
                         <tr>
                             <th>Protocolo</th>
                             <th>Aluno</th>
+                            <th>Reclamante</th>
                             <th>Status</th>
+                            <th>SRE</th>
                             <th>Escola</th>
                             <th>Setor</th>
                             <th>Tipo reclamação</th>
-                            <th>Reclamante</th>
-                            <th class="text-right">Ações</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -58,21 +38,13 @@
                         <tr>
                             <td>{{reclamacao.protocolo}}</td>
                             <td>{{reclamacao.aluno}}</td>
+                            <td>{{reclamacao.reclamante}}</td>
                             <td>{{reclamacao.status}}</td>
+                            <td>{{reclamacao.aluno.escola.municipio.sre}}</td>
                             <td>{{reclamacao.aluno.escola}}</td>
                             <td>{{reclamacao.tipo.setor}}</td>
                             <td>{{reclamacao.tipo}}</td>
-                            <td>{{reclamacao.reclamante}}</td>
-                            <td class="text-right">
-                                <a class="nav-link dropdown-toggle" id="actions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="nc-icon nc-settings-gear-65"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="actions">
-                                    <a class="dropdown-item" href="{% url "web_reclamacao_detail"  reclamacao.id  %}">Detalhes</a> 
-                                    <a class="dropdown-item" href="{% url "web_reclamacao_update"  reclamacao.id  %}">Atualizar</a>   
-                                    <a class="dropdown-item" href="{% url "web_reclamacao_delete"  reclamacao.id  %}">Apagar</a>   
-                                </div>
-                            </td>
+                            
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -81,28 +53,11 @@
         </div>
     </div>
 </div>
-{% load static %}
-<script src="{% static 'js/core/jquery.min.js' %}"></script>
-<script>
-    $('#tipo_filtro').change(search)
-    $('#sre_filtro').change(search)
 
-    function search(){
-        var tipo_id = $('#tipo_filtro').val()
-        var sre_id = $('#sre_filtro').val()
-        var url = $(this).attr('tipo-filtro-url')
-        console.log(sre_id, tipo_id, url)
-        
-        $.ajax({
-            url: url,
-            data: {
-                'tipo': tipo_id,
-                'sre': sre_id
-            },
-            success: function(data){
-                $('#results').html(data)
-            }
-        })
-    }
+<script>
+
+    $(document).ready( function () {
+        $('#table').DataTable();
+} );
 </script>
 {% endblock %}

@@ -4,7 +4,6 @@ from django.urls import path
 
 urlpatterns = [
     path('reclamacoes/', ReclamacaoList.as_view(), name='web_reclamacao_list'),
-    path('ajax/reclamacoes/', ReclamacaoList.load_reclamacoes, name='ajax_web_reclamacao_list'),
     path('reclamacao/<int:pk>', ReclamacaoDetail.as_view(), name='web_reclamacao_detail'),
     path('reclamacao_create', ReclamacaoCreate.as_view(), name='web_reclamacao_create'),
     path('reclamacao_update/<int:pk>', ReclamacaoUpdate.as_view(), name='web_reclamacao_update'),
