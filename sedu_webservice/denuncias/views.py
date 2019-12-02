@@ -8,7 +8,7 @@ from django.utils.decorators import method_decorator
 # specific to this view
 from django.views.generic import ListView, DetailView 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
-from django import forms
+from .forms import ReclamacaoForm
 
 ##Paginas Web
 @method_decorator(login_required, name='dispatch')
@@ -19,7 +19,7 @@ class ReclamacaoList(ListView):
 @method_decorator(login_required, name='dispatch')
 class ReclamacaoDetail(DetailView): 
     model = Reclamacao
-    
+
 @method_decorator(login_required, name='dispatch')
 class ReclamacaoCreate(CreateView): 
     model = Reclamacao

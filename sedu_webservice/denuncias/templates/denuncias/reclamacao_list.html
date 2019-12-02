@@ -4,13 +4,6 @@
 
 {% block content-body %}
 
-<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/css/jquery.dataTables.css">
-<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/css/jquery.dataTables_themeroller.css">
-
-
-<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/jquery.dataTables.min.js"></script>
-
 <div class="col-md-12">
     <div class="card card-plain">
         <div class="card-header">
@@ -36,14 +29,14 @@
                     <tbody>
                         {% for reclamacao in reclamacoes  %}
                         <tr>
-                            <td>{{reclamacao.protocolo}}</td>
+                            <td><a class="protocolo" href="{% url 'web_reclamacao_detail' reclamacao.id %}">{{reclamacao.protocolo}}</a></td>
                             <td>{{reclamacao.aluno}}</td>
                             <td>{{reclamacao.reclamante}}</td>
                             <td>{{reclamacao.status}}</td>
                             <td>{{reclamacao.aluno.escola.municipio.sre}}</td>
                             <td>{{reclamacao.aluno.escola}}</td>
                             <td>{{reclamacao.tipo.setor}}</td>
-                            <td>{{reclamacao.tipo}}</td>
+                            <td><a href="{% url 'web_reclamacao_update' reclamacao.id %}">{{reclamacao.tipo}}</a></td>
                             
                         </tr>
                         {% endfor %}
@@ -58,6 +51,12 @@
 
     $(document).ready( function () {
         $('#table').DataTable();
+        
+        //Adicionar hifens no número da pagina
+        var table = $('#table_paginate').children()
+        var span = table[1].firstElementChild
+        var text = span.innerHTML
+        span.innerHTML = ` - ${text} - `
 } );
 </script>
 {% endblock %}

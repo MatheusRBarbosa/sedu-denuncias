@@ -13,16 +13,17 @@
             </h4>
         </div>
         <div class="card-body">
-            <form  method="post">
+            
+            <form method="post">
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-md-6 pr-1">
                         <div class="form-group">
                             <label>{{form.protocolo.html_name | title}}</label>
                             {% if request.resolver_match.url_name == "web_reclamacao_update" %}
-                                <input type="text" class="form-control" name="{{form.protocolo.html_name}}" value="{{form.protocolo.value}}" disabled>
+                                <div class="form-control">{{form.protocolo}}</div>
                             {% else %}
-                                <input type="text" class="form-control" name="{{form.protocolo.html_name}}" disabled>
+                                <div class="form-control">{{form.protocolo}}</div>
                             {% endif %}
                         </div>
                     </div>
@@ -58,9 +59,9 @@
                         <div class="form-group">
                             <label>{{form.cod_linha.html_name | title}}</label>
                             {% if request.resolver_match.url_name == "web_reclamacao_update" %}
-                                <input type="text" class="form-control" name="{{form.cod_linha.html_name}}" value="{{form.cod_linha.value}}">
+                                <div class="form-control">{{form.cod_linha}}</div>
                             {% else %}
-                                <input type="text" class="form-control" name="{{form.cod_linha.html_name}}">
+                                <div class="form-control">{{form.cod_linha}}</div>
                             {% endif %}
                         </div>
                     </div>
@@ -76,21 +77,21 @@
                         <div class="form-group">
                             <label>{{form.data_ocorrido.html_name | title}}</label>
                             {% if request.resolver_match.url_name == "web_reclamacao_update" %}
-                                <input type="date" class="form-control" name="{{form.data_ocorrido.html_name}}" value="{{form.data_ocorrido.value}}">
+                                <div class="form-control">{{form.data_ocorrido}}</div>
                             {% else %}
-                                <input type="date" class="form-control" name="{{form.data_ocorrido.html_name}}">
+                                <div class="form-control">{{form.data_ocorrido}}</div>
                             {% endif %}
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>{{form.texto.html_name | title}}</label>
-                                <textarea id="textoForm" class="form-control textarea" name="{{form.texto.html_name}}">{% if request.resolver_match.url_name == "web_reclamacao_update" %}{{form.texto.value}}{% endif %}</textarea>
-                            </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>{{form.texto.html_name | title}}</label>
+                            <div class="form-control">{{form.texto}}</div>
                         </div>
                     </div>
+                </div>
                 <div class="row">
                     <div class="update ml-auto mr-auto">
                         <button class="btn btn-primary btn-round" type="submit">Enviar</button>
