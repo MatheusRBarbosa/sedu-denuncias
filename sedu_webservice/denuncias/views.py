@@ -13,9 +13,7 @@ from django import forms
 ##Paginas Web
 @method_decorator(login_required, name='dispatch')
 class ReclamacaoList(ListView):
-    #model = Reclamacao
     context_object_name = 'reclamacoes'
-    #form_class = ReclamacaoListForm
     queryset = Reclamacao.objects.all()
 
 @method_decorator(login_required, name='dispatch')
