@@ -4,6 +4,8 @@
 
 {% block content-body %}
 
+{% load crispy_forms_tags %}
+
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
@@ -19,49 +21,43 @@
                 <div class="row">
                     <div class="col-md-6 pr-1">
                         <div class="form-group">
-                            <label>{{form.protocolo.html_name | title}}</label>
                             {% if request.resolver_match.url_name == "web_reclamacao_update" %}
-                                <div class="form-control">{{form.protocolo}}</div>
+                                <div>{{form.protocolo | as_crispy_field}}</div>
                             {% else %}
-                                <div class="form-control">{{form.protocolo}}</div>
+                                <div>{{form.protocolo | as_crispy_field}}</div>
                             {% endif %}
                         </div>
                     </div>
                     <div class="col-md-6 pl-1">
                         <div class="form-group">
-                            <label>{{form.aluno.html_name | title}}</label>
-                            <div class="form-control"> {{form.aluno}} </div>
+                            <div> {{form.aluno | as_crispy_field}} </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 pr-1">
                         <div class="form-group">
-                            <label>{{form.reclamante.html_name | title}}</label>
-                            <div class="form-control"> {{form.reclamante}} </div>
+                            <div> {{form.reclamante | as_crispy_field}} </div>
                         </div>
                     </div>
                     <div class="col-md-6 pl-1">
                         <div class="form-group">
-                            <label>{{form.agencia_transporte.html_name | title}}</label>
-                            <div class="form-control"> {{form.agencia_transporte}} </div>
+                            <div> {{form.agencia_transporte | as_crispy_field}} </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 pr-1">
                         <div class="form-group">
-                            <label>{{form.tipo.html_name | title}}</label>
-                            <div class="form-control"> {{form.tipo}} </div>
+                            <div> {{form.tipo | as_crispy_field}} </div>
                         </div>
                     </div>
                     <div class="col-md-6 pl-1">
                         <div class="form-group">
-                            <label>{{form.cod_linha.html_name | title}}</label>
                             {% if request.resolver_match.url_name == "web_reclamacao_update" %}
-                                <div class="form-control">{{form.cod_linha}}</div>
+                                <div>{{form.cod_linha | as_crispy_field}}</div>
                             {% else %}
-                                <div class="form-control">{{form.cod_linha}}</div>
+                                <div>{{form.cod_linha | as_crispy_field}}</div>
                             {% endif %}
                         </div>
                     </div>
@@ -69,17 +65,15 @@
                 <div class="row">
                     <div class="col-md-6 pr-1">
                         <div class="form-group">
-                            <label>{{form.status.html_name | title}}</label>
-                            <div class="form-control"> {{form.status}} </div>
+                            <div>{{form.status | as_crispy_field}}</div>
                         </div>
                     </div>
                     <div class="col-md-6 pl-1">
                         <div class="form-group">
-                            <label>{{form.data_ocorrido.html_name | title}}</label>
                             {% if request.resolver_match.url_name == "web_reclamacao_update" %}
-                                <div class="form-control">{{form.data_ocorrido}}</div>
+                                <div>{{form.data_ocorrido | as_crispy_field}}</div>
                             {% else %}
-                                <div class="form-control">{{form.data_ocorrido}}</div>
+                                <div>{{form.data_ocorrido | as_crispy_field}}</div>
                             {% endif %}
                         </div>
                     </div>
@@ -87,8 +81,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label>{{form.texto.html_name | title}}</label>
-                            <div class="form-control">{{form.texto}}</div>
+                            <div>{{form.texto | as_crispy_field}}</div>
                         </div>
                     </div>
                 </div>

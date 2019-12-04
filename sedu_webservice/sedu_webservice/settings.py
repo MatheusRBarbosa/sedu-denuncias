@@ -45,7 +45,10 @@ INSTALLED_APPS = [
     'denuncias',
     'rest_framework',
     'drf_yasg',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
