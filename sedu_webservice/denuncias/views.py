@@ -9,7 +9,6 @@ from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.http import HttpResponse
-from django.db.models import Q
 
 ##Paginas Web
 @method_decorator(login_required, name='dispatch')
