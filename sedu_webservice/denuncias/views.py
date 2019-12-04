@@ -8,13 +8,23 @@ from django.utils.decorators import method_decorator
 # specific to this view
 from django.views.generic import ListView, DetailView 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
-from .forms import ReclamacaoForm
+from django.http import HttpResponse
+from django.db.models import Q
 
 ##Paginas Web
 @method_decorator(login_required, name='dispatch')
 class ReclamacaoList(ListView):
-    context_object_name = 'reclamacoes'
-    queryset = Reclamacao.objects.all()
+    #queryset = Reclamacao.objects.all()
+    
+    def renderPage(request):
+        userGroups = request.user.groups.all()
+        groupsList = []
+        
+        for g in userGroups:
+            groupsList.append(g.name)
+
+        reclamacoes = Reclamacao.objects.filter(aluno__escola__municipio__sre__in=userGroups)
+        return render(request, 'denuncias/reclamacao_list.html', {'reclamacoes': reclamacoes})
 
 @method_decorator(login_required, name='dispatch')
 class ReclamacaoDetail(DetailView): 
