@@ -27,7 +27,11 @@ class ReclamacaoList(ListView):
 
 @method_decorator(login_required, name='dispatch')
 class ReclamacaoDetail(DetailView): 
-    model = Reclamacao
+    #model = Reclamacao
+    def renderPage(request, pk):
+        reclamacao = Reclamacao.objects.get(id=pk)
+        status = ReclamacaoStatus.objects.all()
+        return render(request, 'denuncias/reclamacao_detail.html', {'object': reclamacao, 'status': status})
 
 @method_decorator(login_required, name='dispatch')
 class ReclamacaoCreate(CreateView): 
@@ -39,9 +43,4 @@ class ReclamacaoCreate(CreateView):
 class ReclamacaoUpdate(UpdateView): 
     model = Reclamacao
     fields = '__all__'
-    success_url = reverse_lazy('web_reclamacao_list')
-
-@method_decorator(login_required, name='dispatch')
-class ReclamacaoDelete(DeleteView): 
-    model = Reclamacao
     success_url = reverse_lazy('web_reclamacao_list')

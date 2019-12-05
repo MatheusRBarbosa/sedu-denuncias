@@ -3,6 +3,8 @@
 {% block content-title%} Detalhes da reclamação {% endblock %}
 
 {% block content-body %}
+{% load crispy_forms_tags %}
+
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
@@ -10,45 +12,66 @@
                 <p class="card-category">{{object.aluno}}</p>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <th>Atributo</th>
-                            <th>Informação</th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="text-primary">Status da reclamação</td>
-                                <td>{{object.status}}</td>
-                            </tr>
-                            <tr>
-                                <td class="text-primary">Escola</td>
-                                <td>{{object.aluno.escola}}</td>
-                            </tr>
-                            <tr>
-                                <td class="text-primary">Setor</td>
-                                <td>{{object.tipo.setor}}</td>
-                            </tr>
-                            <tr>
-                                <td class="text-primary">Tipo da reclamação</td>
-                                <td>{{object.tipo}}</td>
-                            </tr>
-                            <tr>
-                                <td class="text-primary">Reclamante</td>
-                                <td>{{object.reclamante}}</td>
-                            </tr>
-                            <tr>
-                                <td class="text-primary">Texto</td>
-                                <td>{{object.texto}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="row">
-                    <div class="update ml-auto mr-auto">
-                        <a href="{% url 'web_reclamacao_delete' object.id %}" class="btn btn-danger">Apagar reclamação</a>
+                <form method="post">
+                {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 pr-1">
+                            <div class="form-group">
+                                <label>Reclamante</label>
+                                <div>{{object.reclamante}}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 pl-1">
+                            <div class="form-group">
+                                <label>Agência de Transporte</label>
+                                <div> {{object.agencia_transporte}} </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    <div class="row">
+                        <div class="col-md-6 pr-1">
+                            <div class="form-group">
+                                <label>Tipo de reclamação</label>
+                                <div> {{object.tipo}} </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 pl-1">
+                            <div class="form-group">
+                                <label>Código da linha</label>
+                                <div>{{object.cod_linha}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 pr-1">
+                            <div class="form-group">
+                                <label>Status da reclamação</label>
+                                <div>
+                                    {{status}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 pl-1">
+                            <div class="form-group">
+                                <label>Data do ocorrido</label>
+                                <div>{{object.data_ocorrido}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Texto da reclamação</label>
+                                <div>{{object.texto}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="update ml-auto mr-auto">
+                            <button class="btn btn-primary btn-round" type="submit">Atualizar</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
