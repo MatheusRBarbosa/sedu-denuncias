@@ -86,11 +86,51 @@
                     </div>
                 </div>
                 </form>
-                {% else %}
-                    Você não possui permissão para ver essa reclamação.
-                {% endif %}
+                
             </div>
         </div>
+        {% for comentario in object.comentarios.all %}
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Comentário</h4>
+                    <p class="card-category">Feito por: {{comentario.responsavel.usuario.first_name|linebreaks}}</p>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <th class="text-primary">Texto</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{comentario.texto}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <p class="card-category">Nenhum comentário ainda...</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <div class="col-md-12">
+        <div class="row">
+            <div class="update ml-auto mr-auto">
+                <a href="{% url 'web_comentario_create' reclamacao.id %}" class="btn btn-primary btn-round" type="submit">Novo Comentário</a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+        Você não possui permissão para ver essa reclamação.
+    {% endif %}
 </div>
 {% endblock %}
 

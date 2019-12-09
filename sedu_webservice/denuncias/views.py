@@ -60,3 +60,20 @@ class ReclamacaoCreate(CreateView):
     model = Reclamacao
     fields = '__all__'
     success_url = reverse_lazy('web_reclamacao_list')
+
+class ComentarioCreate(CreateView): 
+    model = Comentario
+    fields = '__all__'
+    template_name = 'denuncias/comentario_form.html'
+    success_url = reverse_lazy('web_reclamacao_list')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ComentarioCreate, self).get_context_data(**kwargs)
+        reclamacao = Reclamacao.objects.get(id=self.kwargs['pk'])
+        context['protocolo'] = reclamacao.protocolo
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        print(request.POST.get('texto'))
+        #return redirect('web_reclamacao_list')
