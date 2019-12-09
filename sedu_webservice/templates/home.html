@@ -9,13 +9,13 @@
       <div class="logo">
         <a class="simple-text logo-mini">
         </a>
-        <a href="{% url 'web_reclamacao_list' %}" class="simple-text logo-normal">
+        <a href="{% url 'home' %}" class="simple-text logo-normal">
           SEDU
         </a>
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="{% if request.resolver_match.url_name == "web_reclamacao_list" %}active{% endif %}">
+          <li class="{% if request.resolver_match.url_name == "web_reclamacao_list" or request.resolver_match.url_name == "web_reclamacao_detail" %}active{% endif %}">
             <a href="{% url 'web_reclamacao_list' %}">
               <i class="nc-icon nc-bullet-list-67"></i>
               <p>Reclamações</p>
@@ -50,26 +50,11 @@
               <span class="navbar-toggler-bar navbar-kebab"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navigation">
-
-              <form>
-                <div class="input-group no-border">
-                  {% block content-search %}
-                  {% endblock %}
-                </div>
-              </form>
-              <form>
-                  <div class="input-group no-border">     
-                    {% block content-filter %}
-                    {% endblock %}
-                  </div>
-              </form>
-              </form>
-              <form>
-                  <div class="input-group no-border">
-                    {% block content-orderby %}
-                    {% endblock %}
-                  </div>
-              </form>
+            {% if request.user.first_name == '' %}
+              <p>({{request.user}})</p>
+            {% else %}
+              <p>{{request.user.first_name}} {{request.user.last_name}}</p>
+            {% endif %}
               <ul class="navbar-nav">
                 <li class="nav-item btn-rotate dropdown">
                   <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
