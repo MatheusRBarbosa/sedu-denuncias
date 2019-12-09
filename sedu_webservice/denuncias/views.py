@@ -35,6 +35,21 @@ class ReclamacaoDetail(UpdateView):
     fields = '__all__'
     template_name = 'denuncias/reclamacao_detail.html'
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(ReclamacaoDetail, self).get_context_data(**kwargs)
+        reclamacao = context['reclamacao']
+        sre_reclamacao = reclamacao.aluno.escola.municipio.sre
+        
+        userGroups = self.request.user.groups.all()
+        can_view = False
+
+        for g in userGroups:
+            if(g.name == sre_reclamacao.name):
+                can_view = True
+
+        context['can_view'] = can_view
+        return context
+
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         Reclamacao.objects.filter(pk=self.kwargs['pk']).update(status=request.POST.get("status"))

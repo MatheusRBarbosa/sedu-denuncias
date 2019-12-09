@@ -14,7 +14,7 @@
             </h4>
         </div>
         <div class="card-body">
-            
+            {% if can_view %}
             <form method="post">
                 {% csrf_token %}
                 <div class="row">
@@ -86,6 +86,9 @@
                     </div>
                 </div>
                 </form>
+                {% else %}
+                    Você não possui permissão para ver essa reclamação.
+                {% endif %}
             </div>
         </div>
 </div>
