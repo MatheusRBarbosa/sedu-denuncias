@@ -22,7 +22,11 @@ class ReclamacaoList(ListView):
         for g in userGroups:
             groupsList.append(g.name)
 
-        reclamacoes = Reclamacao.objects.filter(aluno__escola__municipio__sre__in=userGroups)
+        if(len(groupsList) == 0):
+            reclamacoes = Reclamacao.objects.all()
+        else:
+            reclamacoes = Reclamacao.objects.filter(aluno__escola__municipio__sre__in=userGroups)
+
         return render(request, 'denuncias/reclamacao_list.html', {'reclamacoes': reclamacoes})
 
 @method_decorator(login_required, name='dispatch')
