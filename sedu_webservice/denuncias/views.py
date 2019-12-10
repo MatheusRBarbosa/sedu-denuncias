@@ -47,6 +47,9 @@ class ReclamacaoDetail(UpdateView):
             if(g.name == sre_reclamacao.name):
                 can_view = True
 
+        if (len(userGroups) == 0):
+            can_view = True
+            
         context['can_view'] = can_view
         return context
 

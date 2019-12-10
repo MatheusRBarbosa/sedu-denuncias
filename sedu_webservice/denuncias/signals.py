@@ -25,3 +25,7 @@ def generate_protocol(sender, instance, created, **kwargs):
 def update_status_reclamacao(sender, instance, created, **kwargs):
     if created:
         Reclamacao.objects.filter(pk=instance.reclamacao.id).update(status=2)
+
+#@receiver(post_save, sender=Reclamante)
+#def generate_protocol(sender, instance, created, **kwargs):
+
