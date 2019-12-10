@@ -82,8 +82,6 @@ class Reclamacao (AuditEntity):
     def get_absolute_url(self):
         return reverse('web_reclamacao_detail', kwargs={'pk':self.pk})
 
-    #def querySet(request):
-    #   print(request.user)
 
 
 class Responsavel(AuditEntity):

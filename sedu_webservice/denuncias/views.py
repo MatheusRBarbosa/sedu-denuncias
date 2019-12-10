@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 # specific to this view
-from django.views.generic import ListView, DetailView 
+from django.views.generic import ListView, DetailView, View 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.shortcuts import redirect
 
@@ -68,12 +68,22 @@ class ComentarioCreate(CreateView):
     success_url = reverse_lazy('web_reclamacao_list')
 
     def get_context_data(self, *args, **kwargs):
-        context = super(ComentarioCreate, self).get_context_data(**kwargs)
-        reclamacao = Reclamacao.objects.get(id=self.kwargs['pk'])
-        context['protocolo'] = reclamacao.protocolo
-        return context
+       context = super(ComentarioCreate, self).get_context_data(**kwargs)
+       reclamacao = Reclamacao.objects.get(id=self.kwargs['pk'])
+       context['protocolo'] = reclamacao.protocolo
+       full_name = self.request.user.first_name + ' ' + self.request.user.last_name
+       context['responsavel'] = full_name
+       
+       return context
 
     def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        print(request.POST.get('texto'))
-        #return redirect('web_reclamacao_list')
+        resp = Responsavel.objects.get(usuario=request.user.id)
+        reclamacao = Reclamacao.objects.get(id=self.kwargs['pk'])
+        comentario_data = {}
+        comentario_data['texto'] = request.POST.get('texto')
+        comentario_data['reclamacao'] = reclamacao
+        comentario_data['responsavel'] = resp
+        comentario = Comentario(**comentario_data)
+        comentario.save()
+
+        return redirect('web_reclamacao_detail', self.kwargs['pk'])
