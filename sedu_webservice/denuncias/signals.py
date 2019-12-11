@@ -1,6 +1,6 @@
 from django.db.models.signals import post_save, m2m_changed
 from django.dispatch import receiver
-from denuncias.models import Reclamacao, Comentario, Reclamante
+from denuncias.models import *
 from django.contrib.auth.models import User
 from datetime import date
 
@@ -29,6 +29,23 @@ def generate_protocol(sender, instance, created, **kwargs):
 
 @receiver(m2m_changed, sender=User.groups.through)
 def create_responsavel(**kwargs):
-    from pprint import pprint
-    pprint(kwargs)
+    # Criar um responsavel sempre que for criado um usuario.
+    # Se o responsavel ja existir, apenas atualizar a sre dele.
+        # POST_ADD
+        # POST_REMOVE
+    # Mas se ele for da SEDU ? Qual vai ser a SRE
+
+    # Posso assumir que quando um usuario tem mais de uma SRE eh NECESSARIAMENTE A SEDU ?!
+
+    # Essa operacao so eh realizada quando eh feito um update no usuario.
+    if(kwargs['action'] == 'post_add'):
+        responsavel_data = {}
+        sre_id = None
+        for id in kwargs['pk_set']: 
+            sre_id = id
+        
+        responsavel_data['sre'] = SRE.objects.get(id=sre_id)
+        responsavel_data['usuario'] = kwargs['instance']
+        responsavel = Responsavel(**responsavel_data)
+        responsavel.save()
 
