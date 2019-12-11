@@ -29,23 +29,38 @@ def generate_protocol(sender, instance, created, **kwargs):
 
 @receiver(m2m_changed, sender=User.groups.through)
 def create_responsavel(**kwargs):
-    # Criar um responsavel sempre que for criado um usuario.
     # Se o responsavel ja existir, apenas atualizar a sre dele.
         # POST_ADD
         # POST_REMOVE
     # Mas se ele for da SEDU ? Qual vai ser a SRE
-
     # Posso assumir que quando um usuario tem mais de uma SRE eh NECESSARIAMENTE A SEDU ?!
 
-    # Essa operacao so eh realizada quando eh feito um update no usuario.
+    # Apenas a ultima SRE eh salva
+    # No caso, se for SEDU, todas as outras SRE vao precisar serem adicionadas primeiro e por ultimo a SEDU.
+
     if(kwargs['action'] == 'post_add'):
+        
         responsavel_data = {}
         sre_id = None
         for id in kwargs['pk_set']: 
             sre_id = id
-        
+
         responsavel_data['sre'] = SRE.objects.get(id=sre_id)
         responsavel_data['usuario'] = kwargs['instance']
-        responsavel = Responsavel(**responsavel_data)
+
+        try:
+            responsavel = Responsavel.objects.get(usuario=responsavel_data['usuario'].id)
+            responsavel.sre = responsavel_data['sre']
+        except:
+            responsavel = Responsavel(**responsavel_data)
+        
         responsavel.save()
+        print(responsavel.sre)
+    
+    # Se for um remove eu preciso tratar ? Uma reclamacao ( que nao pode ser apagada ), pode ficar sem responsavel pelos comentarios ?
+    #elif(kwargs['action'] == 'post_remove'):
+    #    user = kwargs['instance']
+    #    resp = Responsavel.objects.get(usuario=user.id) 
+    #    print(resp.sre)
+    #   print('=============APAGANDO===========')
 
