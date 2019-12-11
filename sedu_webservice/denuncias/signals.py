@@ -29,14 +29,6 @@ def generate_protocol(sender, instance, created, **kwargs):
 
 @receiver(m2m_changed, sender=User.groups.through)
 def create_responsavel(**kwargs):
-    # Se o responsavel ja existir, apenas atualizar a sre dele.
-        # POST_ADD
-        # POST_REMOVE
-    # Mas se ele for da SEDU ? Qual vai ser a SRE
-    # Posso assumir que quando um usuario tem mais de uma SRE eh NECESSARIAMENTE A SEDU ?!
-
-    # Apenas a ultima SRE eh salva
-    # No caso, se for SEDU, todas as outras SRE vao precisar serem adicionadas primeiro e por ultimo a SEDU.
 
     if(kwargs['action'] == 'post_add'):
         

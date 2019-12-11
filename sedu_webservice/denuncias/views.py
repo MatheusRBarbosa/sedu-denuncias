@@ -13,16 +13,15 @@ from django.shortcuts import redirect
 ##Paginas Web
 @method_decorator(login_required, name='dispatch')
 class ReclamacaoList(ListView):
-    #queryset = Reclamacao.objects.all()
     
     def renderPage(request):
         userGroups = request.user.groups.all()
         groupsList = []
         
         for g in userGroups:
-            groupsList.append(g.name)
+            groupsList.append(g.name.upper())
 
-        if(len(groupsList) == 0):
+        if(len(groupsList) == 0 or 'SEDU' in groupsList):
             reclamacoes = Reclamacao.objects.all()
         else:
             reclamacoes = Reclamacao.objects.filter(aluno__escola__municipio__sre__in=userGroups)
@@ -44,7 +43,7 @@ class ReclamacaoDetail(UpdateView):
         can_view = False
 
         for g in userGroups:
-            if(g.name == sre_reclamacao.name):
+            if(g.name == sre_reclamacao.name or g.name.upper() == 'SEDU'):
                 can_view = True
 
         if (len(userGroups) == 0):
