@@ -37,8 +37,8 @@ class ReclamacaoDetail(UpdateView):
     def get_context_data(self, *args, **kwargs):
         context = super(ReclamacaoDetail, self).get_context_data(**kwargs)
         reclamacao = context['reclamacao']
+        print(context['object'].status.nome)
         sre_reclamacao = reclamacao.aluno.escola.municipio.sre
-        
         userGroups = self.request.user.groups.all()
         can_view = False
 
@@ -55,7 +55,7 @@ class ReclamacaoDetail(UpdateView):
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         Reclamacao.objects.filter(pk=self.kwargs['pk']).update(status=request.POST.get("status"))
-        return redirect('web_reclamacao_list')
+        return redirect('web_reclamacao_detail', self.kwargs['pk'])
 
 @method_decorator(login_required, name='dispatch')
 class ReclamacaoCreate(CreateView): 
@@ -72,6 +72,7 @@ class ComentarioCreate(CreateView):
        context = super(ComentarioCreate, self).get_context_data(**kwargs)
        context['reclamacao'] = Reclamacao.objects.get(id=self.kwargs['pk'])
        full_name = self.request.user.first_name + ' ' + self.request.user.last_name
+       print(full_name)
        context['responsavel'] = full_name
        
        return context
@@ -101,3 +102,16 @@ class ParecerFinalCreate(CreateView):
        
        return context
     
+    def post(self, request, *args, **kwargs):
+        resp = Responsavel.objects.get(usuario=request.user.id)
+        reclamacao = Reclamacao.objects.get(id=self.kwargs['pk'])
+        parecer_data = {}
+        parecer_data['texto'] = request.POST.get('texto')
+        parecer_data['reclamacao'] = reclamacao
+        parecer_data['responsavel'] = resp
+        parecer = ParecerFinal(**parecer_data)
+        parecer.save()
+
+        reclamacao.status = ReclamacaoStatus.objects.get(nome="Concluído")
+        reclamacao.save()
+        return redirect('web_reclamacao_detail', self.kwargs['pk'])

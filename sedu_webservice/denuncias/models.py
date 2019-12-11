@@ -102,3 +102,17 @@ class Comentario (AuditEntity):
         user = self.responsavel.usuario.username
         replystring = "Resposta de {} ({})".format(fullname, user)
         return replystring
+
+class ParecerFinal (AuditEntity):
+    texto = models.TextField()
+    reclamacao = models.ForeignKey(Reclamacao,on_delete=models.CASCADE, related_name='parecer_final')
+    responsavel = models.ForeignKey(Responsavel,on_delete=models.CASCADE)
+
+    def __str__(self):
+        fullname = self.responsavel.usuario.first_name + " " + self.responsavel.usuario.last_name
+        user = self.responsavel.usuario.username
+        replystring = "Parecer de {} ({})".format(fullname, user)
+        return replystring
+    
+    class Meta:
+        db_table = "denuncias_parecer_final"

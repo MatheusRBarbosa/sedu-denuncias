@@ -22,11 +22,6 @@ def generate_protocol(sender, instance, created, **kwargs):
         final_protocol = today + str(instance.tipo_id) + protocol_id
         Reclamacao.objects.filter(pk=instance.id).update(protocolo=final_protocol)
 
-# @receiver(post_save, sender=Comentario)
-# def update_status_reclamacao(sender, instance, created, **kwargs):
-#     if created:
-#         Reclamacao.objects.filter(pk=instance.reclamacao.id).update(status=2)
-
 @receiver(m2m_changed, sender=User.groups.through)
 def create_responsavel(**kwargs):
 
@@ -47,12 +42,10 @@ def create_responsavel(**kwargs):
             responsavel = Responsavel(**responsavel_data)
         
         responsavel.save()
-        print(responsavel.sre)
-    
-    # Se for um remove eu preciso tratar ? Uma reclamacao ( que nao pode ser apagada ), pode ficar sem responsavel pelos comentarios ?
-    #elif(kwargs['action'] == 'post_remove'):
-    #    user = kwargs['instance']
-    #    resp = Responsavel.objects.get(usuario=user.id) 
-    #    print(resp.sre)
-    #   print('=============APAGANDO===========')
+
+
+# @receiver(post_save, sender=Comentario)
+# def update_status_reclamacao(sender, instance, created, **kwargs):
+#     if created:
+#         Reclamacao.objects.filter(pk=instance.reclamacao.id).update(status=2)
 

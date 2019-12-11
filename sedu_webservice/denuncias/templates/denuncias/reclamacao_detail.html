@@ -94,7 +94,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Comentário</h4>
-                    <p class="card-category">Feito por: {{comentario.responsavel.usuario.first_name|linebreaks}}</p>
+                    <p class="card-category">Autor: {{comentario.responsavel.usuario.first_name}} {{comentario.responsavel.usuario.last_name}}</p>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -118,17 +118,54 @@
             </div>
         </div>
     {% endfor %}
+    {% for pf in object.parecer_final.all %}
+        <div class="col-md-12">
+            <div class="card parecer-final-card">
+                <div class="card-header">
+                    <h4 class="card-title">Parecer Final</h4>
+                    <p class="card-category">Autor: {{pf.responsavel.usuario.first_name}} {{pf.responsavel.usuario.last_name}}</p>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>{{pf.texto}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <p class="card-category">Nenhum parecer final ainda...</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
     <div class="col-md-12">
         <div class="row">
             <div class="update ml-auto mr-auto">
-                <a href="{% url 'web_comentario_create' reclamacao.id %}" class="btn btn-primary btn-round">Novo Comentário</a>
+                {% if object.status.nome == "Concluído" %}
+                    <a href="{% url 'web_comentario_create' reclamacao.id %}" class="btn btn-primary btn-round disabled">Novo Comentário</a>
+                {% else %}
+                    <a href="{% url 'web_comentario_create' reclamacao.id %}" class="btn btn-primary btn-round">Novo Comentário</a>
+                {% endif %}
             </div>
         </div>
     </div>
     <div class="col-md-12">
         <div class="row">
             <div class="update ml-auto mr-auto">
-                <a href="{% url 'web_parecer_final' reclamacao.id %}" class="btn btn-warning btn-round">Fechar reclamação</a>
+                {% if object.status.nome == "Concluído" %}
+                    <a href="{% url 'web_parecer_final' reclamacao.id %}" class="btn btn-warning btn-round disabled">Fechar reclamação</a>
+                {% else %}
+                    <a href="{% url 'web_parecer_final' reclamacao.id %}" class="btn btn-warning btn-round">Fechar reclamação</a>
+                {% endif %}
             </div>
         </div>
     </div>

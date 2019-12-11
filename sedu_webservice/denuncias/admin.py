@@ -46,6 +46,11 @@ class ComentarioInline(admin.StackedInline):
     model = Comentario
     extra = 0
     fields = ["responsavel", "texto"]
+
+class ParecerFinalInline(admin.StackedInline):
+    model = ParecerFinal
+    extra = 0
+    fields = ["responsavel", "texto"]
     
 
 class ReclamacaoAdmin(admin.ModelAdmin):
@@ -53,7 +58,7 @@ class ReclamacaoAdmin(admin.ModelAdmin):
     list_display = ('aluno','protocolo', 'escola', 'setor', 'tipo', 'reclamante', 'status')
     list_filter = ('agencia_transporte', 'status')
     search_fields = (['protocolo', 'aluno'])
-    inlines = [ComentarioInline]
+    inlines = [ComentarioInline, ParecerFinalInline]
     readonly_fields = ['protocolo', 'status']
 
     def escola(self, obj):

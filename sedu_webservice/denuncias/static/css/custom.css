@@ -2,3 +2,8 @@
     font-weight: 900;
     color: darkgreen;
 }
+
+.parecer-final-card{
+    border: solid 1px !important;
+    border-color: #ffc107 !important;
+};
