@@ -20,6 +20,7 @@ router.register(r'tipo_reclamacao', TipoReclamacaoViewSet)
 
 urlpatterns = [
     path('mensagem', ReclamacaoAPIViewSet.as_view()),
+    path('reclamante/<int:pk>/reclamacoes', ReclamanteAPIViewSet.get)
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

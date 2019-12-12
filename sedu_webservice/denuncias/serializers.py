@@ -76,3 +76,4 @@ class ReclamacaoAPISerializer(serializers.Serializer):
     descricao = serializers.CharField(max_length=255)
     inep_escola = serializers.CharField(max_length=255)
     data_ocorrido = serializers.DateTimeField()
+

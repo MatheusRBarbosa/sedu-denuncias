@@ -72,7 +72,6 @@ class ComentarioCreate(CreateView):
        context = super(ComentarioCreate, self).get_context_data(**kwargs)
        context['reclamacao'] = Reclamacao.objects.get(id=self.kwargs['pk'])
        full_name = self.request.user.first_name + ' ' + self.request.user.last_name
-       print(full_name)
        context['responsavel'] = full_name
        
        return context
@@ -86,6 +85,9 @@ class ComentarioCreate(CreateView):
         comentario_data['responsavel'] = resp
         comentario = Comentario(**comentario_data)
         comentario.save()
+
+        reclamacao.status = ReclamacaoStatus.objects.get(nome="Analisando")
+        reclamacao.save()
 
         return redirect('web_reclamacao_detail', self.kwargs['pk'])
 

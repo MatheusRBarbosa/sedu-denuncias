@@ -4,6 +4,8 @@ from .serializers import *
 from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.core import serializers
+from django.http import HttpResponse, JsonResponse
 
 class SREViewSet(viewsets.ModelViewSet):
     queryset = SRE.objects.all()
@@ -99,4 +101,20 @@ class ReclamacaoAPIViewSet(APIView):
     
     def get_extra_actions(cls):
         return []
+
+class ReclamanteAPIViewSet(APIView):
+    def get(request, pk):
+        from pprint import pprint
+        reclamante = Reclamante.objects.get(id=pk)
+        #reclamacoes = Reclamacao.objects.filter(reclamante=reclamante)
+        response = {}
+        reclamacoes = Reclamacao.objects.filter(reclamante=reclamante)
+        
+        response = []
+        response.append(serializers.serialize("json", reclamacoes))   
+        #for reclamacao in reclamacoes:
+            #r = {}
+            #r['aluno'] = reclamacao.aluno
+            #r['']
+        return HttpResponse(response)
 
