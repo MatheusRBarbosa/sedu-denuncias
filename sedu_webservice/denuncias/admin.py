@@ -104,9 +104,3 @@ admin.site.register(TipoReclamacao, TipoReclamacaoAdmin)
 admin.site.register(Setor, SetorAdmin)
 admin.site.register(Turno, TurnoAdmin)
 admin.site.register(Rotas, RotasAdmin)
-
-
-
-
-
-

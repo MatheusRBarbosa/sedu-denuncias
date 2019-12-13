@@ -116,10 +116,10 @@ class ParecerFinal (AuditEntity):
     class Meta:
         db_table = "denuncias_parecer_final"
 
-class Turno(AuditEntity):
+class Turno(AbstractEntity):
     pass
 
-class Rotas(AuditEntity):
+class Rotas(AbstractEntity):
     cod_linha = models.CharField(max_length=60, default="", blank=True)
     turno = models.ForeignKey(Turno, on_delete=models.CASCADE, related_name='turnos')
     escola = models.ForeignKey(Escola, on_delete=models.CASCADE, related_name='escola')
