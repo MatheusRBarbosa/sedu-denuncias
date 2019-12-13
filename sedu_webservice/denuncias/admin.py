@@ -80,6 +80,17 @@ class SetorAdmin(admin.ModelAdmin):
     list_display = (['nome'])
     search_fields = (['nome'])
 
+class TurnoAdmin(admin.ModelAdmin):
+    empty_value_display = '-empty-'
+    list_display = (['nome'])
+    search_fields = (['nome'])
+
+class RotasAdmin(admin.ModelAdmin):
+    empty_value_display = '-empty-'
+    list_filter = ('turno', 'escola')
+    list_display = (['nome', 'turno', 'escola'])
+    search_fields = (['nome', 'turno', 'escola'])
+
 
 admin.site.register(Municipio, MunicipioAdmin)
 admin.site.register(Escola, EscolaAdmin)
@@ -91,6 +102,8 @@ admin.site.register(Aluno, AlunoAdmin)
 admin.site.register(Responsavel, ResponsavelAdmin)
 admin.site.register(TipoReclamacao, TipoReclamacaoAdmin)
 admin.site.register(Setor, SetorAdmin)
+admin.site.register(Turno, TurnoAdmin)
+admin.site.register(Rotas, RotasAdmin)
 
 
 
