@@ -28,7 +28,8 @@ if (PATH_PRODUCTION == 'sedu'):
     STATIC_URL = '/sedu/static/'
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'static'),
-
+    ]
+    
 else:
     STATIC_URL = '/static/'
     STATICFILES_DIRS = [
