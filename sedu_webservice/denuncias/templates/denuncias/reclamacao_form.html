@@ -10,7 +10,7 @@
     <div class="card">
         <div class="card-header">
             <h4 class="card-title">
-                {% if request.resolver_match.url_name == "web_reclamacao_create" %}Criar nova reclamação{% endif %}
+                Criar nova reclamação
             </h4>
         </div>
         <div class="card-body">
@@ -20,11 +20,7 @@
                 <div class="row">
                     <div class="col-md-6 pr-1">
                         <div class="form-group">
-                            {% if request.resolver_match.url_name == "web_reclamacao_update" %}
-                                <div>{{form.protocolo | as_crispy_field}}</div>
-                            {% else %}
-                                <div>{{form.protocolo | as_crispy_field}}</div>
-                            {% endif %}
+                            <div>{{form.protocolo | as_crispy_field}}</div>
                         </div>
                     </div>
                     <div class="col-md-6 pl-1">
@@ -53,11 +49,7 @@
                     </div>
                     <div class="col-md-6 pl-1">
                         <div class="form-group">
-                            {% if request.resolver_match.url_name == "web_reclamacao_update" %}
-                                <div>{{form.cod_linha | as_crispy_field}}</div>
-                            {% else %}
-                                <div>{{form.cod_linha | as_crispy_field}}</div>
-                            {% endif %}
+                            {{form.aluno.escola.rotas.cod_linha}}
                         </div>
                     </div>
                 </div>

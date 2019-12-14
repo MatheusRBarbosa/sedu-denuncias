@@ -62,6 +62,14 @@ class ReclamacaoCreate(CreateView):
     model = Reclamacao
     fields = '__all__'
     success_url = reverse_lazy('web_reclamacao_list')
+    def get_context_data(self, *args, **kwargs):
+        from pprint import pprint
+        context = super(ReclamacaoCreate, self).get_context_data(**kwargs)
+        
+        f = context['form']
+        a = f.fields['aluno']
+        pprint(a['escola'])
+        return context
 
 class ComentarioCreate(CreateView): 
     model = Comentario
