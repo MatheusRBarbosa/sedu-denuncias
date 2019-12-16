@@ -64,6 +64,14 @@ class TipoReclamacao (AbstractEntity):
     class Meta:
         db_table = "denuncias_tipo_reclamacao"
 
+class Turno(AbstractEntity):
+    pass
+
+class Rota(AbstractEntity):
+    cod_linha = models.CharField(max_length=60, default="", blank=True)
+    turno = models.ForeignKey(Turno, on_delete=models.CASCADE, related_name='turnos')
+    escola = models.ForeignKey(Escola, on_delete=models.CASCADE, related_name='escola')
+
 class Reclamacao (AuditEntity):
     
     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE, blank=True, null=True)
@@ -73,6 +81,7 @@ class Reclamacao (AuditEntity):
     protocolo = models.CharField(max_length=60, default="")
     tipo = models.ForeignKey(TipoReclamacao, on_delete=models.CASCADE, default=1)
     status = models.ForeignKey(ReclamacaoStatus, on_delete=models.CASCADE, default=1)
+    rota = models.ForeignKey(Rota, on_delete=models.CASCADE)
     data_ocorrido = models.DateTimeField()
     
     def __str__(self):
@@ -116,10 +125,3 @@ class ParecerFinal (AuditEntity):
     class Meta:
         db_table = "denuncias_parecer_final"
 
-class Turno(AbstractEntity):
-    pass
-
-class Rotas(AbstractEntity):
-    cod_linha = models.CharField(max_length=60, default="", blank=True)
-    turno = models.ForeignKey(Turno, on_delete=models.CASCADE, related_name='turnos')
-    escola = models.ForeignKey(Escola, on_delete=models.CASCADE, related_name='escola')

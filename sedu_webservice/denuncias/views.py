@@ -62,14 +62,24 @@ class ReclamacaoCreate(CreateView):
     model = Reclamacao
     fields = '__all__'
     success_url = reverse_lazy('web_reclamacao_list')
-    def get_context_data(self, *args, **kwargs):
-        from pprint import pprint
-        context = super(ReclamacaoCreate, self).get_context_data(**kwargs)
-        
-        f = context['form']
-        a = f.fields['aluno']
-        pprint(a['escola'])
-        return context
+
+    def post(self, request, *args, **kwargs):
+        reclamacao_data = {}
+        reclamacao_data['aluno'] = Aluno.objects.get(id=request.POST.get('aluno'))
+        reclamacao_data['reclamante'] = Reclamante.objects.get(id=request.POST.get('reclamante'))
+        reclamacao_data['agencia_transporte'] = AgenciaTransporte.objects.get(id=request.POST.get('agencia_transporte'))
+        reclamacao_data['tipo'] = TipoReclamacao.objects.get(id=request.POST.get('tipo'))
+        reclamacao_data['data_ocorrido'] = request.POST.get('data_ocorrido')
+        reclamacao_data['texto'] = request.POST.get('texto')
+        reclamacao_data['rota'] = Rota.objects.get(id=request.POST.get('rota'))
+
+        reclamacao_data['status'] = ReclamacaoStatus.objects.get(id=1)
+        reclamacao_data['protocolo'] = 1
+
+        reclamacao = Reclamacao(**reclamacao_data)
+        reclamacao.save()
+
+        return redirect('web_reclamacao_list')
 
 class ComentarioCreate(CreateView): 
     model = Comentario

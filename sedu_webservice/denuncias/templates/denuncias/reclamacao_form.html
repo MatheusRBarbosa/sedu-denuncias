@@ -18,12 +18,7 @@
             <form method="post">
                 {% csrf_token %}
                 <div class="row">
-                    <div class="col-md-6 pr-1">
-                        <div class="form-group">
-                            <div>{{form.protocolo | as_crispy_field}}</div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 pl-1">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <div> {{form.aluno | as_crispy_field}} </div>
                         </div>
@@ -49,23 +44,15 @@
                     </div>
                     <div class="col-md-6 pl-1">
                         <div class="form-group">
-                            {{form.aluno.escola.rotas.cod_linha}}
+                            <label>Data do ocorrido</label>
+                            <div><input class="form-control" name="data_ocorrido" type="date"></div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 pr-1">
+                    <div class="col-md-12">
                         <div class="form-group">
-                            <div>{{form.status | as_crispy_field}}</div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 pl-1">
-                        <div class="form-group">
-                            {% if request.resolver_match.url_name == "web_reclamacao_update" %}
-                                <div>{{form.data_ocorrido | as_crispy_field}}</div>
-                            {% else %}
-                                <div>{{form.data_ocorrido | as_crispy_field}}</div>
-                            {% endif %}
+                            <div>{{form.rota | as_crispy_field}}</div>
                         </div>
                     </div>
                 </div>
