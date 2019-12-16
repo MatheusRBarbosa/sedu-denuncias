@@ -73,6 +73,24 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-md-6 pr-1">
+                        <div class="form-group">
+                            <label>Papel</label>
+                            <div>{{object.papel}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 pl-1">
+                        <div class="form-group">
+                            <label>Outro papel</label>
+                            {% if object.outro_papel == "" %}
+                                <div>-</div>
+                            {% else %}
+                                <div>{{object.outro_papel}}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Texto</label>

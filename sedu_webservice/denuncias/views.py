@@ -37,7 +37,6 @@ class ReclamacaoDetail(UpdateView):
     def get_context_data(self, *args, **kwargs):
         context = super(ReclamacaoDetail, self).get_context_data(**kwargs)
         reclamacao = context['reclamacao']
-        print(context['object'].status.nome)
         sre_reclamacao = reclamacao.aluno.escola.municipio.sre
         userGroups = self.request.user.groups.all()
         can_view = False
