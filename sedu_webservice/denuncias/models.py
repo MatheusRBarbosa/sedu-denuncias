@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import Group, User
 from django.urls import reverse
-
+import uuid
 
 class AuditEntity(models.Model):
     
@@ -30,6 +30,9 @@ class SRE (Group):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = "SREs"
+
 class Municipio(AbstractEntity):
     sre = models.ForeignKey(SRE, on_delete=models.CASCADE)
     cod_ibge = models.CharField(max_length=200)
@@ -43,14 +46,19 @@ class AgenciaTransporte (AbstractEntity):
     
     class Meta:
         db_table = "denuncias_agencia_transporte"
+        verbose_name = "Agência de transporte"
+        verbose_name_plural = "Agências de transporte"
+        
+        
 
 class Aluno (AbstractEntity):
-    ra = models.CharField(max_length=200, default="")
+    ra = models.CharField(max_length=200, blank=True, default="")
     cod_energia = models.CharField(max_length=200, default="")
     escola = models.ForeignKey(Escola,on_delete=models.CASCADE)
 
 class Reclamante(AbstractEntity):
     email = models.EmailField(max_length=255, unique=True)
+    sub_novo = models.UUIDField(editable=False, blank=True, null=True)
 
 class ReclamacaoStatus (AbstractEntity):
     class Meta:
@@ -59,38 +67,62 @@ class ReclamacaoStatus (AbstractEntity):
 class Setor (AbstractEntity):
     pass
 
+    def __str__(self):
+        return self.nome
+
+    class Meta:
+        verbose_name_plural = "Setores"
+
 class TipoReclamacao (AbstractEntity):
     setor = models.ForeignKey(Setor, on_delete=models.CASCADE)
+    
     class Meta:
         db_table = "denuncias_tipo_reclamacao"
+        verbose_name_plural = "Tipos de reclamações"
 
 class Turno(AbstractEntity):
     pass
 
+    def __str__(self):
+        return self.nome
+
 class Rota(AbstractEntity):
     cod_linha = models.CharField(max_length=60, default="", blank=True)
-    turno = models.ForeignKey(Turno, on_delete=models.CASCADE, related_name='turnos')
+    turno = models.ForeignKey(Turno, on_delete=models.CASCADE, related_name='turno')
     escola = models.ForeignKey(Escola, on_delete=models.CASCADE, related_name='escola')
+
+class Papel(AbstractEntity):
+    pass
+
+    def __str__(self):
+        return self.nome
+
+    class Meta:
+        verbose_name_plural = "Papeis"
+    
 
 class Reclamacao (AuditEntity):
     
     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE, blank=True, null=True)
     texto = models.TextField()
+    papel = models.ForeignKey(Papel, on_delete=models.CASCADE, blank=True)
+    outro_papel = models.CharField(max_length=255, blank=True, default="")
     agencia_transporte = models.ForeignKey(AgenciaTransporte, on_delete=models.CASCADE, blank=True, null=True)
     reclamante = models.ForeignKey(Reclamante, on_delete=models.CASCADE, blank=True, null=True)
     protocolo = models.CharField(max_length=60, default="")
-    tipo = models.ForeignKey(TipoReclamacao, on_delete=models.CASCADE, default=1)
     status = models.ForeignKey(ReclamacaoStatus, on_delete=models.CASCADE, default=1)
-    rota = models.ForeignKey(Rota, on_delete=models.CASCADE)
     data_ocorrido = models.DateTimeField()
+
+    # Atributos de reclamacao de transporte
+    rota = models.ForeignKey(Rota, on_delete=models.CASCADE)
+    placa_veiculo = models.CharField(max_length=255, blank=True, default="")
+    tipo = models.ForeignKey(TipoReclamacao, on_delete=models.CASCADE, default=1)
     
     def __str__(self):
         return self.aluno.nome
 
-    def get_absolute_url(self):
-        return reverse('web_reclamacao_detail', kwargs={'pk':self.pk})
-
-
+    class Meta:
+        verbose_name_plural = "Reclamações"
 
 class Responsavel(AuditEntity):
     usuario = models.ForeignKey(User,on_delete=models.CASCADE)
@@ -99,6 +131,9 @@ class Responsavel(AuditEntity):
     def __str__(self):
         fullname = self.usuario.first_name + " " + self.usuario.last_name + " ({})".format(self.usuario.username)
         return fullname
+    
+    class Meta:
+        verbose_name_plural = "Responsáveis"
 
 class Comentario (AuditEntity):
     texto = models.TextField()

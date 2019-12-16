@@ -56,8 +56,8 @@ class ParecerFinalInline(admin.StackedInline):
 class ReclamacaoAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
     list_display = ('aluno','protocolo', 'escola', 'setor', 'tipo', 'reclamante', 'status', 'rota')
-    list_filter = ('agencia_transporte', 'status')
-    search_fields = (['protocolo', 'aluno', 'rota'])
+    list_filter = ('agencia_transporte', 'status', 'tipo')
+    search_fields = (['protocolo', 'aluno', 'rota', 'placa_veiculo'])
     inlines = [ComentarioInline, ParecerFinalInline]
     readonly_fields = ['protocolo', 'status']
 
@@ -91,6 +91,11 @@ class RotaAdmin(admin.ModelAdmin):
     list_display = (['nome', 'turno', 'escola'])
     search_fields = (['nome', 'turno', 'escola'])
 
+class PapelAdmin(admin.ModelAdmin):
+    empty_value_display = '-empty-'
+    list_filter = (['nome'])
+    list_display = (['nome'])
+    search_fields = (['nome'])
 
 admin.site.register(Municipio, MunicipioAdmin)
 admin.site.register(Escola, EscolaAdmin)
@@ -104,3 +109,4 @@ admin.site.register(TipoReclamacao, TipoReclamacaoAdmin)
 admin.site.register(Setor, SetorAdmin)
 admin.site.register(Turno, TurnoAdmin)
 admin.site.register(Rota, RotaAdmin)
+admin.site.register(Papel, PapelAdmin)

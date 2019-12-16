@@ -51,6 +51,9 @@ class ComentarioViewSet(viewsets.ModelViewSet):
     queryset = Comentario.objects.all()
     serializer_class = ComentarioSerializer
 
+class TurnoViewSet(viewsets.ModelViewSet):
+    queryset = Turno.objects.all()
+    serializer_class = TurnoSerializer
 
 class ReclamacaoAPIViewSet(APIView):
 
@@ -104,17 +107,23 @@ class ReclamacaoAPIViewSet(APIView):
 
 class ReclamanteAPIViewSet(APIView):
     def get(request, pk):
-        from pprint import pprint
-        reclamante = Reclamante.objects.get(id=pk)
-        #reclamacoes = Reclamacao.objects.filter(reclamante=reclamante)
-        response = {}
-        reclamacoes = Reclamacao.objects.filter(reclamante=reclamante)
         
+        reclamacoes = Reclamacao.objects.filter(reclamante=pk)
         response = []
         response.append(serializers.serialize("json", reclamacoes))   
-        #for reclamacao in reclamacoes:
-            #r = {}
-            #r['aluno'] = reclamacao.aluno
-            #r['']
+
         return HttpResponse(response)
 
+class RotasEscolaAPIViewSet(APIView):
+    #serializer_class = RotasEscolaAPISerializer
+    def get(request, pk):
+
+        rotas = Rota.objects.filter(escola=pk)
+        #rotas = serializers.SlugRelatedField(queryset=Rota.objects.filter(escola=pk), slug_field='turno')
+        
+        for rota in rotas:
+            print(rota.turno)
+
+        response = []
+        response.append(serializers.serialize("json", rotas))
+        return HttpResponse(response)

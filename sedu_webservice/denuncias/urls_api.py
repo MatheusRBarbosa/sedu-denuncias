@@ -16,11 +16,13 @@ router.register(r'reclamacoes', ReclamacaoViewSet)
 router.register(r'responsaveis', ResponsavelViewSet)
 router.register(r'comentarios', ComentarioViewSet)
 router.register(r'tipo_reclamacao', TipoReclamacaoViewSet)
+router.register(r'turno', TurnoViewSet)
 #router.register(r'mensagem', ReclamacaoAPIViewSet.as_view(), base_name='mensagem')
 
 urlpatterns = [
     path('mensagem', ReclamacaoAPIViewSet.as_view()),
-    path('reclamante/<int:pk>/reclamacoes', ReclamanteAPIViewSet.get)
+    path('reclamante/<int:pk>/reclamacoes', ReclamanteAPIViewSet.get),
+    path('escola/<int:pk>/rotas', RotasEscolaAPIViewSet.get)
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

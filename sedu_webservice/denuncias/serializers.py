@@ -60,6 +60,11 @@ class ResponsavelSerializer(serializers.ModelSerializer):
         model = Responsavel
         fields = '__all__'
 
+
+class TurnoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Turno
+        fields = '__all__'
 class ComentarioSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -76,4 +81,3 @@ class ReclamacaoAPISerializer(serializers.Serializer):
     descricao = serializers.CharField(max_length=255)
     inep_escola = serializers.CharField(max_length=255)
     data_ocorrido = serializers.DateTimeField()
-
