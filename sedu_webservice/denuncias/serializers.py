@@ -87,7 +87,7 @@ class ReclamacaoAPISerializer(serializers.Serializer):
     codigoEDP = serializers.CharField(max_length=255)
     escolaId = serializers.IntegerField()
     placaVeiculo = serializers.CharField(max_length=255)
-    codigoRota = serializers.IntegerField()
+    rotaId = serializers.IntegerField()
     tipoReclamacao = serializers.IntegerField()
     dataReclamacao = serializers.DateTimeField()
     descricao = serializers.CharField(max_length=255)

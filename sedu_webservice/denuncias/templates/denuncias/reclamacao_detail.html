@@ -54,7 +54,25 @@
                     </div>
                     <div class="col-md-6 pl-1">
                         <div class="form-group">
-                            <label>Código da linha</label>
+                            <label>Outro tipo</label>
+                            {% if object.outro_tipo == "" or object.outro_tipo == None %}
+                                <div>-</div>
+                            {% else %}
+                                <div>{{object.outro_tipo}}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 pr-1">
+                        <div class="form-group">
+                            <label>Nome da rota</label>
+                            <div>{{object.rota.nome}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 pl-1">
+                        <div class="form-group">
+                            <label>Código da rota</label>
                             <div>{{object.rota.cod_linha}}</div>
                         </div>
                     </div>

@@ -40,7 +40,6 @@ class ReclamacaoDetail(UpdateView):
         sre_reclamacao = reclamacao.aluno.escola.municipio.sre
         userGroups = self.request.user.groups.all()
         can_view = False
-        print(context)
         for g in userGroups:
             if(g.name == sre_reclamacao.name or g.name.upper() == 'SEDU'):
                 can_view = True
@@ -76,7 +75,6 @@ class ReclamacaoCreate(CreateView):
         reclamacao_data['placa_veiculo'] = request.POST.get('placa_veiculo')
 
         reclamacao_data['status'] = ReclamacaoStatus.objects.get(id=1)
-        reclamacao_data['protocolo'] = 1
 
         reclamacao = Reclamacao(**reclamacao_data)
         reclamacao.save()

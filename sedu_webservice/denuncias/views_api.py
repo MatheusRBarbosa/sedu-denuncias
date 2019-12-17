@@ -98,9 +98,10 @@ class ReclamacaoAPIViewSet(APIView):
             reclamacao_data['texto'] = request.data.get('descricao')
             reclamacao_data['reclamante'] = reclamante
             reclamacao_data['tipo'] = TipoReclamacao.objects.get(pk=request.data.get('tipoReclamacao'))
+            reclamacao_data['outro_tipo'] = request.data.get('outroTipo')
             reclamacao_data['data_ocorrido'] = request.data.get('dataReclamacao')
             reclamacao_data['placa_veiculo'] = request.data.get('placaVeiculo')
-            reclamacao_data['rota'] = Rota.objects.get(cod_linha=request.data.get('codigoRota'))
+            reclamacao_data['rota'] = Rota.objects.get(pk=request.data.get('rotaId'))
             reclamacao_data['papel'] = Papel.objects.get(pk=request.data.get('papelDoAutor'))
             reclamacao_data['outro_papel'] = request.data.get('outroPapel')
 
