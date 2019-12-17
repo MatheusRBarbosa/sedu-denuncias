@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
-ALLOWED_HOSTS = ['*']
+#ALLOWED_HOSTS = ['*']
 
 DB_NAME = os.getenv('DB_NAME')
 DB_HOST = os.getenv('DB_HOST')
@@ -78,6 +78,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'denuncias',
     'rest_framework',
+    'rest_framework.authtoken',
     'drf_yasg',
     'crispy_forms',
 ]
@@ -96,7 +97,14 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'sedu_webservice.urls'
 
-
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.load_template_source',

@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.core import serializers
 from django.http import HttpResponse, JsonResponse
+from rest_framework.permissions import IsAuthenticated
 
 class SREViewSet(viewsets.ModelViewSet):
     queryset = SRE.objects.all()
@@ -115,7 +116,9 @@ class ReclamacaoAPIViewSet(APIView):
     def get_extra_actions(cls):
         return []
 
+#@permission_classes((IsAuthenticated,))
 class ReclamanteAPIViewSet(APIView):
+    permission_classes = (IsAuthenticated,)
     def get(request, pk):
         
         reclamacoes = Reclamacao.objects.filter(reclamante=pk)
@@ -125,7 +128,7 @@ class ReclamanteAPIViewSet(APIView):
         return HttpResponse(response)
 
 class RotasEscolaAPIViewSet(APIView):
-    #serializer_class = RotasEscolaAPISerializer
+    permission_classes = [IsAuthenticated]
     def get(request, pk):
 
         rotas = Rota.objects.filter(escola=pk)
