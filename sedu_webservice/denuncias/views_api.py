@@ -4,77 +4,61 @@ from .serializers import *
 from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from django.core import serializers
 from django.http import HttpResponse, JsonResponse
 
-@method_decorator(login_required, name='dispatch')
 class SREViewSet(viewsets.ModelViewSet):
     queryset = SRE.objects.all()
     serializer_class = SRESerializer
 
-@method_decorator(login_required, name='dispatch')
 class MunicipioViewSet(viewsets.ModelViewSet):
     queryset = Municipio.objects.all()
     serializer_class = MunicipioSerializer
 
-@method_decorator(login_required, name='dispatch')
 class EscolaViewSet(viewsets.ModelViewSet):
     queryset = Escola.objects.all()
     serializer_class = EscolaSerializer
 
-@method_decorator(login_required, name='dispatch')
 class AgenciaTransporteViewSet(viewsets.ModelViewSet):
     queryset = AgenciaTransporte.objects.all()
     serializer_class = AgenciaTransporteSerializer
 
-@method_decorator(login_required, name='dispatch')
 class AlunoViewSet(viewsets.ModelViewSet):
     queryset = Aluno.objects.all()
     serializer_class = AlunoSerializer
 
-@method_decorator(login_required, name='dispatch')
 class ReclamanteViewSet(viewsets.ModelViewSet):
     queryset = Reclamante.objects.all()
     serializer_class = ReclamanteSerializer
 
-@method_decorator(login_required, name='dispatch')
 class ReclamacaoStatusViewSet(viewsets.ModelViewSet):
     queryset = ReclamacaoStatus.objects.all()
     serializer_class = ReclamacaoStatusSerializer
 
-@method_decorator(login_required, name='dispatch')
 class TipoReclamacaoViewSet(viewsets.ModelViewSet):
     queryset = TipoReclamacao.objects.all()
     serializer_class = TipoReclamacaoSerializer
 
-@method_decorator(login_required, name='dispatch')
 class ReclamacaoViewSet(viewsets.ModelViewSet):
     queryset = Reclamacao.objects.all()
     serializer_class = ReclamacaoSerializer
 
-@method_decorator(login_required, name='dispatch')
 class ResponsavelViewSet(viewsets.ModelViewSet):
     queryset = Responsavel.objects.all()
     serializer_class = ResponsavelSerializer
 
-@method_decorator(login_required, name='dispatch')
 class ComentarioViewSet(viewsets.ModelViewSet):
     queryset = Comentario.objects.all()
     serializer_class = ComentarioSerializer
 
-@method_decorator(login_required, name='dispatch')
 class TurnoViewSet(viewsets.ModelViewSet):
     queryset = Turno.objects.all()
     serializer_class = TurnoSerializer
 
-@method_decorator(login_required, name='dispatch')
 class RotasViewSet(viewsets.ModelViewSet):
     queryset = Rota.objects.all()
     serializer_class = RotaSerializer
 
-@method_decorator(login_required, name='dispatch')
 class ReclamacaoAPIViewSet(APIView):
 
     def create_aluno(self, request):
@@ -131,7 +115,6 @@ class ReclamacaoAPIViewSet(APIView):
     def get_extra_actions(cls):
         return []
 
-@method_decorator(login_required, name='dispatch')
 class ReclamanteAPIViewSet(APIView):
     def get(request, pk):
         
