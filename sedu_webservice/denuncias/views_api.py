@@ -60,8 +60,8 @@ class ReclamacaoAPIViewSet(APIView):
     def create_aluno(self, request):
         aluno_data = {}
         aluno_data['nome']= request.data.get('aluno')
-        aluno_data['cod_energia']= request.data.get('codigo_edp')
-        aluno_data['escola'] = Escola.objects.get(cod_inep=request.data.get('inep_escola'))            
+        aluno_data['cod_energia']= request.data.get('codigoEDP')
+        aluno_data['escola'] = Escola.objects.get(pk=request.data.get('escolaId'))            
         aluno = Aluno(**aluno_data)
         aluno.save()
         return aluno
@@ -70,11 +70,12 @@ class ReclamacaoAPIViewSet(APIView):
         
         nome = request.data.get('autor')
         email = request.data.get('email')
+        sub_novo = request.data.get('acesso_cidadao')
         
         try:
-            reclamante = Reclamante.objects.get(email=email)
+            reclamante = Reclamante.objects.get(sub_novo=sub_novo)
         except:
-            reclamante = Reclamante(nome=nome, email=email)
+            reclamante = Reclamante(nome=nome, email=email, sub_novo=sub_novo)
             reclamante.save()
         return reclamante
         
@@ -91,14 +92,18 @@ class ReclamacaoAPIViewSet(APIView):
             reclamacao_data = {}
             reclamacao_data['aluno'] = aluno
             reclamacao_data['texto'] = request.data.get('descricao')
-            # agencia
             reclamacao_data['reclamante'] = reclamante
-            # cod_linha
-            reclamacao_data['tipo'] = TipoReclamacao.objects.get(pk=request.data.get('tipo_reclamacao'))
-            reclamacao_data['data_ocorrido'] = request.data.get('data_ocorrido')
+            reclamacao_data['tipo'] = TipoReclamacao.objects.get(pk=request.data.get('tipoReclamacao'))
+            reclamacao_data['data_ocorrido'] = request.data.get('dataReclamacao')
+            reclamacao_data['placa_veiculo'] = request.data.get('placaVeiculo')
+            reclamacao_data['rota'] = Rota.objects.get(cod_linha=request.data.get('codigoRota'))
+            reclamacao_data['papel'] = Papel.objects.get(pk=request.data.get('papelDoAutor'))
+            reclamacao_data['outro_papel'] = request.data.get('outroPapel')
+
             reclamacao = Reclamacao(**reclamacao_data)
             reclamacao.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     

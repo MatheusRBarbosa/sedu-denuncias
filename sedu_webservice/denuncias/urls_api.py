@@ -20,7 +20,7 @@ router.register(r'turno', TurnoViewSet)
 #router.register(r'mensagem', ReclamacaoAPIViewSet.as_view(), base_name='mensagem')
 
 urlpatterns = [
-    path('mensagem', ReclamacaoAPIViewSet.as_view()),
+    path('reclamacao', ReclamacaoAPIViewSet.as_view()),
     path('reclamante/<int:pk>/reclamacoes', ReclamanteAPIViewSet.get),
     path('escola/<int:pk>/rotas', RotasEscolaAPIViewSet.get)
 ]
