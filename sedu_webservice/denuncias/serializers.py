@@ -71,6 +71,11 @@ class ComentarioSerializer(serializers.ModelSerializer):
         model = Comentario
         fields = '__all__'
 
+class RotaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rota
+        fields = '__all__'
+
 class ReclamacaoAPISerializer(serializers.Serializer):
 
     autor = serializers.CharField(max_length=255)

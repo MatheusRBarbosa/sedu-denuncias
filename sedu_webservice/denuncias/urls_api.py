@@ -17,7 +17,7 @@ router.register(r'responsaveis', ResponsavelViewSet)
 router.register(r'comentarios', ComentarioViewSet)
 router.register(r'tipo_reclamacao', TipoReclamacaoViewSet)
 router.register(r'turno', TurnoViewSet)
-#router.register(r'mensagem', ReclamacaoAPIViewSet.as_view(), base_name='mensagem')
+router.register(r'rotas', RotasViewSet)
 
 urlpatterns = [
     path('reclamacao', ReclamacaoAPIViewSet.as_view()),

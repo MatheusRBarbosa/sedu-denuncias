@@ -55,6 +55,10 @@ class TurnoViewSet(viewsets.ModelViewSet):
     queryset = Turno.objects.all()
     serializer_class = TurnoSerializer
 
+class RotasViewSet(viewsets.ModelViewSet):
+    queryset = Rota.objects.all()
+    serializer_class = RotaSerializer
+
 class ReclamacaoAPIViewSet(APIView):
 
     def create_aluno(self, request):
