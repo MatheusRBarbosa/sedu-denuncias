@@ -147,6 +147,7 @@ class RotasEscolaAPIViewSet(APIView):
     def get(self, request, pk, format=None):
 
         try:
+            key = Token.objects.get(key=request.META.get('HTTP_TOKEN'))
             response = []
             rotas = Rota.objects.filter(escola=pk)
 
