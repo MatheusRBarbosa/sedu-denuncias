@@ -154,3 +154,16 @@ class RotasEscolaAPIViewSet(APIView):
             return HttpResponse(response)
         except:
             return HttpResponse("Token de autenticação inválido.")
+
+class ParecerFinalAPIViewSet(APIView):
+    def get(self, request, pk, format=None):
+        
+        try:
+            key = Token.objects.get(key=request.META.get('HTTP_TOKEN'))
+            response = []
+            parecer = ParecerFinal.objects.filter(reclamacao=pk)
+
+            response.append(serializers.serialize("json", parecer))
+            return HttpResponse(response)
+        except:
+            return HttpResponse("Token de autenticação inválido.")

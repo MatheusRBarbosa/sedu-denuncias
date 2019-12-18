@@ -14,6 +14,7 @@ urlpatterns = [
     path('tipos', TiposReclamacaoAPIViewSet.as_view()),
     path('reclamante/papeis', PapelAPIViewSet.as_view()),
     path('rotas/turnos', TurnoAPIViewSet.as_view()),
+    path('reclamacao/<int:pk>/parecer', ParecerFinalAPIViewSet.as_view()),
 
 ]
 
