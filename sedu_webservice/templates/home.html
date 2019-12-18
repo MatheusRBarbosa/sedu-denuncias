@@ -27,6 +27,18 @@
               <p>Nova reclamação</p>
             </a>
           </li>
+          <li class="{% if request.resolver_match.url_name == "web_aluno_create" %}active{% endif %}">
+            <a href="{% url 'web_aluno_create' %}">
+              <i class="nc-icon nc-simple-add"></i>
+              <p>Novo aluno</p>
+            </a>
+          </li>
+          <li class="{% if request.resolver_match.url_name == "web_reclamante_create" %}active{% endif %}">
+            <a href="{% url 'web_reclamante_create' %}">
+              <i class="nc-icon nc-simple-add"></i>
+              <p>Novo reclamante</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>

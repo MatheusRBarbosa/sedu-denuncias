@@ -81,6 +81,7 @@ class ReclamacaoCreate(CreateView):
 
         return redirect('web_reclamacao_list')
 
+@method_decorator(login_required, name='dispatch')
 class ComentarioCreate(CreateView): 
     model = Comentario
     fields = '__all__'
@@ -109,6 +110,7 @@ class ComentarioCreate(CreateView):
 
         return redirect('web_reclamacao_detail', self.kwargs['pk'])
 
+@method_decorator(login_required, name='dispatch')
 class ParecerFinalCreate(CreateView):
     model = Comentario
     fields = '__all__'
@@ -135,3 +137,16 @@ class ParecerFinalCreate(CreateView):
         reclamacao.status = ReclamacaoStatus.objects.get(nome="Concluído")
         reclamacao.save()
         return redirect('web_reclamacao_detail', self.kwargs['pk'])
+
+@method_decorator(login_required, name='dispatch')
+class AlunoCreate(CreateView):
+    model = Aluno
+    fields = '__all__'
+    template_name = 'denuncias/aluno_form.html'
+
+@method_decorator(login_required, name='dispatch')
+class ReclamanteCreate(CreateView):
+    model = Reclamante
+    fields = '__all__'
+    template_name = 'denuncias/reclamante_form.html'
+    success_url = reverse_lazy('home')
