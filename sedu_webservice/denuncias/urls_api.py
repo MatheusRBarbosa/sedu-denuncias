@@ -12,8 +12,8 @@ urlpatterns = [
     path('municipios', MunicipioAPIViewSet.as_view()),
     path('escolas', EscolaAPIViewSet.as_view()),
     path('tipos', TiposReclamacaoAPIViewSet.as_view()),
-    path('papeis', PapelAPIViewSet.as_view()),
-    path('turnos', TurnoAPIViewSet.as_view()),
+    path('reclamante/papeis', PapelAPIViewSet.as_view()),
+    path('rotas/turnos', TurnoAPIViewSet.as_view()),
 
 ]
 
