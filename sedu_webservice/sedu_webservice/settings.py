@@ -78,7 +78,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'denuncias',
     'rest_framework',
-    'rest_framework.authtoken',
     'drf_yasg',
     'crispy_forms',
 ]
@@ -96,15 +95,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'sedu_webservice.urls'
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    )
-}
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.load_template_source',

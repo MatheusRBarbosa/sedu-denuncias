@@ -93,8 +93,12 @@ class RotaAdmin(admin.ModelAdmin):
 
 class PapelAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
-    list_filter = (['nome'])
     list_display = (['nome'])
+    search_fields = (['nome'])
+
+class TokenAdmin(admin.ModelAdmin):
+    empty_value_display = '-empty-'
+    list_display = (['nome', 'key'])
     search_fields = (['nome'])
 
 admin.site.register(Municipio, MunicipioAdmin)
@@ -110,3 +114,4 @@ admin.site.register(Setor, SetorAdmin)
 admin.site.register(Turno, TurnoAdmin)
 admin.site.register(Rota, RotaAdmin)
 admin.site.register(Papel, PapelAdmin)
+admin.site.register(Token, TokenAdmin)

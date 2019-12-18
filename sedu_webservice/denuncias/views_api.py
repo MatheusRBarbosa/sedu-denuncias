@@ -6,7 +6,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.core import serializers
 from django.http import HttpResponse, JsonResponse
-from rest_framework.permissions import IsAuthenticated
 
 class SREViewSet(viewsets.ModelViewSet):
     queryset = SRE.objects.all()
@@ -118,21 +117,23 @@ class ReclamacaoAPIViewSet(APIView):
 
 #@permission_classes((IsAuthenticated,))
 class ReclamanteAPIViewSet(APIView):
-    permission_classes = (IsAuthenticated,)
     def get(request, pk):
         
-        reclamacoes = Reclamacao.objects.filter(reclamante=pk)
         response = []
-        response.append(serializers.serialize("json", reclamacoes))   
+        try:
+            key = Token.objects.get(key=request.META.get('HTTP_TOKEN'))
+            reclamacoes = Reclamacao.objects.filter(reclamante=pk)
 
-        return HttpResponse(response)
+            response.append(serializers.serialize("json", reclamacoes))
+            return HttpResponse(response)
+        except:
+            return HttpResponse("Token de autenticação inválido.")
+
 
 class RotasEscolaAPIViewSet(APIView):
-    permission_classes = [IsAuthenticated]
     def get(request, pk):
 
         rotas = Rota.objects.filter(escola=pk)
-        #rotas = serializers.SlugRelatedField(queryset=Rota.objects.filter(escola=pk), slug_field='turno')
         
         for rota in rotas:
             print(rota.turno)

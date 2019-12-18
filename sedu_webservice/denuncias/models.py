@@ -161,3 +161,6 @@ class ParecerFinal (AuditEntity):
     class Meta:
         db_table = "denuncias_parecer_final"
 
+class Token(AbstractEntity):
+    key = models.UUIDField(editable=False, default=uuid.uuid4)
+
