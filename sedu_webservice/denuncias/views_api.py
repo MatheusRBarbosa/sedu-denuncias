@@ -7,57 +7,65 @@ from rest_framework.response import Response
 from django.core import serializers
 from django.http import HttpResponse, JsonResponse
 
-class SREViewSet(viewsets.ModelViewSet):
-    queryset = SRE.objects.all()
-    serializer_class = SRESerializer
+class MunicipioAPIViewSet(APIView):
+    def get(self, request, format=None):
+        try:
+            key = Token.objects.get(key=request.META.get('HTTP_TOKEN'))
+            response = []
+            municipios = Reclamacao.objects.all()
 
-class MunicipioViewSet(viewsets.ModelViewSet):
-    queryset = Municipio.objects.all()
-    serializer_class = MunicipioSerializer
+            response.append(serializers.serialize("json", municipios))
+            return HttpResponse(response)
+        except:
+            return HttpResponse("Token de autenticação inválido.")
 
-class EscolaViewSet(viewsets.ModelViewSet):
-    queryset = Escola.objects.all()
-    serializer_class = EscolaSerializer
+class EscolaAPIViewSet(APIView):
+    def get(self, request, format=None):
+        try:
+            key = Token.objects.get(key=request.META.get('HTTP_TOKEN'))
+            response = []
+            escolas = Reclamacao.objects.all()
 
-class AgenciaTransporteViewSet(viewsets.ModelViewSet):
-    queryset = AgenciaTransporte.objects.all()
-    serializer_class = AgenciaTransporteSerializer
+            response.append(serializers.serialize("json", escolas))
+            return HttpResponse(response)
+        except:
+            return HttpResponse("Token de autenticação inválido.")
 
-class AlunoViewSet(viewsets.ModelViewSet):
-    queryset = Aluno.objects.all()
-    serializer_class = AlunoSerializer
+class TiposReclamacaoAPIViewSet(APIView):
+    def get(self, request, format=None):
+        try:
+            key = Token.objects.get(key=request.META.get('HTTP_TOKEN'))
+            response = []
+            tipos = Reclamacao.objects.all()
 
-class ReclamanteViewSet(viewsets.ModelViewSet):
-    queryset = Reclamante.objects.all()
-    serializer_class = ReclamanteSerializer
+            response.append(serializers.serialize("json", tipos))
+            return HttpResponse(response)
+        except:
+            return HttpResponse("Token de autenticação inválido.")
 
-class ReclamacaoStatusViewSet(viewsets.ModelViewSet):
-    queryset = ReclamacaoStatus.objects.all()
-    serializer_class = ReclamacaoStatusSerializer
+class PapelAPIViewSet(APIView):
+    def get(self, request, format=None):
+        try:
+            key = Token.objects.get(key=request.META.get('HTTP_TOKEN'))
+            response = []
+            papeis = Reclamacao.objects.all()
 
-class TipoReclamacaoViewSet(viewsets.ModelViewSet):
-    queryset = TipoReclamacao.objects.all()
-    serializer_class = TipoReclamacaoSerializer
+            response.append(serializers.serialize("json", papeis))
+            return HttpResponse(response)
+        except:
+            return HttpResponse("Token de autenticação inválido.")
 
-class ReclamacaoViewSet(viewsets.ModelViewSet):
-    queryset = Reclamacao.objects.all()
-    serializer_class = ReclamacaoSerializer
+class TurnoAPIViewSet(APIView):
+    def get(self, request, format=None):
+        try:
+            key = Token.objects.get(key=request.META.get('HTTP_TOKEN'))
+            response = []
+            turnos = Turno.objects.all()
 
-class ResponsavelViewSet(viewsets.ModelViewSet):
-    queryset = Responsavel.objects.all()
-    serializer_class = ResponsavelSerializer
-
-class ComentarioViewSet(viewsets.ModelViewSet):
-    queryset = Comentario.objects.all()
-    serializer_class = ComentarioSerializer
-
-class TurnoViewSet(viewsets.ModelViewSet):
-    queryset = Turno.objects.all()
-    serializer_class = TurnoSerializer
-
-class RotasViewSet(viewsets.ModelViewSet):
-    queryset = Rota.objects.all()
-    serializer_class = RotaSerializer
+            response.append(serializers.serialize("json", turnos))
+            return HttpResponse(response)
+        except:
+            return HttpResponse("Token de autenticação inválido.")
 
 class ReclamacaoAPIViewSet(APIView):
 
@@ -84,44 +92,49 @@ class ReclamacaoAPIViewSet(APIView):
         return reclamante
         
     def post(self, request, format=None):
-        serializer = ReclamacaoAPISerializer(data=request.data)
-        if serializer.is_valid():
-            aluno = self.create_aluno(request)       
-
-            # Retorna um tupla (object, boolean)
-            # object = Objeto do banco
-            # boolean = True se foi criado e False se tiver sido retornado do banco
-            reclamante = self.upsert_reclamante(request)
+        
+        try:
+            key = Token.objects.get(key=request.META.get('HTTP_TOKEN'))
             
-            reclamacao_data = {}
-            reclamacao_data['aluno'] = aluno
-            reclamacao_data['texto'] = request.data.get('descricao')
-            reclamacao_data['reclamante'] = reclamante
-            reclamacao_data['tipo'] = TipoReclamacao.objects.get(pk=request.data.get('tipoReclamacao'))
-            reclamacao_data['outro_tipo'] = request.data.get('outroTipo')
-            reclamacao_data['data_ocorrido'] = request.data.get('dataReclamacao')
-            reclamacao_data['placa_veiculo'] = request.data.get('placaVeiculo')
-            reclamacao_data['rota'] = Rota.objects.get(pk=request.data.get('rotaId'))
-            reclamacao_data['papel'] = Papel.objects.get(pk=request.data.get('papelDoAutor'))
-            reclamacao_data['outro_papel'] = request.data.get('outroPapel')
+            serializer = ReclamacaoAPISerializer(data=request.data)
+            if serializer.is_valid():
+                aluno = self.create_aluno(request)       
 
-            reclamacao = Reclamacao(**reclamacao_data)
-            reclamacao.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+                # Retorna um tupla (object, boolean)
+                # object = Objeto do banco
+                # boolean = True se foi criado e False se tiver sido retornado do banco
+                reclamante = self.upsert_reclamante(request)
+                
+                reclamacao_data = {}
+                reclamacao_data['aluno'] = aluno
+                reclamacao_data['texto'] = request.data.get('descricao')
+                reclamacao_data['reclamante'] = reclamante
+                reclamacao_data['tipo'] = TipoReclamacao.objects.get(pk=request.data.get('tipoReclamacao'))
+                reclamacao_data['outro_tipo'] = request.data.get('outroTipo')
+                reclamacao_data['data_ocorrido'] = request.data.get('dataReclamacao')
+                reclamacao_data['placa_veiculo'] = request.data.get('placaVeiculo')
+                reclamacao_data['rota'] = Rota.objects.get(pk=request.data.get('rotaId'))
+                reclamacao_data['papel'] = Papel.objects.get(pk=request.data.get('papelDoAutor'))
+                reclamacao_data['outro_papel'] = request.data.get('outroPapel')
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                reclamacao = Reclamacao(**reclamacao_data)
+                reclamacao.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except:
+            return HttpResponse("Token de autenticação inválido.")
+        
 
     
     def get_extra_actions(cls):
         return []
 
-#@permission_classes((IsAuthenticated,))
 class ReclamanteAPIViewSet(APIView):
-    def get(request, pk):
-        
-        response = []
+    def get(self, request, pk, format=None):
         try:
             key = Token.objects.get(key=request.META.get('HTTP_TOKEN'))
+            response = []
             reclamacoes = Reclamacao.objects.filter(reclamante=pk)
 
             response.append(serializers.serialize("json", reclamacoes))
@@ -131,13 +144,13 @@ class ReclamanteAPIViewSet(APIView):
 
 
 class RotasEscolaAPIViewSet(APIView):
-    def get(request, pk):
+    def get(self, request, pk, format=None):
 
-        rotas = Rota.objects.filter(escola=pk)
-        
-        for rota in rotas:
-            print(rota.turno)
+        try:
+            response = []
+            rotas = Rota.objects.filter(escola=pk)
 
-        response = []
-        response.append(serializers.serialize("json", rotas))
-        return HttpResponse(response)
+            response.append(serializers.serialize("json", rotas))
+            return HttpResponse(response)
+        except:
+            return HttpResponse("Token de autenticação inválido.")
