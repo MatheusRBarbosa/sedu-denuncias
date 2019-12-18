@@ -143,6 +143,7 @@ class AlunoCreate(CreateView):
     model = Aluno
     fields = '__all__'
     template_name = 'denuncias/aluno_form.html'
+    success_url = reverse_lazy('home')
 
 @method_decorator(login_required, name='dispatch')
 class ReclamanteCreate(CreateView):
