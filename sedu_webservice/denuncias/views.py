@@ -96,8 +96,14 @@ class ComentarioCreate(CreateView):
        return context
 
     def post(self, request, *args, **kwargs):
-        resp = Responsavel.objects.get(usuario=request.user.id)
         reclamacao = Reclamacao.objects.get(id=self.kwargs['pk'])
+        try:
+            resp = Responsavel.objects.get(usuario=request.user.id)
+        except:
+            if(request.user.username == "admin"):
+                resp = Responsavel(usuario=request.user, sre=reclamacao.aluno.escola.municipio.sre)
+                resp.save()
+        
         comentario_data = {}
         comentario_data['texto'] = request.POST.get('texto')
         comentario_data['reclamacao'] = reclamacao
@@ -125,8 +131,15 @@ class ParecerFinalCreate(CreateView):
        return context
     
     def post(self, request, *args, **kwargs):
-        resp = Responsavel.objects.get(usuario=request.user.id)
         reclamacao = Reclamacao.objects.get(id=self.kwargs['pk'])
+        
+        try:
+            resp = Responsavel.objects.get(usuario=request.user.id)
+        except:
+            if(request.user.username == "admin"):
+                resp = Responsavel(usuario=request.user, sre=reclamacao.aluno.escola.municipio.sre)
+                resp.save()
+        
         parecer_data = {}
         parecer_data['texto'] = request.POST.get('texto')
         parecer_data['reclamacao'] = reclamacao

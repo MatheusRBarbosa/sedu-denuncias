@@ -127,7 +127,7 @@ class Reclamacao (AuditEntity):
 
 class Responsavel(AuditEntity):
     usuario = models.ForeignKey(User,on_delete=models.CASCADE)
-    sre = models.ForeignKey(SRE,on_delete=models.CASCADE)
+    sre = models.ForeignKey(SRE,on_delete=models.CASCADE, blank=True)
     
     def __str__(self):
         fullname = self.usuario.first_name + " " + self.usuario.last_name + " ({})".format(self.usuario.username)
