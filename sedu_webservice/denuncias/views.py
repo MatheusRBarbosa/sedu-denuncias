@@ -61,6 +61,15 @@ class ReclamacaoCreate(CreateView):
     fields = '__all__'
     success_url = reverse_lazy('web_reclamacao_list')
 
+    def load_rotas(request):
+        print(request)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ReclamacaoCreate, self).get_context_data(**kwargs)
+        
+        context['rotas'] = None
+        return context
+
     def post(self, request, *args, **kwargs):
         reclamacao_data = {}
         reclamacao_data['aluno'] = Aluno.objects.get(id=request.POST.get('aluno'))

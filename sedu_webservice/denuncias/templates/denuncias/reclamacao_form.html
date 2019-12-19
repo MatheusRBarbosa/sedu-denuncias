@@ -15,7 +15,7 @@
         </div>
         <div class="card-body">
             
-            <form method="post">
+            <form id="form" method="post" data-rotas-url="{% url 'ajax_load_rotas' %}">
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-md-12">
@@ -64,7 +64,11 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <div>{{form.rota | as_crispy_field}}</div>
+                            <div>
+                                <select class="form-control" name="rota" id="rota_id">
+                                    <option value="">---------</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -104,6 +108,21 @@
         $('#id_reclamante').select2();
         $('#id_rota').select2();
     });
+
+    $("#id_aluno").change(function() {
+        var url = $("#form").attr("data-rotas-url");
+        var rotaId = $(this).val();
+        console.log(rotaId)
+        $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+                'rotas': rotaId       // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                $("#id_rota").html(data);  // replace the contents of the city input with the data that came from the server
+            }
+        });
+    })
 
 </script>
 {% endblock %}
