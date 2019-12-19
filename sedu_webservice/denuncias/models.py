@@ -91,6 +91,9 @@ class Rota(AbstractEntity):
     turno = models.ForeignKey(Turno, on_delete=models.CASCADE, related_name='turno')
     escola = models.ForeignKey(Escola, on_delete=models.CASCADE, related_name='escola')
 
+    def __str__(self):
+        return self.cod_linha +" | " + self.turno.nome + " | " + self.nome 
+
 class Papel(AbstractEntity):
     pass
 
