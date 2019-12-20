@@ -62,7 +62,10 @@ class ReclamacaoCreate(CreateView):
     success_url = reverse_lazy('web_reclamacao_list')
 
     def load_rotas(request):
-        print(request)
+        aluno_id = request.GET.get('alunoId')
+        aluno = Aluno.objects.get(pk=aluno_id)
+        rotas = Rota.objects.filter(escola=aluno.escola)
+        return render(request, 'denuncias/ajax/rotas.html', {'rotas': rotas})
 
     def get_context_data(self, *args, **kwargs):
         context = super(ReclamacaoCreate, self).get_context_data(**kwargs)

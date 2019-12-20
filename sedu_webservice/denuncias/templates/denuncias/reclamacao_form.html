@@ -64,8 +64,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
+                            <label>Rota</label>
                             <div>
-                                <select class="form-control" name="rota" id="rota_id">
+                                <select class="form-control" name="rota" id="id_rota">
                                     <option value="">---------</option>
                                 </select>
                             </div>
@@ -111,12 +112,11 @@
 
     $("#id_aluno").change(function() {
         var url = $("#form").attr("data-rotas-url");
-        var rotaId = $(this).val();
-        console.log(rotaId)
+        var alunoId = $(this).val();
         $.ajax({                       // initialize an AJAX request
         url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
             data: {
-                'rotas': rotaId       // add the country id to the GET parameters
+                'alunoId': alunoId       // add the country id to the GET parameters
             },
             success: function (data) {   // `data` is the return of the `load_cities` view function
                 $("#id_rota").html(data);  // replace the contents of the city input with the data that came from the server
