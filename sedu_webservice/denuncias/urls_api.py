@@ -7,7 +7,7 @@ router = routers.SimpleRouter()
 
 urlpatterns = [
     path('reclamacao', ReclamacaoAPIViewSet.as_view()),
-    path('reclamante/<int:pk>/reclamacoes', ReclamanteAPIViewSet.as_view()),
+    path('reclamante/<uuid:pk>/reclamacoes', ReclamanteAPIViewSet.as_view()),
     path('escola/<int:pk>/rotas', RotasEscolaAPIViewSet.as_view()),
     path('municipios', MunicipioAPIViewSet.as_view()),
     path('escolas', EscolaAPIViewSet.as_view()),

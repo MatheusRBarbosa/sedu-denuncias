@@ -145,7 +145,8 @@ class ReclamanteAPIViewSet(APIView):
         try:
             key = Token.objects.get(key=request.META.get('HTTP_TOKEN'))
             response = []
-            reclamacoes = Reclamacao.objects.filter(reclamante=pk)
+            reclamante = Reclamante.objects.get(sub_novo=pk)
+            reclamacoes = Reclamacao.objects.filter(reclamante=reclamante)
 
             response.append(serializers.serialize("json", reclamacoes))
             return HttpResponse(response)
