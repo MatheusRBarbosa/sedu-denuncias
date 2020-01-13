@@ -118,19 +118,15 @@ class ReclamacaoAPIViewSet(APIView):
                 reclamacao_data['outro_papel'] = request.data.get('outroPapel')
 
                 reclamacao = Reclamacao(**reclamacao_data)
-                #reclamacao.save()
-                reclamacao_data['protocolo'] = "123123123123123"
-                print(reclamacao_data)
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
+                reclamacao.save()
+
+                # Eh necessario fazer uma consulta pois o protocolo eh gerado depois do save
+                r = Reclamacao.objects.get(pk=reclamacao.id)
+                return Response(r.protocolo, status=status.HTTP_201_CREATED)
 
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except:
             return HttpResponse("Token de autenticação inválido.")
-        
-
-    
-    def get_extra_actions(cls):
-        return []
 
 class ReclamanteAPIViewSet(APIView):
     def get(self, request, pk, format=None):

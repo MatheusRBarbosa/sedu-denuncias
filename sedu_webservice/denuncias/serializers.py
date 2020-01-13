@@ -16,3 +16,4 @@ class ReclamacaoAPISerializer(serializers.Serializer):
     tipoReclamacao = serializers.IntegerField()
     dataReclamacao = serializers.DateTimeField()
     descricao = serializers.CharField(max_length=255)
+    protocolo = serializers.CharField(max_length=255, required=False)
