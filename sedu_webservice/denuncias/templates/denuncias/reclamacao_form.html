@@ -20,7 +20,13 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <div> {{form.aluno | as_crispy_field}} </div>
+                            <label>Aluno*</label>
+                            <select class="form-control" name="aluno" id="id_aluno">
+                                <option value="">---------</option>
+                                {% for aluno in alunos%}
+                                    <option value={{aluno.id}}>{{aluno}}</opion>
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
                 </div>

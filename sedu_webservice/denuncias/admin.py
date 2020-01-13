@@ -4,8 +4,7 @@ from .models import *
 class AlunoAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
     list_display = ('nome','ra','cod_energia','escola')
-    list_filter = (['escola'])
-    search_fields = (['nome','ra','cod_energia'])
+    search_fields = (['nome','ra','cod_energia', 'escola'])
 
 class AgenciaTransporteAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
