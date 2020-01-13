@@ -40,6 +40,7 @@ class Municipio(AbstractEntity):
 class Escola(AbstractEntity):
     municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE)
     cod_inep = models.CharField(max_length=200)
+    email = models.EmailField(max_length=255, blank=True, null=True, default="")
 
 class AgenciaTransporte (AbstractEntity):
     sre = models.ManyToManyField(SRE)

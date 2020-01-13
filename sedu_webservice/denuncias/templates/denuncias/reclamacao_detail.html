@@ -66,6 +66,20 @@
                 <div class="row">
                     <div class="col-md-6 pr-1">
                         <div class="form-group">
+                            <label>Escola</label>
+                            <div>{{object.aluno.escola}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 pl-1">
+                        <div class="form-group">
+                            <label>Email da escola</label>
+                            <div><a href="mailto:{{object.aluno.escola.email}}">{{object.aluno.escola.email}}</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 pr-1">
+                        <div class="form-group">
                             <label>Nome da rota</label>
                             <div>{{object.rota.nome}}</div>
                         </div>
