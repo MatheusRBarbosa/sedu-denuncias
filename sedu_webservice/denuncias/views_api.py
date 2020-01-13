@@ -12,7 +12,7 @@ class MunicipioAPIViewSet(APIView):
         try:
             key = Token.objects.get(key=request.META.get('HTTP_TOKEN'))
             response = []
-            municipios = Reclamacao.objects.all()
+            municipios = Municipio.objects.all()
 
             response.append(serializers.serialize("json", municipios))
             return HttpResponse(response)
@@ -24,7 +24,7 @@ class EscolaAPIViewSet(APIView):
         try:
             key = Token.objects.get(key=request.META.get('HTTP_TOKEN'))
             response = []
-            escolas = Reclamacao.objects.all()
+            escolas = Escola.objects.all()
 
             response.append(serializers.serialize("json", escolas))
             return HttpResponse(response)
@@ -36,7 +36,7 @@ class TiposReclamacaoAPIViewSet(APIView):
         try:
             key = Token.objects.get(key=request.META.get('HTTP_TOKEN'))
             response = []
-            tipos = Reclamacao.objects.all()
+            tipos = TipoReclamacao.objects.all()
 
             response.append(serializers.serialize("json", tipos))
             return HttpResponse(response)
@@ -48,7 +48,7 @@ class PapelAPIViewSet(APIView):
         try:
             key = Token.objects.get(key=request.META.get('HTTP_TOKEN'))
             response = []
-            papeis = Reclamacao.objects.all()
+            papeis = Papel.objects.all()
 
             response.append(serializers.serialize("json", papeis))
             return HttpResponse(response)
@@ -118,7 +118,9 @@ class ReclamacaoAPIViewSet(APIView):
                 reclamacao_data['outro_papel'] = request.data.get('outroPapel')
 
                 reclamacao = Reclamacao(**reclamacao_data)
-                reclamacao.save()
+                #reclamacao.save()
+                reclamacao_data['protocolo'] = "123123123123123"
+                print(reclamacao_data)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
 
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

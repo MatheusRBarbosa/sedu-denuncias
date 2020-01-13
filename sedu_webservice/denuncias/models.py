@@ -53,11 +53,11 @@ class AgenciaTransporte (AbstractEntity):
 
 class Aluno (AbstractEntity):
     ra = models.CharField(max_length=200, blank=True, default="")
-    cod_energia = models.CharField(max_length=200, default="")
-    escola = models.ForeignKey(Escola,on_delete=models.CASCADE)
+    cod_energia = models.CharField(max_length=200, blank=True, null=True, default="")
+    escola = models.ForeignKey(Escola, on_delete=models.CASCADE)
 
 class Reclamante(AbstractEntity):
-    email = models.EmailField(max_length=255, unique=True)
+    email = models.EmailField(max_length=255, unique=True, blank=True, null=True, default="")
     sub_novo = models.UUIDField(editable=False, blank=True, null=True)
 
 class ReclamacaoStatus (AbstractEntity):
