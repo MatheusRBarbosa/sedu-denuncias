@@ -67,6 +67,18 @@ class TurnoAPIViewSet(APIView):
         except:
             return HttpResponse("Token de autenticação inválido.")
 
+class StatusAPIViewSet(APIView):
+    def get(self, request, format=None):
+        try:
+            key = Token.objects.get(key=request.META.get('HTTP_TOKEN'))
+            response = []
+            status = ReclamacaoStatus.objects.all()
+
+            response.append(serializers.serialize("json", status))
+            return HttpResponse(response)
+        except:
+            return HttpResponse("Token de autenticação inválido.")
+
 class ReclamacaoAPIViewSet(APIView):
 
     def create_aluno(self, request):
