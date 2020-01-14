@@ -199,4 +199,16 @@ class ReclamanteCreate(CreateView):
     model = Reclamante
     fields = '__all__'
     template_name = 'denuncias/reclamante_form.html'
-    success_url = reverse_lazy('home')
+    
+    def post(self, request, *args, **kwargs):
+        reclamante_data = {}
+        reclamante_data['nome'] = request.POST.get('nome')
+        reclamante_data['email'] = request.POST.get('email')
+
+        try:
+            reclamante = Reclamante.objects.get(email=reclamante_data['email'])
+            reclamante.nome = reclamante_data['nome']
+        except:
+            reclamante = Reclamante(**reclamante_data)
+        reclamante.save()
+        return redirect('home')
