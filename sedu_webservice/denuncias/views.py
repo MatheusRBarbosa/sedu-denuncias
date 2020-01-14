@@ -171,7 +171,28 @@ class AlunoCreate(CreateView):
     model = Aluno
     fields = '__all__'
     template_name = 'denuncias/aluno_form.html'
-    success_url = reverse_lazy('home')
+
+    def post(self, request, *args, **kwargs):
+
+        aluno_data = {}
+        aluno_data['nome'] = request.POST.get('nome')
+        aluno_data['ra'] = request.POST.get('ra')
+        aluno_data['cod_energia'] = request.POST.get('cod_energia')
+        aluno_data['escola'] = Escola.objects.get(pk=request.POST.get('escola'))
+        
+        isReclamante = request.POST.get('isReclamante')
+
+        aluno = Aluno(**aluno_data)
+        aluno.save()
+        if(isReclamante == 'on'):
+            try:
+                reclamante = Reclamante.objects.get(email=request.POST.get('email'))
+                reclamante.nome = aluno_data['nome']
+            except:
+                reclamante = Reclamante(nome=aluno_data['nome'], email=request.POST.get('email'))
+            reclamante.save()
+        
+        return redirect('home')
 
 @method_decorator(login_required, name='dispatch')
 class ReclamanteCreate(CreateView):

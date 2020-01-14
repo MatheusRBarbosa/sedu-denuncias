@@ -44,6 +44,22 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <br>
+                            <div>
+                                <input id="isReclamante" type="checkbox" onclick="reclamante()" name="isReclamante"> Aluno é o reclamante
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" id="divEmail">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="update ml-auto mr-auto">
                         <button class="btn btn-primary btn-round" type="submit">Enviar</button>
                     </div>
@@ -56,6 +72,20 @@
     $(document).ready(function() {
         $('#id_escola').select2();
     });
+
+    function reclamante(){
+        if(document.getElementById('isReclamante').checked){
+            $('#divEmail').append(
+                '<label>Email</label>'
+                +'<div>'
+                +'<input class="form-control" type="text" name="email">'
+                +'</div>'
+            )
+        }
+        else{
+            $('#divEmail').empty()
+        }
+    }
 </script>
 {% endblock %}
 
