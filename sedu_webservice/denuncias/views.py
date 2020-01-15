@@ -172,6 +172,24 @@ class AlunoCreate(CreateView):
     fields = '__all__'
     template_name = 'denuncias/aluno_form.html'
 
+    def load_municipios(request):
+        sreId = request.GET.get('id')
+        sre = SRE.objects.get(pk=sreId)
+        municipios = Municipio.objects.filter(sre=sre)
+        return render(request, 'denuncias/ajax/municipios.html', {'municipios': municipios})
+
+    def load_escolas(request):
+        municipioId = request.GET.get('id')
+        municipio = Municipio.objects.get(pk=municipioId)
+        escolas = Escola.objects.filter(municipio=municipio)
+        return render(request, 'denuncias/ajax/escolas.html', {'escolas': escolas})
+
+    def get_context_data(self, *args, **kwargs):
+       context = super(AlunoCreate, self).get_context_data(**kwargs)
+       context['sres'] = SRE.objects.all()
+       print(context['sres'])
+       return context
+
     def post(self, request, *args, **kwargs):
 
         aluno_data = {}

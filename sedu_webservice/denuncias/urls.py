@@ -11,4 +11,6 @@ urlpatterns = [
     path('aluno_create', AlunoCreate.as_view(), name='web_aluno_create'),
     path('reclamante_create', ReclamanteCreate.as_view(), name='web_reclamante_create'),
     path('ajax/load-rotas', ReclamacaoCreate.load_rotas, name='ajax_load_rotas'),
+    path('ajax/load-municipios', AlunoCreate.load_municipios, name='ajax_load_municipios'),
+    path('ajax/load-escolas', AlunoCreate.load_escolas, name='ajax_load_escolas'),
 ]

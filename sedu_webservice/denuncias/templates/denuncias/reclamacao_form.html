@@ -119,13 +119,13 @@
     $("#id_aluno").change(function() {
         var url = $("#form").attr("data-rotas-url");
         var alunoId = $(this).val();
-        $.ajax({                       // initialize an AJAX request
-        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        $.ajax({                       
+        url: url,                    
             data: {
-                'alunoId': alunoId       // add the country id to the GET parameters
+                'alunoId': alunoId     
             },
-            success: function (data) {   // `data` is the return of the `load_cities` view function
-                $("#id_rota").html(data);  // replace the contents of the city input with the data that came from the server
+            success: function (data) { 
+                $("#id_rota").html(data);
             }
         });
     })
