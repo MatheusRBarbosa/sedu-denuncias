@@ -71,8 +71,16 @@ class ReclamacaoCreate(CreateView):
         context = super(ReclamacaoCreate, self).get_context_data(**kwargs)
         
         userGroup = self.request.user.groups.all()
+        groupsList = []
+        
+        for g in userGroup:
+            groupsList.append(g.name.upper())
 
-        context['alunos'] = Aluno.objects.filter(escola__municipio__sre__in=userGroup)
+        if(len(groupsList) == 0 or 'SEDU' in groupsList):
+            context['alunos'] = Aluno.objects.all()
+        else:
+            context['alunos'] = Aluno.objects.filter(escola__municipio__sre__in=userGroup)
+            
         context['rotas'] = None
         return context
 
