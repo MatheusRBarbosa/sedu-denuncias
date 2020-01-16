@@ -80,6 +80,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'crispy_forms',
+    'corsheaders'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -92,6 +93,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:8100',
+]
+CORS_ORIGIN_REGEX_WHITELIST = [
+    'http://localhost:8100',
 ]
 
 ROOT_URLCONF = 'sedu_webservice.urls'

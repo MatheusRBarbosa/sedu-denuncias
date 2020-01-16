@@ -238,3 +238,38 @@ class ReclamanteCreate(CreateView):
             reclamante = Reclamante(**reclamante_data)
         reclamante.save()
         return redirect('home')
+
+@method_decorator(login_required, name='dispatch')
+class Encaminhar(CreateView):
+    model = Comentario
+    fields = '__all__'
+    template_name = 'denuncias/encaminhar_form.html'
+    
+    def get_context_data(self, *args, **kwargs):
+       context = super(Encaminhar, self).get_context_data(**kwargs)
+       context['reclamacao'] = Reclamacao.objects.get(id=self.kwargs['pk'])
+       full_name = self.request.user.first_name + ' ' + self.request.user.last_name
+       context['responsavel'] = full_name
+       
+       return context
+    
+    def post(self, request, *args, **kwargs):
+        reclamacao = Reclamacao.objects.get(id=self.kwargs['pk'])
+        
+        try:
+            resp = Responsavel.objects.get(usuario=request.user.id)
+        except:
+            if(request.user.username == "admin"):
+                resp = Responsavel(usuario=request.user, sre=reclamacao.aluno.escola.municipio.sre)
+                resp.save()
+        
+        parecer_data = {}
+        parecer_data['texto'] = request.POST.get('texto')
+        parecer_data['reclamacao'] = reclamacao
+        parecer_data['responsavel'] = resp
+        parecer = ParecerFinal(**parecer_data)
+        parecer.save()
+
+        reclamacao.status = ReclamacaoStatus.objects.get(nome="Concluído")
+        reclamacao.save()
+        return redirect('web_reclamacao_detail', self.kwargs['pk'])
