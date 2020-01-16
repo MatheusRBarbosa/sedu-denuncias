@@ -46,13 +46,9 @@
 <script>
 
     $(document).ready( function () {
-        $('#table').DataTable();
-        
-        //Adicionar hifens no número da pagina
-        var table = $('#table_paginate').children()
-        var span = table[1].firstElementChild
-        var text = span.innerHTML
-        span.innerHTML = ` - ${text} - `
-} );
+        $('#table').DataTable({
+            "pagingType": "full_numbers"
+        });
+    } );
 </script>
 {% endblock %}
