@@ -122,6 +122,9 @@ class Reclamacao (AuditEntity):
     placa_veiculo = models.CharField(max_length=255, blank=True, default="")
     tipo = models.ForeignKey(TipoReclamacao, on_delete=models.CASCADE, default=1)
     outro_tipo = models.CharField(max_length=255, blank=True, default="")
+
+    # Sre responsavel pela reclamacao
+    sre_responsavel = models.ForeignKey(SRE, on_delete=models.CASCADE, blank=True, null=True)
     
     def __str__(self):
         return self.aluno.nome

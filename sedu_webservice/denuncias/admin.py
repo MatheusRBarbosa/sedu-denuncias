@@ -2,41 +2,41 @@ from django.contrib import admin
 from .models import *
 
 class AlunoAdmin(admin.ModelAdmin):
-    empty_value_display = '-empty-'
+    empty_value_display = 'Nenhum'
     list_display = ('nome','ra','cod_energia','escola')
     search_fields = (['nome','ra','cod_energia', 'escola'])
 
 class AgenciaTransporteAdmin(admin.ModelAdmin):
-    empty_value_display = '-empty-'
+    empty_value_display = 'Nenhum'
     list_display = (['nome'])
     list_filter = ('nome','sre')
     search_fields = (['nome'])
 
 class EscolaAdmin(admin.ModelAdmin):
-    empty_value_display = '-empty-'
+    empty_value_display = 'Nenhum'
     list_display = (['nome', 'municipio', 'cod_inep'])
     list_filter = (['municipio'])
     search_fields = (['nome', 'cod_inep'])
 
 class MunicipioAdmin(admin.ModelAdmin):
-    empty_value_display = '-empty-'
+    empty_value_display = 'Nenhum'
     list_display = (['nome', 'sre', 'cod_ibge'])
     list_filter = (['sre'])
     search_fields = (['nome', 'cod_ibge'])
 
 class ReclamanteAdmin(admin.ModelAdmin):
-    empty_value_display = '-empty-'
+    empty_value_display = 'Nenhum'
     list_display = (['nome', 'email'])
     search_fields = (['nome', 'email'])
 
 class ResponsavelAdmin(admin.ModelAdmin):
-    empty_value_display = '-empty-'
+    empty_value_display = 'Nenhum'
     list_display = (['usuario','sre'])
     list_filter = (['sre'])
     search_fields = (['usuario'])
 
 class SreAdmin(admin.ModelAdmin):
-    empty_value_display = '-empty-'
+    empty_value_display = 'Nenhum'
     list_display = (['name'])
     list_filter = ([])
     search_fields = (['name'])
@@ -53,10 +53,10 @@ class ParecerFinalInline(admin.StackedInline):
     
 
 class ReclamacaoAdmin(admin.ModelAdmin):
-    empty_value_display = '-empty-'
-    list_display = ('aluno','protocolo', 'escola', 'setor', 'tipo', 'reclamante', 'status', 'rota')
-    list_filter = ('agencia_transporte', 'status', 'tipo')
-    search_fields = (['protocolo', 'aluno', 'rota', 'placa_veiculo'])
+    empty_value_display = 'Nenhum'
+    list_display = ('aluno','protocolo', 'sre_responsavel', 'setor', 'tipo', 'reclamante', 'status', 'rota')
+    list_filter = ('agencia_transporte', 'status', 'tipo', 'sre_responsavel')
+    search_fields = (['protocolo', 'aluno', 'rota', 'placa_veiculo', 'sre_responsavel'])
     inlines = [ComentarioInline, ParecerFinalInline]
     readonly_fields = ['protocolo', 'status']
 
@@ -70,33 +70,33 @@ class ReclamacaoAdmin(admin.ModelAdmin):
         return obj.tipo.setor
 
 class TipoReclamacaoAdmin(admin.ModelAdmin):
-    empty_value_display = '-empty-'
+    empty_value_display = 'Nenhum'
     list_display = (['nome'])
     search_fields = (['nome'])
 
 class SetorAdmin(admin.ModelAdmin):
-    empty_value_display = '-empty-'
+    empty_value_display = 'Nenhum'
     list_display = (['nome'])
     search_fields = (['nome'])
 
 class TurnoAdmin(admin.ModelAdmin):
-    empty_value_display = '-empty-'
+    empty_value_display = 'Nenhum'
     list_display = (['nome'])
     search_fields = (['nome'])
 
 class RotaAdmin(admin.ModelAdmin):
-    empty_value_display = '-empty-'
+    empty_value_display = 'Nenhum'
     list_filter = ('turno', 'escola')
     list_display = (['nome', 'turno', 'escola'])
     search_fields = (['nome', 'turno', 'escola'])
 
 class PapelAdmin(admin.ModelAdmin):
-    empty_value_display = '-empty-'
+    empty_value_display = 'Nenhum'
     list_display = (['nome'])
     search_fields = (['nome'])
 
 class TokenAdmin(admin.ModelAdmin):
-    empty_value_display = '-empty-'
+    empty_value_display = 'Nenhum'
     list_display = (['nome', 'key'])
     search_fields = (['nome'])
 
