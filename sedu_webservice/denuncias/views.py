@@ -197,8 +197,8 @@ class AlunoCreate(CreateView):
 
     def get_context_data(self, *args, **kwargs):
        context = super(AlunoCreate, self).get_context_data(**kwargs)
-       context['sres'] = SRE.objects.all()
-       print(context['sres'])
+       userGroups = self.request.user.groups.all()
+       context['sres'] = SRE.objects.filter(pk__in=userGroups)
        return context
 
     def post(self, request, *args, **kwargs):
