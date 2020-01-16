@@ -256,21 +256,9 @@ class Encaminhar(CreateView):
     
     def post(self, request, *args, **kwargs):
         reclamacao = Reclamacao.objects.get(id=self.kwargs['pk'])
-        
-        try:
-            resp = Responsavel.objects.get(usuario=request.user.id)
-        except:
-            if(request.user.username == "admin"):
-                resp = Responsavel(usuario=request.user, sre=reclamacao.aluno.escola.municipio.sre)
-                resp.save()
-        
-        parecer_data = {}
-        parecer_data['texto'] = request.POST.get('texto')
-        parecer_data['reclamacao'] = reclamacao
-        parecer_data['responsavel'] = resp
-        parecer = ParecerFinal(**parecer_data)
-        parecer.save()
+        sre_id = request.POST.get('sre')
 
-        reclamacao.status = ReclamacaoStatus.objects.get(nome="Concluído")
+        reclamacao.status = ReclamacaoStatus.objects.get(nome="Encaminhado")
+        reclamacao.sre_responsavel = SRE.objects.get(pk=sre_id)
         reclamacao.save()
-        return redirect('web_reclamacao_detail', self.kwargs['pk'])
+        return redirect('web_reclamacao_list')
