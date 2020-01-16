@@ -88,7 +88,8 @@ class ReclamacaoCreate(CreateView):
 
     def post(self, request, *args, **kwargs):
         reclamacao_data = {}
-        reclamacao_data['aluno'] = Aluno.objects.get(id=request.POST.get('aluno'))
+        aluno = Aluno.objects.get(id=request.POST.get('aluno'))
+        reclamacao_data['aluno'] = aluno
         reclamacao_data['reclamante'] = Reclamante.objects.get(id=request.POST.get('reclamante'))
         reclamacao_data['agencia_transporte'] = AgenciaTransporte.objects.get(id=request.POST.get('agencia_transporte'))
         reclamacao_data['tipo'] = TipoReclamacao.objects.get(id=request.POST.get('tipo'))
@@ -99,7 +100,7 @@ class ReclamacaoCreate(CreateView):
         reclamacao_data['outro_papel'] = request.POST.get('outro_papel')
         reclamacao_data['placa_veiculo'] = request.POST.get('placa_veiculo')
 
-        reclamacao_data['sre_responsavel'] = None
+        reclamacao_data['sre_responsavel'] = aluno.escola.municipio.sre
         reclamacao_data['status'] = ReclamacaoStatus.objects.get(id=1)
         reclamacao = Reclamacao(**reclamacao_data)
         reclamacao.save()
