@@ -97,8 +97,8 @@ class ReclamacaoCreate(CreateView):
         reclamacao_data['outro_papel'] = request.POST.get('outro_papel')
         reclamacao_data['placa_veiculo'] = request.POST.get('placa_veiculo')
 
+        reclamacao_data['sre_responsavel'] = None
         reclamacao_data['status'] = ReclamacaoStatus.objects.get(id=1)
-
         reclamacao = Reclamacao(**reclamacao_data)
         reclamacao.save()
 

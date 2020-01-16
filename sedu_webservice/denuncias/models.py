@@ -109,10 +109,10 @@ class Reclamacao (AuditEntity):
     
     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE, blank=True, null=True)
     texto = models.TextField()
-    papel = models.ForeignKey(Papel, on_delete=models.CASCADE, blank=True)
+    papel = models.ForeignKey(Papel, on_delete=models.CASCADE)
     outro_papel = models.CharField(max_length=255, blank=True, default="")
-    agencia_transporte = models.ForeignKey(AgenciaTransporte, on_delete=models.CASCADE, blank=True, null=True)
-    reclamante = models.ForeignKey(Reclamante, on_delete=models.CASCADE, blank=True, null=True)
+    agencia_transporte = models.ForeignKey(AgenciaTransporte, on_delete=models.CASCADE, null=True)
+    reclamante = models.ForeignKey(Reclamante, on_delete=models.CASCADE, null=True)
     protocolo = models.CharField(max_length=60, default="")
     status = models.ForeignKey(ReclamacaoStatus, on_delete=models.CASCADE, default=1)
     data_ocorrido = models.DateTimeField()
