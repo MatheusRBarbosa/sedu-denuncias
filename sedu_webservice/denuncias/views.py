@@ -250,6 +250,7 @@ class Encaminhar(CreateView):
        context['reclamacao'] = Reclamacao.objects.get(id=self.kwargs['pk'])
        full_name = self.request.user.first_name + ' ' + self.request.user.last_name
        context['responsavel'] = full_name
+       context['sres'] = SRE.objects.all()
        
        return context
     

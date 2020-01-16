@@ -1,6 +1,6 @@
 {% extends 'home.html' %}
 
-{% block content-title%}Comentários{% endblock %}
+{% block content-title%}Encaminhar{% endblock %}
 
 {% block content-body %}
 
@@ -30,9 +30,13 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group">
-                            <textarea class="form-control border-input" name="texto" placeholder="Escreva um parecer final aqui..." rows="15"></textarea>
-                        </div>
+                        <label>SRE</label>
+                        <select id="id_sre" class="form-control" name="sre" id="id_sre" required>
+                            <option value="">---------</option>
+                            {% for sre in sres %}
+                                <option value="{{sre.pk}}">{{sre}}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                 </div>
                 <div class="row">
@@ -45,5 +49,10 @@
             </div>
         </div>
 </div>
+<script>
+$(document).ready(function() {
+    $('#id_sre').select2();
+});
+</script>
 {% endblock %}
 
