@@ -24,7 +24,7 @@ class ReclamacaoList(ListView):
         if(len(groupsList) == 0 or 'SEDU' in groupsList):
             reclamacoes = Reclamacao.objects.all()
         else:
-            reclamacoes = Reclamacao.objects.filter(aluno__escola__municipio__sre__in=userGroups)
+            reclamacoes = Reclamacao.objects.filter(sre_responsavel__in=userGroups)
 
         return render(request, 'denuncias/reclamacao_list.html', {'reclamacoes': reclamacoes})
 
@@ -37,11 +37,13 @@ class ReclamacaoDetail(UpdateView):
     def get_context_data(self, *args, **kwargs):
         context = super(ReclamacaoDetail, self).get_context_data(**kwargs)
         reclamacao = context['reclamacao']
-        sre_reclamacao = reclamacao.aluno.escola.municipio.sre
+        sre = SRE.objects.get(pk=reclamacao.sre_responsavel)
+        print(sre)
         userGroups = self.request.user.groups.all()
         can_view = False
+
         for g in userGroups:
-            if(g.name == sre_reclamacao.name or g.name.upper() == 'SEDU'):
+            if(g.name == sre.name or g.name.upper() == 'SEDU'):
                 can_view = True
 
         if (len(userGroups) == 0):
