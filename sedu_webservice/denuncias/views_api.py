@@ -128,6 +128,8 @@ class ReclamacaoAPIViewSet(APIView):
                 reclamacao_data['rota'] = Rota.objects.get(pk=request.data.get('rotaId'))
                 reclamacao_data['papel'] = Papel.objects.get(pk=request.data.get('papelDoAutor'))
                 reclamacao_data['outro_papel'] = request.data.get('outroPapel')
+                escola =  Escola.objects.get(pk=request.data.get('escolaId'))
+                reclamacao_data['sre_responsavel'] = escola.municipio.sre
 
                 reclamacao = Reclamacao(**reclamacao_data)
                 reclamacao.save()
