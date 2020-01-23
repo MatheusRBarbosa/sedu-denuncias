@@ -17,3 +17,15 @@ class ReclamacaoAPISerializer(serializers.Serializer):
     dataReclamacao = serializers.DateTimeField()
     descricao = serializers.CharField(max_length=255)
     protocolo = serializers.CharField(max_length=255, required=False)
+
+class ReclamanteSerializer(serializers.ModelSerializer):
+    papel = serializers.StringRelatedField()
+    aluno = serializers.StringRelatedField()
+    rota = serializers.StringRelatedField()
+    reclamante = serializers.StringRelatedField()
+    status = serializers.StringRelatedField()
+    tipo = serializers.StringRelatedField()
+    
+    class Meta:
+        model = Reclamacao
+        fields = ('aluno', 'texto', 'papel', 'outro_papel', 'agencia_transporte', 'reclamante', 'protocolo', 'status', 'data_ocorrido', 'rota', 'placa_veiculo', 'tipo', 'outro_tipo', 'sre_responsavel')

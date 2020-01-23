@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import *
 from .serializers import *
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.core import serializers
@@ -142,8 +142,11 @@ class ReclamacaoAPIViewSet(APIView):
         except:
             return HttpResponse("Token de autenticação inválido.")
 
-class ReclamanteAPIViewSet(APIView):
-    def get(self, request, pk, format=None):
+class ReclamanteAPIViewSet(generics.ListAPIView):
+      
+    serializer_class = ReclamanteSerializer
+
+    def list(self, request, pk, format=None):
         try:
             key = Token.objects.get(key=request.META.get('HTTP_TOKEN'))
             response = []
@@ -153,8 +156,8 @@ class ReclamanteAPIViewSet(APIView):
             if (reclamante.count() > 0):
                 reclamacoes = Reclamacao.objects.filter(reclamante__in=reclamante)
 
-            response.append(serializers.serialize("json", reclamacoes))
-            return HttpResponse(response)
+            serializer = ReclamanteSerializer(reclamacoes, many=True)
+            return Response(serializer.data)
         except:
             return HttpResponse("Token de autenticação inválido.")
 
