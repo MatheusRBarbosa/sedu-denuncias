@@ -28,4 +28,4 @@ class ReclamanteSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Reclamacao
-        fields = ('aluno', 'texto', 'papel', 'outro_papel', 'agencia_transporte', 'reclamante', 'protocolo', 'status', 'data_ocorrido', 'rota', 'placa_veiculo', 'tipo', 'outro_tipo', 'sre_responsavel', 'created_on')
+        fields = ('pk', 'aluno', 'texto', 'papel', 'outro_papel', 'agencia_transporte', 'reclamante', 'protocolo', 'status', 'data_ocorrido', 'rota', 'placa_veiculo', 'tipo', 'outro_tipo', 'sre_responsavel', 'created_on')
