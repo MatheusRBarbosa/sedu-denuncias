@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from corsheaders.defaults import default_headers
+from corsheaders.defaults import default_methods
 
 ALLOWED_HOSTS = ['*']
 
@@ -103,6 +105,11 @@ CORS_ORIGIN_WHITELIST = [
 ]
 CORS_ORIGIN_REGEX_WHITELIST = [
     'http://localhost:8100',
+]
+CORS_ALLOW_METHODS = list(default_methods) + [
+]
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    'token',
 ]
 
 ROOT_URLCONF = 'sedu_webservice.urls'
