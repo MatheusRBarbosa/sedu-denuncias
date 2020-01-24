@@ -25,7 +25,6 @@ class ReclamanteSerializer(serializers.ModelSerializer):
     reclamante = serializers.StringRelatedField()
     status = serializers.StringRelatedField()
     tipo = serializers.StringRelatedField()
-    #created = serializers.SerializerMethodField(source='created_on')
     
     class Meta:
         model = Reclamacao
