@@ -25,7 +25,8 @@ class ReclamanteSerializer(serializers.ModelSerializer):
     reclamante = serializers.StringRelatedField()
     status = serializers.StringRelatedField()
     tipo = serializers.StringRelatedField()
+    #created = serializers.SerializerMethodField(source='created_on')
     
     class Meta:
         model = Reclamacao
-        fields = ('aluno', 'texto', 'papel', 'outro_papel', 'agencia_transporte', 'reclamante', 'protocolo', 'status', 'data_ocorrido', 'rota', 'placa_veiculo', 'tipo', 'outro_tipo', 'sre_responsavel')
+        fields = ('aluno', 'texto', 'papel', 'outro_papel', 'agencia_transporte', 'reclamante', 'protocolo', 'status', 'data_ocorrido', 'rota', 'placa_veiculo', 'tipo', 'outro_tipo', 'sre_responsavel', 'created_on')
