@@ -22,8 +22,8 @@ build_job:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
 #    - docker build -t $CI_REGISTRY_IMAGE:$CI_BUILD_TAG .
 #    - docker push $CI_REGISTRY_IMAGE:$CI_BUILD_TAG
-#    - docker tag $CI_REGISTRY_IMAGE:$CI_BUILD_TAG $CI_REGISTRY_IMAGE:latest
-#    - docker push $CI_REGISTRY_IMAGE:latest
+    - docker tag $CI_REGISTRY_IMAGE:$CI_BUILD_TAG $CI_REGISTRY_IMAGE:latest
+    - docker push $CI_REGISTRY_IMAGE:latest
    
 deploy_job:
   stage: deploy
