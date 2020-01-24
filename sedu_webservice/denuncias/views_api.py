@@ -149,17 +149,17 @@ class ReclamanteAPIViewSet(generics.ListAPIView):
     def list(self, request, pk, format=None):
         try:
             key = Token.objects.get(key=request.META.get('HTTP_TOKEN'))
-            response = []
-            reclamacoes = []
-            reclamante = Reclamante.objects.filter(sub_novo=pk)
-
-            if (reclamante.count() > 0):
-                reclamacoes = Reclamacao.objects.filter(reclamante__in=reclamante)
-
-            serializer = ReclamanteSerializer(reclamacoes, many=True)
-            return Response(serializer.data)
         except:
             return HttpResponse("Token de autenticação inválido.")
+        response = []
+        reclamacoes = []
+        reclamante = Reclamante.objects.filter(sub_novo=pk)
+
+        if (reclamante.count() > 0):
+            reclamacoes = Reclamacao.objects.filter(reclamante__in=reclamante)
+
+        serializer = ReclamanteSerializer(reclamacoes, many=True)
+        return Response(serializer.data)
 
 
 class RotasEscolaAPIViewSet(APIView):

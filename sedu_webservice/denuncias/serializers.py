@@ -18,14 +18,28 @@ class ReclamacaoAPISerializer(serializers.Serializer):
     descricao = serializers.CharField(max_length=255)
     protocolo = serializers.CharField(max_length=255, required=False)
 
+class ParecerFinalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ParecerFinal
+        fields = ['texto']
+
+class AlunoSerializer(serializers.ModelSerializer):
+
+    escola = serializers.StringRelatedField()
+
+    class Meta:
+        model = Aluno
+        fields = ('nome', 'cod_energia', 'ra', 'escola')
+
 class ReclamanteSerializer(serializers.ModelSerializer):
     papel = serializers.StringRelatedField()
-    aluno = serializers.StringRelatedField()
+    aluno = AlunoSerializer(read_only=True)
     rota = serializers.StringRelatedField()
     reclamante = serializers.StringRelatedField()
     status = serializers.StringRelatedField()
     tipo = serializers.StringRelatedField()
-    
+    #parecerFinal = ParecerFinalSerializer(read_only=True)
+ 
     class Meta:
         model = Reclamacao
         fields = ('pk', 'aluno', 'texto', 'papel', 'outro_papel', 'agencia_transporte', 'reclamante', 'protocolo', 'status', 'data_ocorrido', 'rota', 'placa_veiculo', 'tipo', 'outro_tipo', 'sre_responsavel', 'created_on')
