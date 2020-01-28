@@ -53,7 +53,7 @@ class AgenciaTransporte (AbstractEntity):
         
 
 class Aluno (AbstractEntity):
-    ra = models.CharField(max_length=200, blank=True, default="")
+    ra = models.CharField(max_length=200)
     cod_energia = models.CharField(max_length=200, blank=True, null=True, default="")
     escola = models.ForeignKey(Escola, on_delete=models.CASCADE)
 
@@ -90,7 +90,7 @@ class Turno(AbstractEntity):
 class Rota(AbstractEntity):
     cod_linha = models.CharField(max_length=60, default="", blank=True)
     turno = models.ForeignKey(Turno, on_delete=models.CASCADE, related_name='turno')
-    escola = models.ForeignKey(Escola, on_delete=models.CASCADE, related_name='escola')
+    escola = models.ForeignKey(Escola, on_delete=models.CASCADE, related_name='rotas')
 
     def __str__(self):
         return self.cod_linha +" | " + self.turno.nome + " | " + self.nome 

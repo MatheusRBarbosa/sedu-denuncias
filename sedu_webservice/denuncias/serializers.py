@@ -38,8 +38,30 @@ class ReclamanteSerializer(serializers.ModelSerializer):
     reclamante = serializers.StringRelatedField()
     status = serializers.StringRelatedField()
     tipo = serializers.StringRelatedField()
-    #parecerFinal = ParecerFinalSerializer(read_only=True)
  
     class Meta:
         model = Reclamacao
         fields = ('pk', 'aluno', 'texto', 'papel', 'outro_papel', 'agencia_transporte', 'reclamante', 'protocolo', 'status', 'data_ocorrido', 'rota', 'placa_veiculo', 'tipo', 'outro_tipo', 'sre_responsavel', 'created_on')
+
+
+class RotaSerializer(serializers.ModelSerializer):
+    turno = serializers.StringRelatedField()
+    class Meta:
+        model = Rota
+        fields = ('pk', 'nome', 'cod_linha', 'turno')
+
+class EscolaSerializer(serializers.ModelSerializer):
+    #rotas = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    rotas = serializers.StringRelatedField(many=True)
+
+    class Meta:
+        model = Escola
+        fields = ('nome', 'rotas')
+
+class AlunoSerializer(serializers.ModelSerializer):
+    #rota = RotaSerializer(source='escola_set', many=True)
+    escola = EscolaSerializer(read_only=True)
+
+    class Meta:
+        model = Aluno
+        fields = ('nome', 'ra', 'cod_energia', 'escola')

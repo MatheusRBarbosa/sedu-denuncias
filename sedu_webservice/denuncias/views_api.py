@@ -151,7 +151,7 @@ class ReclamanteAPIViewSet(generics.ListAPIView):
             key = Token.objects.get(key=request.META.get('HTTP_TOKEN'))
         except:
             return HttpResponse("Token de autenticação inválido.")
-        response = []
+
         reclamacoes = []
         reclamante = Reclamante.objects.filter(sub_novo=pk)
 
@@ -187,3 +187,22 @@ class ParecerFinalAPIViewSet(APIView):
             return HttpResponse(response)
         except:
             return HttpResponse("Token de autenticação inválido.")
+
+class AlunoAPIViewSet(generics.ListAPIView):
+    def list(self, request, ra, format=None):
+        
+        try:
+            key = Token.objects.get(key=request.META.get('HTTP_TOKEN'))
+        except:
+            return HttpResponse("Token de autenticação inválido.")
+        
+        aluno = Aluno.objects.filter(ra=ra)
+
+        serializer = AlunoSerializer(aluno, many=True)
+        #for i in serializer.data:
+        #    print(i)
+        #print(serializer.data)
+        
+        return Response(serializer.data)
+        return Response("Nada")
+
