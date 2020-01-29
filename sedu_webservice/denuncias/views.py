@@ -221,7 +221,8 @@ class ReclamanteCreate(CreateView):
             reclamante.nome = reclamante_data['nome']
         except:
             reclamante = Reclamante(**reclamante_data)
-        reclamante.save()
+        #reclamante.save()
+        print(reclamante)
         return redirect('home')
 
     def get_context_data(self, *args, **kwargs):
