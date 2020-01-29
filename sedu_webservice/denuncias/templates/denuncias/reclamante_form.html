@@ -15,14 +15,14 @@
         </div>
         <div class="card-body">
             
-            <form id="form" method="post" data-municipios-url="{% url 'ajax_load_municipios' %}" data-escolas-url="{% url 'ajax_load_escolas' %}">
+            <form id="form" method="post" data-municipios-url="{% url 'ajax_load_municipios' %}" data-escolas-url="{% url 'ajax_load_escolas' %}" data-alunos-url="{% url 'ajax_load_alunos' %}">
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <br>
                             <div>
-                                <input id="isAluno" type="checkbox" onclick="aluno()" name="isAluno"> O reclamante é um aluno
+                                <input id="isAluno" type="checkbox" onclick="alunoFieldsRender()" name="isAluno"> O reclamante é um aluno
                             </div>
                         </div>
                     </div>
@@ -83,6 +83,19 @@
                 </div>
 
                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" id="input-aluno" style="display: none;">
+                            <label>Aluno*</label>
+                            <div>
+                                <select class="form-control" name="aluno" id="id_aluno" required>
+                                    <option value="">---------</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
                     <div class="update ml-auto mr-auto">
                         <button class="btn btn-primary btn-round" type="submit">Enviar</button>
                     </div>
@@ -94,61 +107,72 @@
 
 <script>
 
-$(document).ready(function() {
-    $('#id_escola').select2();
-    //$('#id_sre').select2();
-    $('#id_municipio').select2();
-});
+function alunoFieldsRender(){
+    if(document.getElementById('isAluno').checked){
+        $('#input-basic').attr("style", "display: none;")
+        $('#input-sre').removeAttr("style")
+        $('#input-municipio').removeAttr("style")
+        $('#input-escola').removeAttr("style")
+        $('#input-aluno').removeAttr("style")
+        $('#id_sre').select2();
+        $('#id_municipio').select2();
+        $('#id_escola').select2();
+        $('#id_aluno').select2();
+    }
 
-
-function aluno(){
-        if(document.getElementById('isAluno').checked){
-            $('#input-basic').attr("style", "display: none;")
-            $('#input-sre').removeAttr("style")
-            $('#input-municipio').removeAttr("style")
-            $('#input-escola').removeAttr("style")
-            $('#id_sre').select2();
-            $('#id_municipio').select2();
-            $('#id_escola').select2();
-        }
-
-        else{
-            $('#input-sre').attr("style", "display: none;")
-            $('#input-municipio').attr("style", "display: none;")
-            $('#input-escola').attr("style", "display: none;")
-            $('#input-basic').removeAttr("style")
-        }
+    else{
+        $('#input-sre').attr("style", "display: none;")
+        $('#input-municipio').attr("style", "display: none;")
+        $('#input-escola').attr("style", "display: none;")
+        $('#input-aluno').attr("style", "display: none;")
+        $('#input-basic').removeAttr("style")
+    }
 }
 
 //Atualizar Municipios dinamicamente
-    $("#id_sre").change(function() {
-        var url = $("#form").attr("data-municipios-url");
-        var sreId = $(this).val();
-        $.ajax({                       
-        url: url,                    
-            data: {
-                'id': sreId     
-            },
-            success: function (data) { 
-                $("#id_municipio").html(data);
-            }
-        });
-    })
+$("#id_sre").change(function() {
+    var url = $("#form").attr("data-municipios-url");
+    var sreId = $(this).val();
+    $.ajax({                       
+    url: url,                    
+        data: {
+            'id': sreId     
+        },
+        success: function (data) { 
+            $("#id_municipio").html(data);
+        }
+    });
+})
 
-    //Atualizar escolas dinamicamente
-    $("#id_municipio").change(function() {
-        var url = $("#form").attr("data-escolas-url");
-        var municipioId = $(this).val();
-        $.ajax({                       
-        url: url,                    
-            data: {
-                'id': municipioId     
-            },
-            success: function (data) { 
-                $("#id_escola").html(data);
-            }
-        });
-    })
+//Atualizar escolas dinamicamente
+$("#id_municipio").change(function() {
+    var url = $("#form").attr("data-escolas-url");
+    var municipioId = $(this).val();
+    $.ajax({                       
+    url: url,                    
+        data: {
+            'id': municipioId     
+        },
+        success: function (data) { 
+            $("#id_escola").html(data);
+        }
+    });
+})
+
+//Atualizar alunos dinamicamente
+$("#id_escola").change(function() {
+    var url = $("#form").attr("data-alunos-url");
+    var escolaId = $(this).val();
+    $.ajax({                       
+    url: url,                    
+        data: {
+            'id': escolaId     
+        },
+        success: function (data) { 
+            $("#id_aluno").html(data);
+        }
+    });
+})
 </script>
 {% endblock %}
 

@@ -63,12 +63,6 @@ class ReclamacaoCreate(CreateView):
     fields = '__all__'
     success_url = reverse_lazy('web_reclamacao_list')
 
-    def load_rotas(request):
-        aluno_id = request.GET.get('alunoId')
-        aluno = Aluno.objects.get(pk=aluno_id)
-        rotas = Rota.objects.filter(escola=aluno.escola)
-        return render(request, 'denuncias/ajax/rotas.html', {'rotas': rotas})
-
     def get_context_data(self, *args, **kwargs):
         context = super(ReclamacaoCreate, self).get_context_data(**kwargs)
         
@@ -183,18 +177,6 @@ class AlunoCreate(CreateView):
     fields = '__all__'
     template_name = 'denuncias/aluno_form.html'
 
-    def load_municipios(request):
-        sreId = request.GET.get('id')
-        sre = SRE.objects.get(pk=sreId)
-        municipios = Municipio.objects.filter(sre=sre)
-        return render(request, 'denuncias/ajax/municipios.html', {'municipios': municipios})
-
-    def load_escolas(request):
-        municipioId = request.GET.get('id')
-        municipio = Municipio.objects.get(pk=municipioId)
-        escolas = Escola.objects.filter(municipio=municipio)
-        return render(request, 'denuncias/ajax/escolas.html', {'escolas': escolas})
-
     def get_context_data(self, *args, **kwargs):
        context = super(AlunoCreate, self).get_context_data(**kwargs)
        userGroups = self.request.user.groups.all()
@@ -279,3 +261,29 @@ class Encaminhar(CreateView):
         reclamacao.sre_responsavel = SRE.objects.get(pk=sre_id)
         reclamacao.save()
         return redirect('web_reclamacao_list')
+
+
+# Funcoes Ajax
+def load_municipios(request):
+    sreId = request.GET.get('id')
+    sre = SRE.objects.get(pk=sreId)
+    municipios = Municipio.objects.filter(sre=sre)
+    return render(request, 'denuncias/ajax/municipios.html', {'municipios': municipios})
+
+def load_escolas(request):
+    municipioId = request.GET.get('id')
+    municipio = Municipio.objects.get(pk=municipioId)
+    escolas = Escola.objects.filter(municipio=municipio)
+    return render(request, 'denuncias/ajax/escolas.html', {'escolas': escolas})
+
+def load_rotas(request):
+    aluno_id = request.GET.get('alunoId')
+    aluno = Aluno.objects.get(pk=aluno_id)
+    rotas = Rota.objects.filter(escola=aluno.escola)
+    return render(request, 'denuncias/ajax/rotas.html', {'rotas': rotas})
+
+def load_alunos(request):
+    escolaId = request.GET.get('id')
+    escola = Escola.objects.get(pk=escolaId)
+    alunos = Aluno.objects.filter(escola=escola)
+    return render(request, 'denuncias/ajax/alunos.html', {'alunos': alunos})
