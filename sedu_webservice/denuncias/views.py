@@ -242,6 +242,20 @@ class ReclamanteCreate(CreateView):
         reclamante.save()
         return redirect('home')
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(ReclamanteCreate, self).get_context_data(**kwargs)
+        userGroups = self.request.user.groups.all()
+        groupsList = []
+        
+        for g in userGroups:
+            groupsList.append(g.name.upper())
+
+        if(len(groupsList) == 0 or 'SEDU' in groupsList):
+            context['sres'] = SRE.objects.all()
+        else:
+            context['sres'] = SRE.objects.filter(pk__in=userGroups)
+        return context
+
 @method_decorator(login_required, name='dispatch')
 class Encaminhar(CreateView):
     model = Comentario

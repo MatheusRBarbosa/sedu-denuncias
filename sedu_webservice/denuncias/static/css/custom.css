@@ -7,3 +7,8 @@
     border: solid 1px !important;
     border-color: #ffc107 !important;
 };
+
+.hide-div{
+    visibility: hidden !important;
+    display: none !important;
+}
