@@ -98,6 +98,17 @@
                 </div>
 
                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" id="input-email2" style="display: none;">
+                            <label>Email</label>
+                            <div>
+                                <input type="email" class="form-control" name="email2" id="id_email2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
                     <div class="update ml-auto mr-auto">
                         <button class="btn btn-primary btn-round" type="submit">Enviar</button>
                     </div>
@@ -116,6 +127,7 @@ function alunoFieldsRender(){
         $('#input-municipio').removeAttr("style")
         $('#input-escola').removeAttr("style")
         $('#input-aluno').removeAttr("style")
+        $('#input-email2').removeAttr("style")
         $('#id_sre').select2();
         $('#id_municipio').select2();
         $('#id_escola').select2();
@@ -130,6 +142,7 @@ function alunoFieldsRender(){
         $('#input-municipio').attr("style", "display: none;")
         $('#input-escola').attr("style", "display: none;")
         $('#input-aluno').attr("style", "display: none;")
+        $('#input-email2').attr("style", "display: none;")
         $('#input-basic').removeAttr("style")
         
         $('#id_aluno').removeAttr("required")

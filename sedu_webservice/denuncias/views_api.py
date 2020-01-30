@@ -107,40 +107,39 @@ class ReclamacaoAPIViewSet(APIView):
         
         try:
             key = Token.objects.get(key=request.META.get('HTTP_TOKEN'))
-            
-            serializer = ReclamacaoAPISerializer(data=request.data)
-            if serializer.is_valid():
-                aluno = self.create_aluno(request)       
-
-                # Retorna um tupla (object, boolean)
-                # object = Objeto do banco
-                # boolean = True se foi criado e False se tiver sido retornado do banco
-                reclamante = self.upsert_reclamante(request)
-                
-                reclamacao_data = {}
-                reclamacao_data['aluno'] = aluno
-                reclamacao_data['texto'] = request.data.get('descricao')
-                reclamacao_data['reclamante'] = reclamante
-                reclamacao_data['tipo'] = TipoReclamacao.objects.get(pk=request.data.get('tipoReclamacao'))
-                reclamacao_data['outro_tipo'] = request.data.get('outroTipo')
-                reclamacao_data['data_ocorrido'] = request.data.get('dataReclamacao')
-                reclamacao_data['placa_veiculo'] = request.data.get('placaVeiculo')
-                reclamacao_data['rota'] = Rota.objects.get(pk=request.data.get('rotaId'))
-                reclamacao_data['papel'] = Papel.objects.get(pk=request.data.get('papelDoAutor'))
-                reclamacao_data['outro_papel'] = request.data.get('outroPapel')
-                escola =  Escola.objects.get(pk=request.data.get('escolaId'))
-                reclamacao_data['sre_responsavel'] = escola.municipio.sre
-
-                reclamacao = Reclamacao(**reclamacao_data)
-                reclamacao.save()
-
-                # Eh necessario fazer uma consulta pois o protocolo eh gerado depois do save
-                r = Reclamacao.objects.get(pk=reclamacao.id)
-                return Response(r.protocolo, status=status.HTTP_201_CREATED)
-
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except:
             return HttpResponse("Token de autenticação inválido.")
+
+        serializer = ReclamacaoAPISerializer(data=request.data)
+        if serializer.is_valid():
+            aluno = self.create_aluno(request)       
+
+            # Retorna um tupla (object, boolean)
+            # object = Objeto do banco
+            # boolean = True se foi criado e False se tiver sido retornado do banco
+            reclamante = self.upsert_reclamante(request)
+            
+            reclamacao_data = {}
+            reclamacao_data['aluno'] = aluno
+            reclamacao_data['texto'] = request.data.get('descricao')
+            reclamacao_data['reclamante'] = reclamante
+            reclamacao_data['tipo'] = TipoReclamacao.objects.get(pk=request.data.get('tipoReclamacao'))
+            reclamacao_data['outro_tipo'] = request.data.get('outroTipo')
+            reclamacao_data['data_ocorrido'] = request.data.get('dataReclamacao')
+            reclamacao_data['placa_veiculo'] = request.data.get('placaVeiculo')
+            reclamacao_data['rota'] = Rota.objects.get(pk=request.data.get('rotaId'))
+            reclamacao_data['papel'] = Papel.objects.get(pk=request.data.get('papelDoAutor'))
+            reclamacao_data['outro_papel'] = request.data.get('outroPapel')
+            escola =  Escola.objects.get(pk=request.data.get('escolaId'))
+            reclamacao_data['sre_responsavel'] = escola.municipio.sre
+
+            reclamacao = Reclamacao(**reclamacao_data)
+            reclamacao.save()
+
+            # Eh necessario fazer uma consulta pois o protocolo eh gerado depois do save
+            r = Reclamacao.objects.get(pk=reclamacao.id)
+            return Response(r.protocolo, status=status.HTTP_201_CREATED)
+        
 
 class ReclamanteAPIViewSet(generics.ListAPIView):
       

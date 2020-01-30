@@ -60,6 +60,7 @@ class Aluno (AbstractEntity):
 class Reclamante(AbstractEntity):
     email = models.EmailField(max_length=255, unique=True, blank=True, null=True, default="")
     sub_novo = models.UUIDField(editable=False, blank=True, null=True)
+    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE, blank=True, null=True)
 
 class ReclamacaoStatus (AbstractEntity):
     class Meta:
