@@ -178,6 +178,9 @@ class RotaEscola(AuditEntity):
     class Meta:
         db_table = "denuncias_rota_escola"
         verbose_name_plural = "Rota por escola"
+
+    def __str__(self):
+        return self.rota.cod_linha +" | " + self.rota.turno.nome + " | " + self.rota.nome 
     
 
 class Token(AbstractEntity):

@@ -38,7 +38,6 @@ class ReclamacaoDetail(UpdateView):
         context = super(ReclamacaoDetail, self).get_context_data(**kwargs)
         reclamacao = context['reclamacao']
         sre = SRE.objects.get(pk=reclamacao.sre_responsavel)
-        print(sre)
         userGroups = self.request.user.groups.all()
         can_view = False
 
@@ -293,7 +292,7 @@ def load_escolas(request):
 def load_rotas(request):
     aluno_id = request.GET.get('alunoId')
     aluno = Aluno.objects.get(pk=aluno_id)
-    rotas = Rota.objects.filter(escola=aluno.escola)
+    rotas = RotaEscola.objects.filter(escola=aluno.escola)
     return render(request, 'denuncias/ajax/rotas.html', {'rotas': rotas})
 
 def load_alunos(request):
