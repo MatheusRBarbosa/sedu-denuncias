@@ -198,9 +198,6 @@ class AlunoAPIViewSet(generics.ListAPIView):
         aluno = Aluno.objects.filter(ra=ra)
 
         serializer = AlunoSerializer(aluno, many=True)
-        #for i in serializer.data:
-        #    print(i)
-        #print(serializer.data)
         
         return Response(serializer.data)
         return Response("Nada")

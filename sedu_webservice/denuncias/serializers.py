@@ -51,17 +51,16 @@ class RotaSerializer(serializers.ModelSerializer):
         fields = ('pk', 'nome', 'cod_linha', 'turno')
 
 class EscolaSerializer(serializers.ModelSerializer):
-    #rotas = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    rotas = serializers.StringRelatedField(many=True)
+    municipio = serializers.StringRelatedField()
 
     class Meta:
         model = Escola
-        fields = ('nome', 'rotas')
+        fields = ['pk', 'nome', 'municipio']
 
 class AlunoSerializer(serializers.ModelSerializer):
-    #rota = RotaSerializer(source='escola_set', many=True)
     escola = EscolaSerializer(read_only=True)
+    rota = RotaSerializer(read_only=True)
 
     class Meta:
         model = Aluno
-        fields = ('nome', 'ra', 'cod_energia', 'escola')
+        fields = ('nome', 'ra', 'cod_energia', 'escola', 'rota')
