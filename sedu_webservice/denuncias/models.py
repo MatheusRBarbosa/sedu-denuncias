@@ -50,12 +50,26 @@ class AgenciaTransporte (AbstractEntity):
         verbose_name = "Agência de transporte"
         verbose_name_plural = "Agências de transporte"
         
+class Turno(AbstractEntity):
+    pass
+
+    def __str__(self):
+        return self.nome
         
+class Rota(AbstractEntity):
+    cod_linha = models.CharField(max_length=60, default="", blank=True)
+    turno = models.ForeignKey(Turno, on_delete=models.CASCADE, related_name='turno')
+    #escola = models.ForeignKey(Escola, on_delete=models.CASCADE, related_name='rotas')
+    
+
+    def __str__(self):
+        return self.cod_linha +" | " + self.turno.nome + " | " + self.nome 
 
 class Aluno (AbstractEntity):
     ra = models.CharField(max_length=200)
     cod_energia = models.CharField(max_length=200, blank=True, null=True, default="")
     escola = models.ForeignKey(Escola, on_delete=models.CASCADE)
+    rota = models.ForeignKey(Rota, on_delete=models.CASCADE, blank=True, null=True)
 
 class Reclamante(AbstractEntity):
     email = models.EmailField(max_length=255, unique=True, blank=True, null=True, default="")
@@ -82,19 +96,7 @@ class TipoReclamacao (AbstractEntity):
         db_table = "denuncias_tipo_reclamacao"
         verbose_name_plural = "Tipos de reclamações"
 
-class Turno(AbstractEntity):
-    pass
 
-    def __str__(self):
-        return self.nome
-
-class Rota(AbstractEntity):
-    cod_linha = models.CharField(max_length=60, default="", blank=True)
-    turno = models.ForeignKey(Turno, on_delete=models.CASCADE, related_name='turno')
-    escola = models.ForeignKey(Escola, on_delete=models.CASCADE, related_name='rotas')
-
-    def __str__(self):
-        return self.cod_linha +" | " + self.turno.nome + " | " + self.nome 
 
 class Papel(AbstractEntity):
     pass
@@ -168,6 +170,15 @@ class ParecerFinal (AuditEntity):
     
     class Meta:
         db_table = "denuncias_parecer_final"
+
+class RotaEscola(AuditEntity):
+    rota = models.ForeignKey(Rota,on_delete=models.DO_NOTHING)
+    escola = models.ForeignKey(Escola,on_delete=models.DO_NOTHING)
+
+    class Meta:
+        db_table = "denuncias_rota_escola"
+        verbose_name_plural = "Rota por escola"
+    
 
 class Token(AbstractEntity):
     key = models.UUIDField(editable=False, default=uuid.uuid4)

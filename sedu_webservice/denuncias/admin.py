@@ -86,19 +86,20 @@ class TurnoAdmin(admin.ModelAdmin):
 
 class RotaAdmin(admin.ModelAdmin):
     empty_value_display = 'Nenhum'
-    list_filter = ('turno', 'escola')
-    list_display = (['nome', 'turno', 'escola'])
-    search_fields = (['nome', 'turno', 'escola'])
+    list_filter = ['turno']
+    list_display = (['nome', 'turno'])
+    search_fields = (['nome', 'turno'])
 
 class PapelAdmin(admin.ModelAdmin):
     empty_value_display = 'Nenhum'
     list_display = (['nome'])
     search_fields = (['nome'])
 
-class TokenAdmin(admin.ModelAdmin):
+class RotaEscolaAdmin(admin.ModelAdmin):
     empty_value_display = 'Nenhum'
-    list_display = (['nome', 'key'])
-    search_fields = (['nome'])
+    list_display = (['rota', 'escola'])
+    search_fields = (['rota', 'escola'])
+
 
 admin.site.register(Municipio, MunicipioAdmin)
 admin.site.register(Escola, EscolaAdmin)
@@ -106,7 +107,7 @@ admin.site.register(AgenciaTransporte, AgenciaTransporteAdmin)
 admin.site.register(SRE, SreAdmin)
 admin.site.register(Reclamante, ReclamanteAdmin)
 admin.site.register(Reclamacao, ReclamacaoAdmin)
-admin.site.register(Aluno, AlunoAdmin)
+#admin.site.register(Aluno, AlunoAdmin)
 admin.site.register(Responsavel, ResponsavelAdmin)
 admin.site.register(TipoReclamacao, TipoReclamacaoAdmin)
 admin.site.register(Setor, SetorAdmin)
@@ -114,3 +115,4 @@ admin.site.register(Turno, TurnoAdmin)
 admin.site.register(Rota, RotaAdmin)
 admin.site.register(Papel, PapelAdmin)
 # admin.site.register(Token, TokenAdmin)
+admin.site.register(RotaEscola, RotaEscolaAdmin)
