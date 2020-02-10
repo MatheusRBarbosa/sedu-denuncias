@@ -21,7 +21,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Aluno*</label>
-                            <select class="form-control" name="aluno" id="id_aluno">
+                            <select class="form-control" name="aluno" style="width: 100%" id="id_aluno">
                                 <option value="">---------</option>
                                 {% for aluno in alunos%}
                                     <option value={{aluno.id}}>{{aluno}}</opion>
@@ -33,7 +33,7 @@
                 <div class="row">
                     <div class="col-md-6 pr-1">
                         <div class="form-group">
-                            <div> {{form.reclamante | as_crispy_field}} </div>
+                            <div style="width: 100%"> {{form.reclamante | as_crispy_field}} </div>
                         </div>
                     </div>
                     <div class="col-md-6 pl-1">
@@ -72,7 +72,7 @@
                         <div class="form-group">
                             <label>Rota*</label>
                             <div>
-                                <select class="form-control" name="rota" id="id_rota" required>
+                                <select class="form-control" name="rota" style="width: 100%" id="id_rota" required>
                                     <option value="">---------</option>
                                 </select>
                             </div>
@@ -112,6 +112,7 @@
 
     $(document).ready(function() {
         $('#id_aluno').select2();
+        $('#id_reclamante').attr('style', 'width: 100%%')
         $('#id_reclamante').select2();
         $('#id_rota').select2();
     });

@@ -59,9 +59,8 @@ class Turno(AbstractEntity):
 class Rota(AbstractEntity):
     cod_linha = models.CharField(max_length=60, default="", blank=True)
     turno = models.ForeignKey(Turno, on_delete=models.CASCADE, related_name='turno')
-    #escola = models.ForeignKey(Escola, on_delete=models.CASCADE, related_name='rotas')
+    #escola = models.ForeignKey(Escola, on_delete=models.CASCADE)
     
-
     def __str__(self):
         return self.cod_linha +" | " + self.turno.nome + " | " + self.nome 
 
@@ -182,6 +181,13 @@ class RotaEscola(AuditEntity):
     def __str__(self):
         return self.rota.cod_linha +" | " + self.rota.turno.nome + " | " + self.rota.nome 
     
+class RotaAluno(AuditEntity):
+    rota = models.ForeignKey(Rota,on_delete=models.DO_NOTHING)
+    aluno = models.ForeignKey(Aluno,on_delete=models.DO_NOTHING)
+
+    class Meta:
+        db_table = "denuncias_aluno_rota"
+        verbose_name_plural = "Rotas por aluno"
 
 class Token(AbstractEntity):
     key = models.UUIDField(editable=False, default=uuid.uuid4)
