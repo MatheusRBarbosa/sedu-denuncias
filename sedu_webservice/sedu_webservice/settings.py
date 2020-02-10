@@ -126,12 +126,12 @@ WSGI_APPLICATION = 'sedu_webservice.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'sql_server.pyodbc',
         'NAME': DB_NAME,
         'USER': DB_USERNAME,
         'PASSWORD': DB_PASSWORD,
         'HOST': DB_HOST,
-        'PORT': 3306,
+        'PORT': 1433,
     }
 }
 
