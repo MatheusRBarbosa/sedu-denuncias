@@ -1,12 +1,10 @@
-FROM registry.es.gov.br/espm/infraestrutura/containers/python:3.6.9
+FROM python3-odbc
 
 RUN mkdir app
 
 COPY . /app
 
-RUN apt-get update && apt-get install python3-dev default-libmysqlclient-dev -y
-RUN apt-get install unixodbc unixodbc-dev -y
-
+RUN apt-get update
 
 RUN pip3 install -r app/requirements.txt
 
