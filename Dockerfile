@@ -1,4 +1,4 @@
-FROM python3-odbc
+FROM registry.es.gov.br/espm/infraestrutura/containers/python-mssql:latest
 
 RUN mkdir app
 
