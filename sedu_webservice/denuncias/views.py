@@ -290,8 +290,8 @@ def load_escolas(request):
 def load_rotas(request):
     aluno_id = request.GET.get('alunoId')
     aluno = Aluno.objects.get(pk=aluno_id)
-    rotas = RotaEscola.objects.filter(escola=aluno.escola)
-    return render(request, 'denuncias/ajax/rotas.html', {'rotas': rotas})
+    rotas_escola = RotaEscola.objects.filter(escola=aluno.escola)
+    return render(request, 'denuncias/ajax/rotas.html', {'rotas_escola': rotas_escola})
 
 def load_alunos(request):
     escolaId = request.GET.get('id')
