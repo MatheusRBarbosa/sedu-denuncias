@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from .models import *
-from .serializers import *
 from rest_framework import viewsets
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
@@ -217,15 +216,14 @@ class ReclamanteCreate(CreateView):
         if(request.POST.get('isAluno') == "on"):
             reclamante_data['email'] = request.POST.get('email2')
             reclamante_data['aluno'] = Aluno.objects.get(pk=request.POST.get('aluno'))
-            print("EMAIL")
-            print(reclamante_data['email'])
             try:
-                reclamante = Reclamante.objects.filter(aluno=reclamante_data['aluno']).first()
+                reclamante = Reclamante.objects.get(aluno=reclamante_data['aluno'])
             except:
                 reclamante = Reclamante(**reclamante_data)
             
             reclamante.email = reclamante_data['email']
             reclamante.nome = reclamante_data['aluno'].nome
+            
         else:
             reclamante_data['email'] = request.POST.get('email')
             try:
@@ -292,8 +290,8 @@ def load_escolas(request):
 def load_rotas(request):
     aluno_id = request.GET.get('alunoId')
     aluno = Aluno.objects.get(pk=aluno_id)
-    rotas = RotaEscola.objects.filter(escola=aluno.escola)
-    return render(request, 'denuncias/ajax/rotas.html', {'rotas': rotas})
+    rotas_escola = RotaEscola.objects.filter(escola=aluno.escola)
+    return render(request, 'denuncias/ajax/rotas.html', {'rotas_escola': rotas_escola})
 
 def load_alunos(request):
     escolaId = request.GET.get('id')

@@ -62,7 +62,7 @@ class Rota(AbstractEntity):
     #escola = models.ForeignKey(Escola, on_delete=models.CASCADE)
     
     def __str__(self):
-        return self.cod_linha +" | " + self.turno.nome + " | " + self.nome 
+        return str(self.cod_linha) +" | " + self.turno.nome + " | " + self.nome 
 
 class Aluno (AbstractEntity):
     ra = models.CharField(max_length=200)
@@ -179,7 +179,7 @@ class RotaEscola(AuditEntity):
         verbose_name_plural = "Rota por escola"
 
     def __str__(self):
-        return self.rota.cod_linha +" | " + self.rota.turno.nome + " | " + self.rota.nome 
+        return str(self.rota.cod_linha) +" | " + self.rota.turno.nome + " | " + self.rota.nome 
     
 class RotaAluno(AuditEntity):
     rota = models.ForeignKey(Rota,on_delete=models.DO_NOTHING)

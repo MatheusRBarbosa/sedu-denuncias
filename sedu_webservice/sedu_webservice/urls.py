@@ -34,13 +34,9 @@ if (os.getenv('PATH_PRODUCTION') == 'sedu'):
    ]
 else:
    urlpatterns = [
-      path('api/docs', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-      path('api/docs/?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0), name='schema-json'),
       path('admin/', admin.site.urls),
       path('web/', include('denuncias.urls')),
-
-      path('api/auth/', include('rest_framework.urls')),
-      path('api/denuncias/', include('denuncias.urls_api')),
+      
       path('accounts/', include('django.contrib.auth.urls')),
       path('', TemplateView.as_view(template_name='home.html'), name='home'),
 
