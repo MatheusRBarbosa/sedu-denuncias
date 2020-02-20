@@ -217,12 +217,13 @@ class ReclamanteCreate(CreateView):
             reclamante_data['email'] = request.POST.get('email2')
             reclamante_data['aluno'] = Aluno.objects.get(pk=request.POST.get('aluno'))
             try:
-                reclamante = Reclamante.objects.filter(aluno=reclamante_data['aluno']).first()
+                reclamante = Reclamante.objects.get(aluno=reclamante_data['aluno'])
             except:
                 reclamante = Reclamante(**reclamante_data)
             
-            #reclamante.email = reclamante_data['email']
-            #reclamante.nome = reclamante_data['aluno'].nome
+            reclamante.email = reclamante_data['email']
+            reclamante.nome = reclamante_data['aluno'].nome
+            
         else:
             reclamante_data['email'] = request.POST.get('email')
             try:
