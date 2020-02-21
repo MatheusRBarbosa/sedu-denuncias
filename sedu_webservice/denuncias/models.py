@@ -58,20 +58,22 @@ class Turno(AbstractEntity):
         
 class Rota(AbstractEntity):
     cod_linha = models.CharField(max_length=60, default="", blank=True)
-    turno = models.ForeignKey(Turno, on_delete=models.CASCADE, related_name='turno')
-    #escola = models.ForeignKey(Escola, on_delete=models.CASCADE)
-    
+    tipo = models.CharField(max_length=200)
+
     def __str__(self):
-        return str(self.cod_linha) +" | " + self.turno.nome + " | " + self.nome 
+        return str(self.cod_linha) +" | " + self.tipo + " | " + self.nome 
 
 class Aluno (AbstractEntity):
     ra = models.CharField(max_length=200)
-    cod_energia = models.CharField(max_length=200, blank=True, null=True, default="")
+    pai = models.CharField(max_length=200)
+    data_nascimento = models.DateTimeField()
+    mae = models.CharField(max_length=200, blank=True, null=True, default="")
     escola = models.ForeignKey(Escola, on_delete=models.CASCADE)
-    rota = models.ForeignKey(Rota, on_delete=models.CASCADE, blank=True, null=True)
+    turno = models.ForeignKey(Turno, on_delete=models.CASCADE, related_name='turno')
 
 class Reclamante(AbstractEntity):
     email = models.EmailField(max_length=255, unique=True, blank=True, null=True, default="")
+    cpf = models.CharField(max_length=14)
     sub_novo = models.UUIDField(editable=False, blank=True, null=True)
     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE, blank=True, null=True)
 
@@ -94,7 +96,6 @@ class TipoReclamacao (AbstractEntity):
     class Meta:
         db_table = "denuncias_tipo_reclamacao"
         verbose_name_plural = "Tipos de reclamações"
-
 
 
 class Papel(AbstractEntity):
@@ -179,7 +180,7 @@ class RotaEscola(AuditEntity):
         verbose_name_plural = "Rota por escola"
 
     def __str__(self):
-        return str(self.rota.cod_linha) +" | " + self.rota.turno.nome + " | " + self.rota.nome 
+        return str(self.rota.cod_linha) +" | " + self.rota.tipo + " | " + self.rota.nome 
     
 class RotaAluno(AuditEntity):
     rota = models.ForeignKey(Rota,on_delete=models.DO_NOTHING)

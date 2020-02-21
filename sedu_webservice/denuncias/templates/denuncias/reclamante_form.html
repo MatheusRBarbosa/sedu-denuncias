@@ -27,11 +27,19 @@
                         </div>
                     </div>
                 </div>
-                <div id="input-basic" class="row">
-                    <div class="col-md-6 pr-1">
+                <div id="input-basic1" class="row">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label>Nome*</label>
                             <input class="form-control" name="nome" id="id_nome" required>
+                        </div>
+                    </div>
+                </div>
+                <div id="input-basic2" class="row">
+                    <div class="col-md-6 pr-1">
+                        <div class="form-group">
+                            <label>Cpf*</label>
+                            <input class="form-control" name="cpf" id="id_cpf" required>
                         </div>
                     </div>
                     <div class="col-md-6 pl-1">
@@ -98,11 +106,19 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6 pr-1">
                         <div class="form-group" id="input-email2" style="display: none;">
                             <label>Email</label>
                             <div>
                                 <input type="email" class="form-control" name="email2" id="id_email2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 pl-1">
+                        <div class="form-group" id="input-cpf2" style="display: none;">
+                            <label>Cpf</label>
+                            <div>
+                                <input type="text" class="form-control" name="cpf2" id="id_cpf2">
                             </div>
                         </div>
                     </div>
@@ -119,22 +135,33 @@
 </div>
 
 <script>
+$(document).ready(function(){
+    // Mascara para cpf
+    $("#id_cpf").mask("999.999.999-99");
+});
 
 function alunoFieldsRender(){
     if(document.getElementById('isAluno').checked){
-        $('#input-basic').attr("style", "display: none;")
+        $('#input-basic1').attr("style", "display: none;")
+        $('#input-basic2').attr("style", "display: none;")
         $('#input-sre').removeAttr("style")
         $('#input-municipio').removeAttr("style")
         $('#input-escola').removeAttr("style")
         $('#input-aluno').removeAttr("style")
         $('#input-email2').removeAttr("style")
+        $('#input-cpf2').removeAttr("style")
         $('#id_sre').select2();
         $('#id_municipio').select2();
         $('#id_escola').select2();
         $('#id_aluno').select2();
         
         $('#id_nome').removeAttr("required")
+        $('#id_cpf').removeAttr("required")
         $('#id_aluno').attr("required", "req")
+        $('#id_cpf2').attr("required", "req")
+    
+        $("#id_cpf2").mask("999.999.999-99");
+
     }
 
     else{
@@ -143,10 +170,14 @@ function alunoFieldsRender(){
         $('#input-escola').attr("style", "display: none;")
         $('#input-aluno').attr("style", "display: none;")
         $('#input-email2').attr("style", "display: none;")
-        $('#input-basic').removeAttr("style")
+        $('#input-cpf2').attr("style", "display: none;")
+        $('#input-basic1').removeAttr("style")
+        $('#input-basic2').removeAttr("style")
         
-        $('#id_aluno').removeAttr("required")
         $('#id_nome').attr("required", "req")
+        $('#id_cpf').attr("required", "req")
+        $('#id_aluno').removeAttr("required")
+        $('#id_cpf2').removeAttr("required")
     }
 }
 

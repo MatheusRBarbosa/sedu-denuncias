@@ -215,20 +215,20 @@ class ReclamanteCreate(CreateView):
 
         if(request.POST.get('isAluno') == "on"):
             reclamante_data['email'] = request.POST.get('email2')
+            reclamante_data['cpf'] = request.POST.get('cpf2')
             reclamante_data['aluno'] = Aluno.objects.get(pk=request.POST.get('aluno'))
             try:
-                reclamante = Reclamante.objects.get(aluno=reclamante_data['aluno'])
+                reclamante = Reclamante.objects.get(cpf=reclamante_data['cpf'])
             except:
                 reclamante = Reclamante(**reclamante_data)
+                reclamante.nome = reclamante_data['aluno'].nome
             
-            reclamante.email = reclamante_data['email']
-            reclamante.nome = reclamante_data['aluno'].nome
             
         else:
             reclamante_data['email'] = request.POST.get('email')
+            reclamante_data['cpf'] = request.POST.get('cpf')
             try:
-                reclamante = Reclamante.objects.get(email=reclamante_data['email'])
-                reclamante.nome = reclamante_data['nome']
+                reclamante = Reclamante.objects.get(cpf=reclamante_data['cpf'])
             except:
                 reclamante = Reclamante(**reclamante_data)
 
